@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 25/11/2012 14:01:06
+EESchema Schematic File Version 2  date 25/11/2012 14:20:29
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -44,6 +44,22 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text Notes 6550 5550 1    60   ~ 0
+FIRING BOX ARMED
+Text Notes 7500 3150 0    60   ~ 0
+CONNECTION PINOUT\n1: ARMED?\n2: FIRE OXID\n3: FIRE IGNITION\n4: GND
+Wire Notes Line
+	10800 4700 10800 2950
+Wire Notes Line
+	8600 4700 10800 4700
+Wire Notes Line
+	8600 4700 8600 2950
+Wire Wire Line
+	10500 4350 10500 3900
+Wire Wire Line
+	10700 3150 10700 4350
+Wire Wire Line
+	9300 3900 9300 4350
 Connection ~ 6300 6000
 Wire Wire Line
 	6300 5650 6300 6000
@@ -60,11 +76,6 @@ Wire Wire Line
 	7900 3800 8100 3800
 Wire Wire Line
 	7900 3600 8100 3600
-Connection ~ 10600 4200
-Wire Wire Line
-	10400 4200 10700 4200
-Wire Wire Line
-	10700 4200 10700 3150
 Wire Wire Line
 	10700 3150 10350 3150
 Wire Wire Line
@@ -99,15 +110,8 @@ Wire Wire Line
 	1200 3800 1200 3600
 Wire Wire Line
 	1200 3600 850  3600
-Connection ~ 10500 4200
 Wire Wire Line
-	10600 4200 10600 3500
-Wire Wire Line
-	10600 3500 10400 3500
-Wire Wire Line
-	9400 4200 9300 4200
-Wire Wire Line
-	9300 4200 9300 3900
+	10400 3500 10600 3500
 Wire Wire Line
 	9300 3900 9050 3900
 Wire Wire Line
@@ -147,11 +151,7 @@ Wire Wire Line
 Wire Wire Line
 	9300 3500 9800 3500
 Wire Wire Line
-	9050 3800 9800 3800
-Wire Wire Line
-	10400 3800 10500 3800
-Wire Wire Line
-	10500 3800 10500 4200
+	10500 3900 10400 3900
 Wire Wire Line
 	850  4100 1200 4100
 Wire Wire Line
@@ -185,13 +185,7 @@ Wire Wire Line
 Wire Wire Line
 	9750 3150 9850 3150
 Wire Notes Line
-	8600 2950 8600 4400
-Wire Notes Line
 	8600 2950 10800 2950
-Wire Notes Line
-	10800 2950 10800 4400
-Wire Notes Line
-	10800 4400 8600 4400
 Wire Wire Line
 	8100 3700 7900 3700
 Wire Wire Line
@@ -204,6 +198,38 @@ Wire Notes Line
 	7400 6150 1700 6150
 Wire Wire Line
 	6300 5050 6300 5150
+Wire Wire Line
+	9050 3800 9700 3800
+Wire Wire Line
+	9700 3800 9700 3900
+Wire Wire Line
+	9700 3900 9800 3900
+Wire Wire Line
+	10600 3500 10600 4350
+Wire Wire Line
+	9300 4350 9450 4350
+Wire Wire Line
+	10700 4350 10450 4350
+Connection ~ 10600 4350
+Connection ~ 10500 4350
+Text Notes 9850 4600 0    60   ~ 0
+ARM
+Text Notes 9800 4100 0    60   ~ 0
+FIRE IGNITION
+Text Notes 9850 3700 0    60   ~ 0
+FIRE OXID
+Text Notes 9750 3300 0    60   ~ 0
+SYSTEM ARMED
+Text Notes 4900 2900 1    60   ~ 0
+FIRING BOX\nARM KEYSW
+Text Notes 2700 5550 1    60   ~ 0
+IGNITION\nACTIVE
+Text Notes 2750 3900 3    60   ~ 0
+OXID\nACTIVE
+Text Notes 1400 4150 0    60   ~ 0
+SCREWDOWN
+Text Notes 1400 5350 0    60   ~ 0
+SCREWDOWN
 $Comp
 L LED D?
 U 1 1 50B2244A
@@ -355,10 +381,10 @@ $EndComp
 $Comp
 L SPST SW?
 U 1 1 50B21E62
-P 9900 4200
-F 0 "SW?" H 9900 4300 70  0000 C CNN
-F 1 "SPST" H 9900 4100 70  0000 C CNN
-	1    9900 4200
+P 9950 4350
+F 0 "SW?" H 9950 4450 70  0000 C CNN
+F 1 "SPST" H 9950 4250 70  0000 C CNN
+	1    9950 4350
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -373,10 +399,10 @@ $EndComp
 $Comp
 L SW_PUSH SW?
 U 1 1 50B21E58
-P 10100 3800
-F 0 "SW?" H 10250 3910 50  0000 C CNN
-F 1 "SW_PUSH" H 10100 3720 50  0000 C CNN
-	1    10100 3800
+P 10100 3900
+F 0 "SW?" H 10250 4010 50  0000 C CNN
+F 1 "SW_PUSH" H 10100 3820 50  0000 C CNN
+	1    10100 3900
 	1    0    0    -1  
 $EndComp
 $Comp
