@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 25/11/2012 14:20:29
+EESchema Schematic File Version 2  date 25/11/2012 18:38:46
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -402,6 +402,7 @@ U 1 1 50B21E58
 P 10100 3900
 F 0 "SW?" H 10250 4010 50  0000 C CNN
 F 1 "SW_PUSH" H 10100 3820 50  0000 C CNN
+F 4 "SW03394" H 10100 3900 60  0001 C CNN "Farnell"
 	1    10100 3900
 	1    0    0    -1  
 $EndComp
@@ -411,6 +412,7 @@ U 1 1 50B21E55
 P 10100 3500
 F 0 "SW?" H 10250 3610 50  0000 C CNN
 F 1 "SW_PUSH" H 10100 3420 50  0000 C CNN
+F 4 "SW03394" H 10100 3500 60  0001 C CNN "Farnell"
 	1    10100 3500
 	1    0    0    -1  
 $EndComp
