@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 25/11/2012 18:38:46
+EESchema Schematic File Version 2  date Mon 26 Nov 2012 18:03:12 GMT
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,13 +30,13 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:OkGo-cache
-EELAYER 25  0
+EELAYER 27 0
 EELAYER END
-$Descr A4 11700 8267
+$Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "25 nov 2012"
+Date "26 nov 2012"
 Rev ""
 Comp ""
 Comment1 ""
@@ -46,185 +46,21 @@ Comment4 ""
 $EndDescr
 Text Notes 6550 5550 1    60   ~ 0
 FIRING BOX ARMED
-Text Notes 7500 3150 0    60   ~ 0
-CONNECTION PINOUT\n1: ARMED?\n2: FIRE OXID\n3: FIRE IGNITION\n4: GND
-Wire Notes Line
-	10800 4700 10800 2950
-Wire Notes Line
-	8600 4700 10800 4700
-Wire Notes Line
-	8600 4700 8600 2950
-Wire Wire Line
-	10500 4350 10500 3900
-Wire Wire Line
-	10700 3150 10700 4350
-Wire Wire Line
-	9300 3900 9300 4350
-Connection ~ 6300 6000
-Wire Wire Line
-	6300 5650 6300 6000
-Connection ~ 6300 3250
-Wire Wire Line
-	6300 4650 6300 3250
-Wire Notes Line
-	1700 1650 7400 1650
-Wire Wire Line
-	5200 3250 6950 3250
-Wire Wire Line
-	6950 3800 5700 3800
-Wire Wire Line
-	7900 3800 8100 3800
-Wire Wire Line
-	7900 3600 8100 3600
-Wire Wire Line
-	10700 3150 10350 3150
-Wire Wire Line
-	9350 3150 9200 3150
-Wire Wire Line
-	9200 3150 9200 3600
-Wire Wire Line
-	9200 3600 9050 3600
-Connection ~ 5200 3250
-Wire Wire Line
-	6950 3250 6950 3600
-Wire Notes Line
-	1700 1650 1700 6150
-Wire Notes Line
-	7400 1650 7400 6150
-Wire Wire Line
-	2900 5400 2900 5450
-Connection ~ 2900 6000
-Wire Wire Line
-	2900 5950 2900 6000
-Connection ~ 5400 6000
-Wire Wire Line
-	5400 6000 5400 2100
-Connection ~ 2250 5200
-Wire Wire Line
-	2150 5000 3400 5000
-Wire Wire Line
-	1200 5200 1200 5350
-Wire Wire Line
-	1200 5350 850  5350
-Wire Wire Line
-	1200 3800 1200 3600
-Wire Wire Line
-	1200 3600 850  3600
-Wire Wire Line
-	10400 3500 10600 3500
-Wire Wire Line
-	9300 3900 9050 3900
-Wire Wire Line
-	5700 3500 5700 3700
-Wire Wire Line
-	5700 3500 4200 3500
-Connection ~ 5200 3700
-Wire Wire Line
-	4200 3700 5200 3700
-Wire Wire Line
-	5200 3400 4200 3400
-Wire Wire Line
-	5400 1150 5600 1150
-Wire Wire Line
-	5600 1150 5600 850 
-Wire Wire Line
-	5000 850  5000 1150
-Wire Wire Line
-	5000 1150 5200 1150
-Wire Wire Line
-	5200 4800 4200 4800
-Connection ~ 5200 3400
-Connection ~ 5200 4800
-Wire Wire Line
-	4200 4900 5700 4900
-Wire Wire Line
-	5700 4900 5700 3800
-Wire Wire Line
-	5200 2100 5200 2150
-Wire Wire Line
-	4200 5100 5200 5100
-Connection ~ 5200 5100
-Wire Wire Line
-	9050 3700 9300 3700
-Wire Wire Line
-	9300 3700 9300 3500
-Wire Wire Line
-	9300 3500 9800 3500
-Wire Wire Line
-	10500 3900 10400 3900
-Wire Wire Line
-	850  4100 1200 4100
-Wire Wire Line
-	1200 4100 1200 4000
-Wire Wire Line
-	3200 3600 3200 3800
-Wire Wire Line
-	3200 3600 3400 3600
-Wire Wire Line
-	850  4850 1200 4850
-Wire Wire Line
-	1200 4850 1200 5000
-Wire Wire Line
-	3200 3800 2150 3800
-Wire Wire Line
-	2150 4000 2250 4000
-Wire Wire Line
-	2250 5200 2150 5200
-Wire Wire Line
-	2250 4000 2250 6000
-Wire Wire Line
-	6950 3900 6950 6000
-Wire Wire Line
-	5200 6000 5200 3150
-Connection ~ 5200 6000
-Wire Wire Line
-	2500 4750 2500 6000
-Connection ~ 2500 6000
-Wire Wire Line
-	2500 4200 2500 4250
-Wire Wire Line
-	9750 3150 9850 3150
-Wire Notes Line
-	8600 2950 10800 2950
-Wire Wire Line
-	8100 3700 7900 3700
-Wire Wire Line
-	8100 3900 7900 3900
-Wire Wire Line
-	5700 3700 6950 3700
-Wire Wire Line
-	6950 6000 2250 6000
-Wire Notes Line
-	7400 6150 1700 6150
-Wire Wire Line
-	6300 5050 6300 5150
-Wire Wire Line
-	9050 3800 9700 3800
-Wire Wire Line
-	9700 3800 9700 3900
-Wire Wire Line
-	9700 3900 9800 3900
-Wire Wire Line
-	10600 3500 10600 4350
-Wire Wire Line
-	9300 4350 9450 4350
-Wire Wire Line
-	10700 4350 10450 4350
-Connection ~ 10600 4350
-Connection ~ 10500 4350
-Text Notes 9850 4600 0    60   ~ 0
+Text Notes 7550 2800 0    60   ~ 0
+CONNECTION PINOUT\n1: GND\n2: SPARE\n3: FIRE IGNITION\n4: FIRE OXID\n5: BUZZER\n6: VCC
+Text Notes 9750 4500 0    60   ~ 0
 ARM
-Text Notes 9800 4100 0    60   ~ 0
+Text Notes 9450 4150 0    60   ~ 0
 FIRE IGNITION
-Text Notes 9850 3700 0    60   ~ 0
+Text Notes 9650 3800 0    60   ~ 0
 FIRE OXID
-Text Notes 9750 3300 0    60   ~ 0
-SYSTEM ARMED
-Text Notes 4900 2900 1    60   ~ 0
+Text Notes 9850 3400 0    60   ~ 0
+OXID ARMED
+Text Notes 4900 2500 1    60   ~ 0
 FIRING BOX\nARM KEYSW
-Text Notes 2700 5550 1    60   ~ 0
+Text Notes 2950 5700 1    60   ~ 0
 IGNITION\nACTIVE
-Text Notes 2750 3900 3    60   ~ 0
+Text Notes 2750 4150 3    60   ~ 0
 OXID\nACTIVE
 Text Notes 1400 4150 0    60   ~ 0
 SCREWDOWN
@@ -248,98 +84,35 @@ F 1 "R" V 6300 5400 50  0000 C CNN
 	1    6300 5400
 	1    0    0    -1  
 $EndComp
-Text Notes 9100 2900 0    100  ~ 0
+Text Notes 8650 2850 0    100  ~ 0
 BUTTON BOX
-Text Notes 1900 1600 0    100  ~ 0
+Text Notes 1750 1450 0    100  ~ 0
 FIRING BOX
-$Comp
-L R R?
-U 1 1 50B22330
-P 10100 3150
-F 0 "R?" V 10180 3150 50  0000 C CNN
-F 1 "R" V 10100 3150 50  0000 C CNN
-	1    10100 3150
-	0    -1   -1   0   
-$EndComp
 $Comp
 L LED D?
 U 1 1 50B2232B
-P 9550 3150
-F 0 "D?" H 9550 3250 50  0000 C CNN
-F 1 "LED" H 9550 3050 50  0000 C CNN
-	1    9550 3150
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_4 P?
-U 1 1 50B2231E
-P 8450 3750
-F 0 "P?" V 8400 3750 50  0000 C CNN
-F 1 "CONN_4" V 8500 3750 50  0000 C CNN
-	1    8450 3750
-	1    0    0    1   
-$EndComp
-$Comp
-L CONN_4 P?
-U 1 1 50B22318
-P 8700 3750
-F 0 "P?" V 8650 3750 50  0000 C CNN
-F 1 "CONN_4" V 8750 3750 50  0000 C CNN
-	1    8700 3750
-	-1   0    0    1   
-$EndComp
-$Comp
-L CONN_4 P?
-U 1 1 50B22307
-P 7550 3750
-F 0 "P?" V 7500 3750 50  0000 C CNN
-F 1 "CONN_4" V 7600 3750 50  0000 C CNN
-	1    7550 3750
-	-1   0    0    1   
-$EndComp
-$Comp
-L CONN_4 P?
-U 1 1 50B222FE
-P 7300 3750
-F 0 "P?" V 7250 3750 50  0000 C CNN
-F 1 "CONN_4" V 7350 3750 50  0000 C CNN
-	1    7300 3750
-	1    0    0    1   
-$EndComp
-$Comp
-L R R?
-U 1 1 50B222BB
-P 2500 4500
-F 0 "R?" V 2580 4500 50  0000 C CNN
-F 1 "R" V 2500 4500 50  0000 C CNN
-	1    2500 4500
-	1    0    0    -1  
-$EndComp
-$Comp
-L R R?
-U 1 1 50B222B8
-P 2900 5700
-F 0 "R?" V 2980 5700 50  0000 C CNN
-F 1 "R" V 2900 5700 50  0000 C CNN
-	1    2900 5700
+P 9650 3400
+F 0 "D?" H 9650 3500 50  0000 C CNN
+F 1 "BLUE" H 9650 3300 50  0000 C CNN
+	1    9650 3400
 	1    0    0    -1  
 $EndComp
 $Comp
 L LED D?
 U 1 1 50B222A9
-P 2900 5200
-F 0 "D?" H 2900 5300 50  0000 C CNN
-F 1 "LED" H 2900 5100 50  0000 C CNN
-	1    2900 5200
+P 3200 5500
+F 0 "D?" H 3200 5600 50  0000 C CNN
+F 1 "RED" H 3200 5400 50  0000 C CNN
+	1    3200 5500
 	0    1    1    0   
 $EndComp
 $Comp
 L LED D?
 U 1 1 50B2229C
-P 2500 4000
-F 0 "D?" H 2500 4100 50  0000 C CNN
-F 1 "LED" H 2500 3900 50  0000 C CNN
-	1    2500 4000
+P 2500 4250
+F 0 "D?" H 2500 4350 50  0000 C CNN
+F 1 "BLUE" H 2500 4150 50  0000 C CNN
+	1    2500 4250
 	0    1    1    0   
 $EndComp
 $Comp
@@ -381,19 +154,19 @@ $EndComp
 $Comp
 L SPST SW?
 U 1 1 50B21E62
-P 9950 4350
-F 0 "SW?" H 9950 4450 70  0000 C CNN
-F 1 "SPST" H 9950 4250 70  0000 C CNN
-	1    9950 4350
+P 9900 4650
+F 0 "SW?" H 9900 4750 70  0000 C CNN
+F 1 "SPST KEYSW" H 9900 4550 70  0000 C CNN
+	1    9900 4650
 	1    0    0    -1  
 $EndComp
 $Comp
 L SPST SW?
 U 1 1 50B21E5F
-P 5200 2650
-F 0 "SW?" H 5200 2750 70  0000 C CNN
-F 1 "SPST" H 5200 2550 70  0000 C CNN
-	1    5200 2650
+P 5200 2250
+F 0 "SW?" H 5200 2350 70  0000 C CNN
+F 1 "SPST TOGGLE" H 5200 2150 70  0000 C CNN
+	1    5200 2250
 	0    -1   -1   0   
 $EndComp
 $Comp
@@ -409,14 +182,14 @@ $EndComp
 $Comp
 L SW_PUSH SW?
 U 1 1 50B21E55
-P 10100 3500
-F 0 "SW?" H 10250 3610 50  0000 C CNN
-F 1 "SW_PUSH" H 10100 3420 50  0000 C CNN
-F 4 "SW03394" H 10100 3500 60  0001 C CNN "Farnell"
-	1    10100 3500
+P 10050 4250
+F 0 "SW?" H 10200 4360 50  0000 C CNN
+F 1 "SW_PUSH" H 10050 4170 50  0000 C CNN
+F 4 "SW03394" H 10050 4250 60  0001 C CNN "Farnell"
+	1    10050 4250
 	1    0    0    -1  
 $EndComp
-Text Notes 750  5250 1    60   ~ 0
+Text Notes 800  5300 1    60   ~ 0
 IGNITION
 Text Notes 550  3850 0    60   ~ 0
 OXID\nVALVE
@@ -459,28 +232,316 @@ $EndComp
 $Comp
 L CONN_2 P?
 U 1 1 50B21968
-P 5300 1750
-F 0 "P?" V 5250 1750 40  0000 C CNN
-F 1 "CONN_2" V 5350 1750 40  0000 C CNN
-	1    5300 1750
+P 5300 1350
+F 0 "P?" V 5250 1350 40  0000 C CNN
+F 1 "CONN_2" V 5350 1350 40  0000 C CNN
+	1    5300 1350
 	0    1    -1   0   
 $EndComp
 $Comp
 L CONN_2 P?
 U 1 1 50B21962
-P 5300 1500
-F 0 "P?" V 5250 1500 40  0000 C CNN
-F 1 "CONN_2" V 5350 1500 40  0000 C CNN
-	1    5300 1500
+P 5300 1100
+F 0 "P?" V 5250 1100 40  0000 C CNN
+F 1 "CONN_2" V 5350 1100 40  0000 C CNN
+	1    5300 1100
 	0    1    1    0   
 $EndComp
 $Comp
 L BATTERY BT?
 U 1 1 50B2192F
-P 5300 850
-F 0 "BT?" H 5300 1050 50  0000 C CNN
-F 1 "BATTERY" H 5300 660 50  0000 C CNN
-	1    5300 850 
+P 4650 850
+F 0 "BT?" H 4650 1050 50  0000 C CNN
+F 1 "12V" H 4650 660 50  0000 C CNN
+	1    4650 850 
+	0    -1   -1   0   
+$EndComp
+$Comp
+L CONN_6 P?
+U 1 1 50B3A3B9
+P 7300 3750
+F 0 "P?" V 7250 3750 60  0000 C CNN
+F 1 "CONN_6" V 7350 3750 60  0000 C CNN
+	1    7300 3750
+	1    0    0    1   
+$EndComp
+$Comp
+L CONN_6 P?
+U 1 1 50B3A3C8
+P 7550 3750
+F 0 "P?" V 7500 3750 60  0000 C CNN
+F 1 "CONN_6" V 7600 3750 60  0000 C CNN
+	1    7550 3750
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_6 P?
+U 1 1 50B3A3D7
+P 8700 3750
+F 0 "P?" V 8650 3750 60  0000 C CNN
+F 1 "CONN_6" V 8750 3750 60  0000 C CNN
+	1    8700 3750
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_6 P?
+U 1 1 50B3A3E6
+P 8450 3750
+F 0 "P?" V 8400 3750 60  0000 C CNN
+F 1 "CONN_6" V 8500 3750 60  0000 C CNN
+	1    8450 3750
+	1    0    0    1   
+$EndComp
+Text Notes 9800 3600 0    60   ~ 0
+BUZZER LINE
+$Comp
+L SPEAKER SP?
+U 1 1 50B3A9E8
+P 6800 2800
+F 0 "SP?" H 6700 3050 70  0000 C CNN
+F 1 "PIEZO" H 6700 2550 70  0000 C CNN
+	1    6800 2800
 	1    0    0    -1  
 $EndComp
+Connection ~ 6300 6000
+Wire Wire Line
+	6300 5650 6300 6000
+Connection ~ 6300 3250
+Wire Wire Line
+	6300 4650 6300 3250
+Wire Notes Line
+	1700 1250 7400 1250
+Wire Wire Line
+	7900 3800 8100 3800
+Wire Wire Line
+	7900 3600 8100 3600
+Connection ~ 5200 3250
+Wire Notes Line
+	1700 1250 1700 6150
+Wire Notes Line
+	7400 1250 7400 6150
+Connection ~ 5400 6000
+Wire Wire Line
+	5400 1700 5400 6000
+Connection ~ 2250 5200
+Wire Wire Line
+	1200 5200 1200 5350
+Wire Wire Line
+	1200 5350 850  5350
+Wire Wire Line
+	1200 3800 1200 3600
+Wire Wire Line
+	1200 3600 850  3600
+Wire Wire Line
+	4200 3500 6000 3500
+Connection ~ 5200 3700
+Wire Wire Line
+	4200 3700 5200 3700
+Wire Wire Line
+	5200 3400 4200 3400
+Wire Wire Line
+	5200 4800 4200 4800
+Connection ~ 5200 3400
+Connection ~ 5200 4800
+Wire Wire Line
+	5700 4900 4200 4900
+Wire Wire Line
+	5200 1700 5200 1750
+Wire Wire Line
+	4200 5100 5200 5100
+Connection ~ 5200 5100
+Wire Wire Line
+	850  4100 1200 4100
+Wire Wire Line
+	1200 4100 1200 4000
+Wire Wire Line
+	3200 3600 3200 3800
+Wire Wire Line
+	3200 3600 3400 3600
+Wire Wire Line
+	850  4850 1200 4850
+Wire Wire Line
+	1200 4850 1200 5000
+Wire Wire Line
+	3200 3800 2150 3800
+Wire Wire Line
+	2150 4000 2250 4000
+Wire Wire Line
+	2250 5200 2150 5200
+Wire Wire Line
+	2250 4000 2250 6000
+Wire Wire Line
+	5200 2750 5200 6000
+Connection ~ 5200 6000
+Connection ~ 2500 6000
+Wire Wire Line
+	8100 3700 7900 3700
+Wire Wire Line
+	8100 3900 7900 3900
+Wire Notes Line
+	7400 6150 1700 6150
+Wire Wire Line
+	6300 5050 6300 5150
+Wire Wire Line
+	5200 3250 6800 3250
+Wire Wire Line
+	7900 3500 8100 3500
+Wire Wire Line
+	8100 4000 7900 4000
+Wire Wire Line
+	9200 3400 9450 3400
+Wire Wire Line
+	9200 3500 9050 3500
+Wire Wire Line
+	9200 3050 9200 3500
+Wire Wire Line
+	9050 3600 10650 3600
+Wire Wire Line
+	9050 3700 9450 3700
+Wire Wire Line
+	9450 3700 9450 3900
+Wire Wire Line
+	9450 3900 9800 3900
+Wire Wire Line
+	9050 3800 9350 3800
+Wire Wire Line
+	9350 3800 9350 4250
+Wire Wire Line
+	9350 4250 9750 4250
+Wire Wire Line
+	9050 4000 9250 4000
+Wire Wire Line
+	9250 4000 9250 4650
+Wire Wire Line
+	9250 4650 9400 4650
+Wire Wire Line
+	10350 4250 10450 4250
+Wire Wire Line
+	10450 4250 10450 4650
+Wire Wire Line
+	10750 4650 10400 4650
+Wire Wire Line
+	10400 3900 10550 3900
+Wire Wire Line
+	10550 3900 10550 4650
+Connection ~ 10450 4650
+Wire Wire Line
+	10650 3600 10650 4650
+Connection ~ 10550 4650
+Wire Wire Line
+	9850 3400 10750 3400
+Wire Wire Line
+	10750 3050 10750 4650
+Connection ~ 10650 4650
+Wire Wire Line
+	6800 3250 6800 3500
+Wire Wire Line
+	6800 3500 6950 3500
+Wire Wire Line
+	5200 750  4950 750 
+Wire Wire Line
+	4950 750  4950 1150
+Wire Wire Line
+	4950 1150 4650 1150
+Wire Wire Line
+	4650 550  5400 550 
+Wire Wire Line
+	5400 550  5400 750 
+Wire Wire Line
+	6500 2700 5900 2700
+Wire Wire Line
+	5900 2700 5900 2800
+Wire Wire Line
+	5900 2800 5200 2800
+Connection ~ 5200 2800
+Wire Wire Line
+	6500 2900 6450 2900
+Wire Wire Line
+	6450 2900 6450 3600
+Wire Wire Line
+	6450 3600 6950 3600
+Wire Wire Line
+	6950 6000 6950 4000
+Text Notes 3450 3200 0    60   ~ 0
+OXID RELAY
+Text Notes 3400 4600 0    60   ~ 0
+IGNITION RELAY
+Wire Wire Line
+	6000 3500 6000 3700
+Wire Wire Line
+	6000 3700 6950 3700
+Wire Wire Line
+	5700 4900 5700 3800
+Wire Wire Line
+	5700 3800 6950 3800
+$Comp
+L LED D?
+U 1 1 50B3AFF2
+P 9650 3050
+F 0 "D?" H 9650 3150 50  0000 C CNN
+F 1 "RED" H 9650 2950 50  0000 C CNN
+	1    9650 3050
+	1    0    0    -1  
+$EndComp
+Text Notes 9850 3050 0    60   ~ 0
+IGNITION ARMED
+Wire Wire Line
+	9200 3050 9450 3050
+Connection ~ 9200 3400
+Wire Wire Line
+	9850 3050 10750 3050
+Connection ~ 10750 3400
+Wire Notes Line
+	8600 2650 8600 4800
+Wire Notes Line
+	8600 2650 10850 2650
+Wire Notes Line
+	10850 2650 10850 4800
+Wire Notes Line
+	10850 4800 8600 4800
+Text Notes 4400 1200 1    60   ~ 0
+12V 12AH SLAB
+Wire Wire Line
+	2250 6000 6950 6000
+$Comp
+L R R?
+U 1 1 50B3B242
+P 2800 5100
+F 0 "R?" V 2880 5100 50  0000 C CNN
+F 1 "5R 50W" V 2800 5100 50  0000 C CNN
+	1    2800 5100
+	0    -1   -1   0   
+$EndComp
+$Comp
+L R R?
+U 1 1 50B3B260
+P 2800 4900
+F 0 "R?" V 2880 4900 50  0000 C CNN
+F 1 "5R 50W" V 2800 4900 50  0000 C CNN
+	1    2800 4900
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2150 5000 2550 5000
+Wire Wire Line
+	2550 4900 2550 5100
+Connection ~ 2550 5000
+Wire Wire Line
+	3050 4900 3050 5100
+Wire Wire Line
+	3050 5000 3400 5000
+Connection ~ 3050 5000
+Wire Wire Line
+	2500 3800 2500 4050
+Connection ~ 2500 3800
+Wire Wire Line
+	2500 6000 2500 4450
+Wire Wire Line
+	3200 5000 3200 5300
+Connection ~ 3200 5000
+Wire Wire Line
+	3200 5700 3200 6000
+Connection ~ 3200 6000
+Text Notes 5450 1200 0    60   ~ 0
+SCREW TERMINAL
 $EndSCHEMATC
