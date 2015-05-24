@@ -16,4 +16,8 @@ PB10-12: FT
 PB13-14: Ftf
 PB15: FT
 
+Maybe don't nail down SPI pins in STM schematic part, it's a bit weird.
 
+Think about continuity checking -- ematches and valves.
+
+Think about board to panel connectors.
