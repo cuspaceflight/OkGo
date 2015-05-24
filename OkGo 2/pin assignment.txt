@@ -1,0 +1,19 @@
+pin name in backets means reset has different function
+FT = 5V tolerant IO
+FTf = 5V tol IO FM+ capable
+TTa = 3v3 tolerant ADC
+TC = 3v3
+
+PC14/PC15 default to OSC32
+
+PA0-3: TTa
+PA8-12: FT
+
+
+PB0-1: TTA
+PB2: FT
+PB10-12: FT
+PB13-14: Ftf
+PB15: FT
+
+
