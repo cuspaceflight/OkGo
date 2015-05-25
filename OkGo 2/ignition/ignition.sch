@@ -364,18 +364,6 @@ Text GLabel 5300 5800 0    60   Input ~ 0
 RFM_NSS
 Text GLabel 5300 5950 0    60   Input ~ 0
 RFM_RESET
-Text GLabel 6950 5150 2    60   Input ~ 0
-DIO3
-Text GLabel 6950 5300 2    60   Input ~ 0
-DIO4
-Text GLabel 6950 5450 2    60   Input ~ 0
-DIO5
-Text GLabel 6950 5000 2    60   Input ~ 0
-DIO2
-Text GLabel 6950 4850 2    60   Input ~ 0
-DIO1
-Text GLabel 6950 4700 2    60   Input ~ 0
-DIO0
 $Comp
 L CONN_01X02 P?
 U 1 1 5562DEE5
@@ -586,22 +574,10 @@ Text GLabel 2300 5650 0    60   Input ~ 0
 SWDIO
 Text GLabel 2300 5800 0    60   Input ~ 0
 SWDCLK
-Text GLabel 4150 2600 2    60   Input ~ 0
+Text GLabel 4200 2650 2    60   Input ~ 0
 BATT_MON
-Text GLabel 4150 2750 2    60   Input ~ 0
+Text GLabel 4200 2800 2    60   Input ~ 0
 RFM_RESET
-Text GLabel 4150 3000 2    60   Input ~ 0
-DIO0
-Text GLabel 4150 3150 2    60   Input ~ 0
-DIO1
-Text GLabel 4150 3300 2    60   Input ~ 0
-DIO2
-Text GLabel 4150 3450 2    60   Input ~ 0
-DIO3
-Text GLabel 4150 3600 2    60   Input ~ 0
-DIO4
-Text GLabel 4150 3750 2    60   Input ~ 0
-DIO5
 $Comp
 L CONN_01X02 P?
 U 1 1 5563266F
@@ -915,38 +891,6 @@ Wire Wire Line
 Wire Wire Line
 	5500 5950 5300 5950
 Wire Wire Line
-	6750 5150 6950 5150
-Wire Wire Line
-	6750 5050 6900 5050
-Wire Wire Line
-	6900 5050 6900 5000
-Wire Wire Line
-	6900 5000 6950 5000
-Wire Wire Line
-	6750 4950 6850 4950
-Wire Wire Line
-	6850 4950 6850 4850
-Wire Wire Line
-	6850 4850 6950 4850
-Wire Wire Line
-	6750 4850 6800 4850
-Wire Wire Line
-	6800 4850 6800 4700
-Wire Wire Line
-	6800 4700 6950 4700
-Wire Wire Line
-	6750 5250 6900 5250
-Wire Wire Line
-	6900 5250 6900 5300
-Wire Wire Line
-	6900 5300 6950 5300
-Wire Wire Line
-	6750 5350 6850 5350
-Wire Wire Line
-	6850 5350 6850 5450
-Wire Wire Line
-	6850 5450 6950 5450
-Wire Wire Line
 	7000 5850 6950 5850
 Wire Wire Line
 	6950 5850 6950 5900
@@ -1188,12 +1132,34 @@ Text GLabel 8250 3400 0    60   Input ~ 0
 FIRE_CH3
 Text GLabel 8250 3550 0    60   Input ~ 0
 FIRE_CH4
-Text GLabel 4150 4000 2    60   Input ~ 0
+Text GLabel 4200 3050 2    60   Input ~ 0
 FIRE_CH1
-Text GLabel 4150 4150 2    60   Input ~ 0
+Text GLabel 4200 3200 2    60   Input ~ 0
 FIRE_CH2
-Text GLabel 4150 4300 2    60   Input ~ 0
+Text GLabel 4200 3350 2    60   Input ~ 0
 FIRE_CH3
-Text GLabel 4150 4450 2    60   Input ~ 0
+Text GLabel 4200 3500 2    60   Input ~ 0
 FIRE_CH4
+NoConn ~ 6750 4850
+NoConn ~ 6750 4950
+NoConn ~ 6750 5050
+NoConn ~ 6750 5150
+NoConn ~ 6750 5250
+NoConn ~ 6750 5350
+Text GLabel 8250 3800 0    60   Input ~ 0
+CONT_CH1
+Text GLabel 8250 3950 0    60   Input ~ 0
+CONT_CH2
+Text GLabel 8250 4100 0    60   Input ~ 0
+CONT_CH3
+Text GLabel 8250 4250 0    60   Input ~ 0
+CONT_CH4
+Text GLabel 4200 3750 2    60   Input ~ 0
+CONT_CH1
+Text GLabel 4200 3900 2    60   Input ~ 0
+CONT_CH2
+Text GLabel 4200 4050 2    60   Input ~ 0
+CONT_CH3
+Text GLabel 4200 4200 2    60   Input ~ 0
+CONT_CH4
 $EndSCHEMATC
