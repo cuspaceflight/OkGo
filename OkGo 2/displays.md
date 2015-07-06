@@ -59,3 +59,12 @@
     |      NO LINK       |
     |                    |
     +--------------------+
+
+Possible metering display:
+
+    +--------------------+
+    |CBAT:4.2V  IBAT:6.4V|
+    |    LINK: 08/32     |
+    |FIRE OK   OK   ERR  |
+    |9.4A 004R 125R 14kR |
+    +--------------------+
