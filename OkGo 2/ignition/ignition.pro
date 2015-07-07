@@ -1,4 +1,4 @@
-update=Mon 06 Jul 2015 23:52:03 BST
+update=Tue 07 Jul 2015 15:53:05 BST
 version=1
 last_client=kicad
 [pcbnew]
@@ -60,6 +60,6 @@ LibName28=atmel
 LibName29=contrib
 LibName30=valves
 LibName31=/home/dwt27/git/okgo/OkGo 2/common/rfm95w
-LibName32=/home/dwt27/git/okgo/OkGo 2/common/stm32f071cbt6
-LibName33=/home/dwt27/git/okgo/OkGo 2/common/swd
-LibName34=relay_spst
+LibName32=/home/dwt27/git/okgo/OkGo 2/common/swd
+LibName33=relay_spst
+LibName34=stm32f071cbt6

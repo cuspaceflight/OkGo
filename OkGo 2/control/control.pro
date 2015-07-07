@@ -1,4 +1,4 @@
-update=Mon 25 May 2015 16:46:55 BST
+update=Tue 07 Jul 2015 15:15:19 BST
 version=1
 last_client=kicad
 [pcbnew]
@@ -23,6 +23,8 @@ ModuleOutlineThickness=0.150000000000
 [cvpcb]
 version=1
 NetIExt=net
+[general]
+version=1
 [eeschema]
 version=1
 LibDir=../common
@@ -56,8 +58,6 @@ LibName26=opto
 LibName27=atmel
 LibName28=contrib
 LibName29=valves
-LibName30=stm32f071cbt6
-LibName31=swd
-LibName32=lcd_hd44780
-[general]
-version=1
+LibName30=swd
+LibName31=lcd_hd44780
+LibName32=stm32f071cbt6
