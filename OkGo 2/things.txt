@@ -16,3 +16,29 @@ PB10-12: FT
 PB13-14: Ftf
 PB15: FT
 
+Casing and mechanics
+---------------------
+
+Hammond waterproof cases?
+LCD: waterproof with a sheet of clear acrylic and caulk, possibly acrylic on inside, but likely outside of box cutout
+For coax, put an SMA-F footprint on the board and that can either stick out of the box or go to a lead to panel mount SMA-F on the lid
+
+control: maybe a plastic handheld watertight case.  awks to mount LCD waterproofly as always
+nice and light tho
+
+ignition end: metal box because explode
+get a watertight light duty Al with mounting shelves and wire-board all the panel stuff
+
+put LEDs on ignition end of testing, similar to current setup, 12V IP65 panel mount jobbies
+LED colours!?
+
+Channel ID with numbers or letters or colours or ???
+
+
+battery charging
+-----------------
+control has a waterproof DC connector to its battery
+ignition has an amphenol or similar lots-way waterproof connector connected to battery and balance
+
+Adaptor cable from banana plugs (from balance charger) to waterproof DC thingy for control
+adaptor cable from banana plugs and balance connectors to amphenol or similar thingy for ignition
