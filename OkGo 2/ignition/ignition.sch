@@ -382,14 +382,14 @@ $EndComp
 $Comp
 L R R?
 U 1 1 55630D1D
-P 3450 3400
-F 0 "R?" V 3350 3550 50  0000 C CNN
-F 1 "100R" V 3350 3325 50  0000 C CNN
-F 2 "Resistors_SMD:R_0805_HandSoldering" V 3380 3400 30  0001 C CNN
-F 3 "" H 3450 3400 30  0000 C CNN
-F 4 "2331783" H 3450 3400 60  0001 C CNN "Farnell"
-	1    3450 3400
-	0    -1   1    0   
+P 3550 3500
+F 0 "R?" V 3450 3350 50  0000 C CNN
+F 1 "100R" V 3450 3600 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805_HandSoldering" V 3480 3500 30  0001 C CNN
+F 3 "" H 3550 3500 30  0000 C CNN
+F 4 "2331783" H 3550 3500 60  0001 C CNN "Farnell"
+	1    3550 3500
+	0    1    -1   0   
 $EndComp
 $Comp
 L C C?
@@ -566,7 +566,9 @@ Wire Wire Line
 Wire Wire Line
 	1400 1050 1575 1050
 Wire Wire Line
-	1575 1050 2075 1050
+	1575 1050 1850 1050
+Wire Wire Line
+	1850 1050 2075 1050
 Wire Wire Line
 	2075 950  2075 900 
 Connection ~ 1575 950 
@@ -749,7 +751,9 @@ Wire Wire Line
 	3600 2850 3600 2900
 Connection ~ 3600 2850
 Wire Wire Line
-	3400 2550 3650 2550
+	3400 2550 3500 2550
+Wire Wire Line
+	3500 2550 3650 2550
 Wire Wire Line
 	3650 2550 3850 2550
 Wire Wire Line
@@ -761,9 +765,7 @@ Wire Wire Line
 Wire Wire Line
 	3500 2900 2950 2900
 Wire Wire Line
-	2950 3400 3300 3400
-Wire Wire Line
-	3600 3400 3750 3400
+	2950 3400 3750 3400
 Wire Wire Line
 	3750 3400 3750 3300
 Wire Wire Line
@@ -776,8 +778,6 @@ Wire Wire Line
 	4000 3600 4300 3600
 Wire Wire Line
 	3750 3600 3750 3500
-Wire Wire Line
-	3750 3500 2950 3500
 Wire Wire Line
 	4300 3600 4300 3650
 Connection ~ 4000 3600
@@ -798,7 +798,9 @@ Wire Wire Line
 Wire Wire Line
 	1150 3550 1150 3600
 Wire Wire Line
-	3900 950  4100 950 
+	3900 950  4000 950 
+Wire Wire Line
+	4000 950  4100 950 
 Wire Wire Line
 	1550 2600 1550 2650
 Wire Wire Line
@@ -860,7 +862,9 @@ Wire Wire Line
 Wire Wire Line
 	1400 950  1575 950 
 Wire Wire Line
-	1575 950  2075 950 
+	1575 950  1850 950 
+Wire Wire Line
+	1850 950  2075 950 
 Wire Wire Line
 	2075 950  2300 950 
 Wire Wire Line
@@ -1109,4 +1113,8 @@ F 3 "" H 3500 2550 60  0000 C CNN
 	-1   0    0    1   
 $EndComp
 Connection ~ 3500 2550
+Wire Wire Line
+	2950 3500 3400 3500
+Wire Wire Line
+	3750 3500 3700 3500
 $EndSCHEMATC
