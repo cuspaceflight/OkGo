@@ -3,7 +3,7 @@ EESchema-LIBRARY Version 2.3
 #
 # TVS_small
 #
-DEF ~TVS_small D 0 40 Y Y 1 F N
+DEF ~TVS_small D 0 40 N N 1 F N
 F0 "D" 0 75 50 H V C CNN
 F1 "TVS_small" 0 -75 50 H I C CNN
 F2 "" 0 0 60 H V C CNN
