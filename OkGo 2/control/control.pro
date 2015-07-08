@@ -1,4 +1,4 @@
-update=Wed 08 Jul 2015 15:04:54 BST
+update=Wed 08 Jul 2015 16:49:15 BST
 version=1
 last_client=kicad
 [pcbnew]
@@ -62,3 +62,4 @@ LibName30=swd
 LibName31=lcd_hd44780
 LibName32=stm32f071cbt6
 LibName33=tvs_small
+LibName34=testpoint

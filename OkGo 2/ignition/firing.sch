@@ -34,6 +34,7 @@ LIBS:swd
 LIBS:relay_spst
 LIBS:stm32f071cbt6
 LIBS:tvs_small
+LIBS:testpoint
 LIBS:ignition-cache
 EELAYER 25 0
 EELAYER END
@@ -140,7 +141,9 @@ Wire Wire Line
 Wire Wire Line
 	7850 3150 7850 3100
 Wire Wire Line
-	7150 2750 7200 2750
+	7000 2750 7100 2750
+Wire Wire Line
+	7100 2750 7200 2750
 Wire Wire Line
 	7200 2750 7250 2750
 Wire Wire Line
@@ -225,14 +228,18 @@ Connection ~ 9950 3250
 Wire Wire Line
 	8700 2500 9050 2500
 Wire Wire Line
-	9050 2500 9250 2500
+	9050 2500 9200 2500
+Wire Wire Line
+	9200 2500 9300 2500
 Wire Wire Line
 	9050 2500 9050 3250
 Connection ~ 9050 2500
 Wire Wire Line
 	9850 3250 9950 3250
 Wire Wire Line
-	9950 3250 10150 3250
+	9950 3250 10100 3250
+Wire Wire Line
+	10100 3250 10200 3250
 $Comp
 L CONN_01X02 P?
 U 1 1 559E5DC4
@@ -931,7 +938,9 @@ Connection ~ 4250 1150
 Wire Wire Line
 	4150 1150 4250 1150
 Wire Wire Line
-	4250 1150 4300 1150
+	4250 1150 4400 1150
+Wire Wire Line
+	4400 1150 4500 1150
 Wire Wire Line
 	3200 1100 3200 1150
 Wire Wire Line
@@ -974,7 +983,9 @@ Connection ~ 4250 3000
 Wire Wire Line
 	4150 3000 4250 3000
 Wire Wire Line
-	4250 3000 4300 3000
+	4250 3000 4400 3000
+Wire Wire Line
+	4400 3000 4500 3000
 Wire Wire Line
 	3200 2950 3200 3000
 Wire Wire Line
@@ -1025,7 +1036,9 @@ Connection ~ 4250 4900
 Wire Wire Line
 	4150 4900 4250 4900
 Wire Wire Line
-	4250 4900 4300 4900
+	4250 4900 4400 4900
+Wire Wire Line
+	4400 4900 4500 4900
 Wire Wire Line
 	3200 4850 3200 4900
 Wire Wire Line
@@ -1076,7 +1089,9 @@ Connection ~ 4250 6800
 Wire Wire Line
 	4150 6800 4250 6800
 Wire Wire Line
-	4250 6800 4300 6800
+	4250 6800 4400 6800
+Wire Wire Line
+	4400 6800 4500 6800
 Wire Wire Line
 	3200 6750 3200 6800
 Wire Wire Line
@@ -1169,13 +1184,13 @@ Wire Wire Line
 	2000 1150 2000 1200
 Wire Wire Line
 	2000 1200 2150 1200
-Text HLabel 4300 1150 2    60   Output ~ 0
+Text HLabel 4500 1150 2    60   Output ~ 0
 CONT_CH1
-Text HLabel 4300 3000 2    60   Output ~ 0
+Text HLabel 4500 3000 2    60   Output ~ 0
 CONT_CH2
-Text HLabel 4300 4900 2    60   Output ~ 0
+Text HLabel 4500 4900 2    60   Output ~ 0
 CONT_CH3
-Text HLabel 4300 6800 2    60   Output ~ 0
+Text HLabel 4500 6800 2    60   Output ~ 0
 CONT_CH4
 Text HLabel 1400 7050 0    60   Input ~ 0
 FIRE_CH4
@@ -1185,9 +1200,9 @@ Text HLabel 1400 3250 0    60   Input ~ 0
 FIRE_CH2
 Text HLabel 1400 1400 0    60   Input ~ 0
 FIRE_CH1
-Text HLabel 7150 2750 0    60   Input ~ 0
+Text HLabel 7000 2750 0    60   Input ~ 0
 UPSTREAM_RELAY
-Text HLabel 10150 3250 2    60   Output ~ 0
+Text HLabel 10200 3250 2    60   Output ~ 0
 RELAY_SENSE
 Text Label 2050 750  2    60   ~ 0
 FIRING_DIST
@@ -1197,6 +1212,138 @@ Text Label 2100 4500 2    60   ~ 0
 FIRING_DIST
 Text Label 2100 6400 2    60   ~ 0
 FIRING_DIST
-Text Label 9250 2500 0    60   ~ 0
+Text Label 9300 2500 0    60   ~ 0
 FIRING_DIST
+$Comp
+L TestPoint TP?
+U 1 1 559DCEAD
+P 4400 1150
+F 0 "TP?" H 4400 1075 60  0000 C CNN
+F 1 "TestPoint" H 4375 975 60  0001 C CNN
+F 2 "" H 4400 1150 60  0000 C CNN
+F 3 "" H 4400 1150 60  0000 C CNN
+	1    4400 1150
+	1    0    0    -1  
+$EndComp
+Connection ~ 4400 1150
+$Comp
+L TestPoint TP?
+U 1 1 559DD237
+P 4400 3000
+F 0 "TP?" H 4400 2925 60  0000 C CNN
+F 1 "TestPoint" H 4375 2825 60  0001 C CNN
+F 2 "" H 4400 3000 60  0000 C CNN
+F 3 "" H 4400 3000 60  0000 C CNN
+	1    4400 3000
+	1    0    0    -1  
+$EndComp
+Connection ~ 4400 3000
+$Comp
+L TestPoint TP?
+U 1 1 559DD3E6
+P 4400 4900
+F 0 "TP?" H 4400 4825 60  0000 C CNN
+F 1 "TestPoint" H 4375 4725 60  0001 C CNN
+F 2 "" H 4400 4900 60  0000 C CNN
+F 3 "" H 4400 4900 60  0000 C CNN
+	1    4400 4900
+	1    0    0    -1  
+$EndComp
+Connection ~ 4400 4900
+$Comp
+L TestPoint TP?
+U 1 1 559DD5CC
+P 4400 6800
+F 0 "TP?" H 4400 6725 60  0000 C CNN
+F 1 "TestPoint" H 4375 6625 60  0001 C CNN
+F 2 "" H 4400 6800 60  0000 C CNN
+F 3 "" H 4400 6800 60  0000 C CNN
+	1    4400 6800
+	1    0    0    -1  
+$EndComp
+Connection ~ 4400 6800
+$Comp
+L TestPoint TP?
+U 1 1 559DDAEE
+P 7100 2750
+F 0 "TP?" H 7100 2675 60  0000 C CNN
+F 1 "TestPoint" H 7075 2575 60  0001 C CNN
+F 2 "" H 7100 2750 60  0000 C CNN
+F 3 "" H 7100 2750 60  0000 C CNN
+	1    7100 2750
+	-1   0    0    1   
+$EndComp
+Connection ~ 7100 2750
+$Comp
+L TestPoint TP?
+U 1 1 559DDDE6
+P 10100 3250
+F 0 "TP?" H 10100 3175 60  0000 C CNN
+F 1 "TestPoint" H 10075 3075 60  0001 C CNN
+F 2 "" H 10100 3250 60  0000 C CNN
+F 3 "" H 10100 3250 60  0000 C CNN
+	1    10100 3250
+	1    0    0    -1  
+$EndComp
+Connection ~ 10100 3250
+$Comp
+L TestPoint TP?
+U 1 1 559DE049
+P 9200 2500
+F 0 "TP?" H 9200 2425 60  0000 C CNN
+F 1 "TestPoint" H 9175 2325 60  0001 C CNN
+F 2 "" H 9200 2500 60  0000 C CNN
+F 3 "" H 9200 2500 60  0000 C CNN
+	1    9200 2500
+	1    0    0    -1  
+$EndComp
+Connection ~ 9200 2500
+$Comp
+L TestPoint TP?
+U 1 1 559DE905
+P 3400 1400
+F 0 "TP?" H 3400 1325 60  0000 C CNN
+F 1 "TestPoint" H 3375 1225 60  0001 C CNN
+F 2 "" H 3400 1400 60  0000 C CNN
+F 3 "" H 3400 1400 60  0000 C CNN
+	1    3400 1400
+	-1   0    0    1   
+$EndComp
+Connection ~ 3400 1400
+$Comp
+L TestPoint TP?
+U 1 1 559DF1B5
+P 3400 3250
+F 0 "TP?" H 3400 3175 60  0000 C CNN
+F 1 "TestPoint" H 3375 3075 60  0001 C CNN
+F 2 "" H 3400 3250 60  0000 C CNN
+F 3 "" H 3400 3250 60  0000 C CNN
+	1    3400 3250
+	-1   0    0    1   
+$EndComp
+Connection ~ 3400 3250
+$Comp
+L TestPoint TP?
+U 1 1 559DF3AE
+P 3400 5150
+F 0 "TP?" H 3400 5075 60  0000 C CNN
+F 1 "TestPoint" H 3375 4975 60  0001 C CNN
+F 2 "" H 3400 5150 60  0000 C CNN
+F 3 "" H 3400 5150 60  0000 C CNN
+	1    3400 5150
+	-1   0    0    1   
+$EndComp
+Connection ~ 3400 5150
+$Comp
+L TestPoint TP?
+U 1 1 559DF5E5
+P 3400 7050
+F 0 "TP?" H 3400 6975 60  0000 C CNN
+F 1 "TestPoint" H 3375 6875 60  0001 C CNN
+F 2 "" H 3400 7050 60  0000 C CNN
+F 3 "" H 3400 7050 60  0000 C CNN
+	1    3400 7050
+	-1   0    0    1   
+$EndComp
+Connection ~ 3400 7050
 $EndSCHEMATC
