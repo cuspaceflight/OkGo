@@ -680,7 +680,7 @@ Wire Wire Line
 	3600 2850 3600 2900
 Connection ~ 3600 2850
 Wire Wire Line
-	3650 2550 3400 2550
+	3400 2550 3850 2550
 Wire Wire Line
 	3400 2550 3400 2800
 Wire Wire Line
@@ -971,4 +971,7 @@ Text Label 5700 4950 0    60   ~ 0
 RFM_MOSI
 Text Label 5700 5050 0    60   ~ 0
 RFM_RESET
+Text Label 3850 2550 0    60   ~ 0
+nRST
+Connection ~ 3650 2550
 $EndSCHEMATC
