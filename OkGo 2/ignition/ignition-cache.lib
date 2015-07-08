@@ -399,4 +399,20 @@ X nRESET 10 600 -200 200 L 50 50 1 1 O
 ENDDRAW
 ENDDEF
 #
+# TVS_small
+#
+DEF ~TVS_small D 0 40 Y Y 1 F N
+F0 "D" 0 75 50 H V C CNN
+F1 "TVS_small" 0 -75 50 H I C CNN
+F2 "" 0 0 60 H V C CNN
+F3 "" 0 0 60 H V C CNN
+DRAW
+P 2 0 1 0  0 25  0 -25 N
+P 4 0 1 0  0 0  -50 25  -50 -25  0 0 F
+P 4 0 1 0  0 0  50 25  50 -25  0 0 F
+X ~ 1 -100 0 50 R 50 50 1 1 P
+X ~ 2 100 0 50 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
 #End Library

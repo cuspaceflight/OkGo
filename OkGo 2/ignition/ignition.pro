@@ -1,4 +1,4 @@
-update=Tue 07 Jul 2015 15:53:05 BST
+update=Wed 08 Jul 2015 14:50:51 BST
 version=1
 last_client=kicad
 [pcbnew]
@@ -63,3 +63,4 @@ LibName31=/home/dwt27/git/okgo/OkGo 2/common/rfm95w
 LibName32=/home/dwt27/git/okgo/OkGo 2/common/swd
 LibName33=relay_spst
 LibName34=stm32f071cbt6
+LibName35=tvs_small
