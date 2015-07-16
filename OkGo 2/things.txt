@@ -16,6 +16,25 @@ PB10-12: FT
 PB13-14: Ftf
 PB15: FT
 
+Parts to find
+-------------
+Case
+LCD (waterproof? bezel?)
+ignition on/off and cover, control 3-way key switches
+schematic drawing for batteries
+
+
+SC11628 IP67 LED bezel so I can use standard ridic-bright 5mm on ignition
+Still need the 5mm LEDs for it tho.
+keyswitches are a pain -- none over 10A, none with 3-ways and IP-rated, and the IP67 rated ones look rubiously IP-rated
+( and only come in same-key variant)
+
+Doing 3-way sw for arming is way hard.  No obvious way to detect which pin is powering the board with a 1P3T keyswitch
+short of gnarly hacks.  Signs point to keysw for on/off and slider/toggle for arm or vice versa
+
+Both boards have illuminating latching push for power on/off and control has 1P1T/1P2T for swapping between CONT and ARMED
+Probably have to use a relay for powering Ignition because 15A+ rated push-switches are way expensive.
+
 Casing and mechanics
 ---------------------
 

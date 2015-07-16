@@ -1,4 +1,4 @@
-update=Wed 08 Jul 2015 16:54:06 BST
+update=Sat 11 Jul 2015 18:25:49 BST
 version=1
 last_client=kicad
 [pcbnew]
@@ -65,3 +65,8 @@ LibName33=relay_spst
 LibName34=stm32f071cbt6
 LibName35=tvs_small
 LibName36=testpoint
+LibName37=sma
+LibName38=led_r
+LibName39=lipo_3s
+LibName40=spst_small
+LibName41=part

@@ -1,0 +1,24 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#
+# LiPO_1S
+#
+DEF LiPO_1S BT 0 0 Y Y 1 F N
+F0 "BT" -300 50 50 H V L CNN
+F1 "LiPO_1S" -400 -50 50 H V L CNN
+F2 "" 0 40 60 V V C CNN
+F3 "" 0 40 60 V V C CNN
+DRAW
+S -90 15 90 5 0 1 0 F
+S -60 -5 55 -25 0 1 0 F
+P 2 0 1 10  -65 60  -25 60 N
+P 2 0 1 10  -45 80  -45 40 N
+P 2 0 1 0  0 -25  0 -50 N
+P 2 0 1 0  0 25  0 15 N
+P 2 0 1 0  0 50  0 25 N
+X ~ 1 0 -150 100 U 50 50 1 1 w
+X ~ 2 0 150 100 D 50 50 1 1 w
+ENDDRAW
+ENDDEF
+#
+#End Library

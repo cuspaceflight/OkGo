@@ -1,4 +1,4 @@
-update=Wed 08 Jul 2015 19:25:29 BST
+update=Sat 11 Jul 2015 18:26:04 BST
 version=1
 last_client=kicad
 [pcbnew]
@@ -64,3 +64,9 @@ LibName32=stm32f071cbt6
 LibName33=tvs_small
 LibName34=testpoint
 LibName35=adp3335
+LibName36=sma
+LibName37=meu1s0303zc
+LibName38=push_illum
+LibName39=part
+LibName40=lipo_1s
+LibName41=spst_small
