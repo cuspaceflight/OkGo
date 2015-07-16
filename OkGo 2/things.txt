@@ -18,7 +18,6 @@ IP-rated nana sockets for ignition.
 
 Things to do
 ------------
-Replace panel LEDs with SC11628 bezel and 5mm ultrabrights and resistors.
 wire-mounting LEDs?
 
 
