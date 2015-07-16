@@ -1,63 +1,37 @@
-pin name in backets means reset has different function
-FT = 5V tolerant IO
-FTf = 5V tol IO FM+ capable
-TTa = 3v3 tolerant ADC
-TC = 3v3
-
-PC14/PC15 default to OSC32
-
-PA0-3: TTa
-PA8-12: FT
-
-
-PB0-1: TTA
-PB2: FT
-PB10-12: FT
-PB13-14: Ftf
-PB15: FT
-
 Parts to find
 -------------
-Case
-LCD (waterproof? bezel?)
-ignition on/off and cover, control 3-way key switches
-schematic drawing for batteries
+Cases
+LCD
+Control waterproof keyswitch for arming
+Batteries:
+	Control
+		Sensible sized 1S LiPO plus mounting
+		Waterproof 2-way DC barrel connector to battery
+		Adaptor cable from banana plugs to waterproof DC barrel
+	Ignition
+		Sensible sized 3S LiPO plus mounting
+		Amphenol (4+)-way to battery+balance
+		Adaptor cable from amphenol to banana plugs and 3S balance JST-XH
+Fuses+holders
+IP-rated nana sockets for ignition.
 
 
-SC11628 IP67 LED bezel so I can use standard ridic-bright 5mm on ignition
-Still need the 5mm LEDs for it tho.
-keyswitches are a pain -- none over 10A, none with 3-ways and IP-rated, and the IP67 rated ones look rubiously IP-rated
-( and only come in same-key variant)
+Things to do
+------------
+Replace panel LEDs with SC11628 bezel and 5mm ultrabrights and resistors.
+wire-mounting LEDs?
 
-Doing 3-way sw for arming is way hard.  No obvious way to detect which pin is powering the board with a 1P3T keyswitch
-short of gnarly hacks.  Signs point to keysw for on/off and slider/toggle for arm or vice versa
 
-Both boards have illuminating latching push for power on/off and control has 1P1T/1P2T for swapping between CONT and ARMED
-Probably have to use a relay for powering Ignition because 15A+ rated push-switches are way expensive.
 
 Casing and mechanics
 ---------------------
 
-Hammond waterproof cases?
-LCD: waterproof with a sheet of clear acrylic and caulk, possibly acrylic on inside, but likely outside of box cutout
-For coax, put an SMA-F footprint on the board and that can either stick out of the box or go to a lead to panel mount SMA-F on the lid
-
-control: maybe a plastic handheld watertight case.  awks to mount LCD waterproofly as always
-nice and light tho
-
-ignition end: metal box because explode
-get a watertight light duty Al with mounting shelves and wire-board all the panel stuff
-
-put LEDs on ignition end of testing, similar to current setup, 12V IP65 panel mount jobbies
-LED colours!?
-
-Channel ID with numbers or letters or colours or ???
-
-
-battery charging
------------------
-control has a waterproof DC connector to its battery
-ignition has an amphenol or similar lots-way waterproof connector connected to battery and balance
-
-Adaptor cable from banana plugs (from balance charger) to waterproof DC thingy for control
-adaptor cable from banana plugs and balance connectors to amphenol or similar thingy for ignition
+Hammond waterproof cases:
+	Control: plastic watertight handheld
+		LED board-mount flush into case with acrylic-caulk cover in cutout
+	Ignition: plastic or hammond with shelves, wire-board everything
+LCD mounting:
+	Put it on the board with some tall standoffs so it sits just below the
+	surface of the plastic case.  Cutout in plastic case replaced with clear
+	acrylic, caulked and epoxied.
+Coax/antennas: SMA-F on board either panel-mounted or lead to panel-mount SMA-F

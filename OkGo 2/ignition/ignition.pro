@@ -1,4 +1,4 @@
-update=Sat 11 Jul 2015 18:25:49 BST
+update=Thu 16 Jul 2015 15:00:33 BST
 version=1
 last_client=kicad
 [pcbnew]
@@ -70,3 +70,5 @@ LibName38=led_r
 LibName39=lipo_3s
 LibName40=spst_small
 LibName41=part
+LibName42=push_illum
+LibName43=push_illum_straight
