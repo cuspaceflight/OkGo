@@ -1,3 +1,4 @@
 (fp_lib_table
   (lib (name common)(type KiCad)(uri ${KIPRJMOD}/../common.pretty)(options "")(descr ""))
+  (lib (name ignition)(type KiCad)(uri ${KIPRJMOD}/ignition.pretty)(options "")(descr ""))
 )
