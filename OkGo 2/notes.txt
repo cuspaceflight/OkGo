@@ -1,24 +1,29 @@
 Parts to find
 -------------
-Cases
-LCD
-Control waterproof keyswitch for arming
+Ignition case
+Control: waterproof keyswitch for arming
 Batteries:
 	Control
-		Sensible sized 1S LiPO plus mounting
 		Waterproof 2-way DC barrel connector to battery
 		Adaptor cable from banana plugs to waterproof DC barrel
 	Ignition
-		Sensible sized 3S LiPO plus mounting
 		Amphenol (4+)-way to battery+balance
 		Adaptor cable from amphenol to banana plugs and 3S balance JST-XH
-Fuses+holders
 IP-rated nana sockets for ignition.
+LED wire-mounting kit?
 
 Things to do
 ------------
-wire-mounting LEDs?
+Play with routing a bit and nail down pin assignments
 
+
+Control 5V budget:
+4x lightup button = 100mA
+LCD = 150mA
+total = 250mA
+scale to 3v3: 337mA
+30mA STM32
+120mA RFM95W
 
 
 

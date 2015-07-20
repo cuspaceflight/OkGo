@@ -1,4 +1,4 @@
-update=Thu 16 Jul 2015 17:08:37 BST
+update=Mon 20 Jul 2015 02:56:45 BST
 version=1
 last_client=kicad
 [pcbnew]
@@ -65,9 +65,9 @@ LibName33=tvs_small
 LibName34=testpoint
 LibName35=adp3335
 LibName36=sma
-LibName37=meu1s0303zc
-LibName38=part
-LibName39=lipo_1s
-LibName40=spst_small
-LibName41=push_illum
-LibName42=push_illum_straight
+LibName37=part
+LibName38=lipo_1s
+LibName39=spst_small
+LibName40=push_illum
+LibName41=push_illum_straight
+LibName42=mej2s0305sc

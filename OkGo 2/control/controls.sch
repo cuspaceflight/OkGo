@@ -35,12 +35,12 @@ LIBS:tvs_small
 LIBS:testpoint
 LIBS:adp3335
 LIBS:sma
-LIBS:meu1s0303zc
 LIBS:part
 LIBS:lipo_1s
 LIBS:spst_small
 LIBS:push_illum
 LIBS:push_illum_straight
+LIBS:mej2s0305sc
 LIBS:control-cache
 EELAYER 25 0
 EELAYER END
