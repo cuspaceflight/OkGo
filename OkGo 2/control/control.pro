@@ -1,4 +1,4 @@
-update=Mon 20 Jul 2015 02:56:45 BST
+update=Tue 28 Jul 2015 15:24:10 BST
 version=1
 last_client=kicad
 [pcbnew]
@@ -71,3 +71,4 @@ LibName39=spst_small
 LibName40=push_illum
 LibName41=push_illum_straight
 LibName42=mej2s0305sc
+LibName43=led_bicolour
