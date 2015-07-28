@@ -25,6 +25,11 @@ scale to 3v3: 337mA
 30mA STM32
 120mA RFM95W
 
+Control battery wiring:
+	Battery has JST-PH-F on short flying lead and sits on bottom half of case
+	JST-PH-M Y-cable mounted on bottom half of case, to charge port on lower
+	end-plate and to JST-PA on PCB.
+	PCB routes battery via fuse to JST-PA for power button and then onwards.
 
 
 
