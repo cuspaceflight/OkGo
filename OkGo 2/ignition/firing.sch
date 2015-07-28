@@ -42,6 +42,7 @@ LIBS:spst_small
 LIBS:part
 LIBS:push_illum
 LIBS:push_illum_straight
+LIBS:led_bicolour
 LIBS:ignition-cache
 EELAYER 25 0
 EELAYER END
