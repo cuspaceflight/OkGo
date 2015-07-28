@@ -203,7 +203,7 @@ F 3 "" H 2950 2050 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2950 2000 3200 2000
+	2900 2000 3200 2000
 Wire Wire Line
 	2300 2200 3200 2200
 Wire Wire Line
@@ -360,7 +360,7 @@ F 3 "" H 2950 4850 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2950 4800 3200 4800
+	2900 4800 3200 4800
 Wire Wire Line
 	2300 5000 3200 5000
 Wire Wire Line
@@ -517,7 +517,7 @@ F 3 "" H 7450 2050 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7450 2000 7700 2000
+	7400 2000 7700 2000
 Wire Wire Line
 	6800 2200 7700 2200
 Wire Wire Line
@@ -674,7 +674,7 @@ F 3 "" H 7550 4850 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7550 4800 7800 4800
+	7500 4800 7800 4800
 Wire Wire Line
 	6900 5000 7800 5000
 Wire Wire Line

@@ -263,24 +263,24 @@ $EndComp
 $Comp
 L C C108
 U 1 1 5562E486
-P 3650 3325
-F 0 "C108" H 3675 3425 50  0000 L CNN
-F 1 "100n" H 3675 3225 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0805" H 3688 3175 30  0001 C CNN
-F 3 "" H 3650 3325 60  0000 C CNN
-F 4 "2407344" H 3650 3325 60  0001 C CNN "Farnell"
-	1    3650 3325
+P 3650 3225
+F 0 "C108" H 3675 3325 50  0000 L CNN
+F 1 "100n" H 3675 3125 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0805" H 3688 3075 30  0001 C CNN
+F 3 "" H 3650 3225 60  0000 C CNN
+F 4 "2407344" H 3650 3225 60  0001 C CNN "Farnell"
+	1    3650 3225
 	-1   0    0    -1  
 $EndComp
 $Comp
 L GND #PWR014
 U 1 1 5562E73A
-P 3600 3525
-F 0 "#PWR014" H 3600 3275 50  0001 C CNN
-F 1 "GND" H 3600 3375 50  0000 C CNN
-F 2 "" H 3600 3525 60  0000 C CNN
-F 3 "" H 3600 3525 60  0000 C CNN
-	1    3600 3525
+P 3600 3425
+F 0 "#PWR014" H 3600 3175 50  0001 C CNN
+F 1 "GND" H 3600 3275 50  0000 C CNN
+F 2 "" H 3600 3425 60  0000 C CNN
+F 3 "" H 3600 3425 60  0000 C CNN
+	1    3600 3425
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -561,7 +561,7 @@ F 4 "2368174" H 8800 6175 60  0001 C CNN "Farnell"
 	1    8800 6175
 	0    -1   -1   0   
 $EndComp
-Text Label 3800 3125 0    60   ~ 0
+Text Label 3800 3025 0    60   ~ 0
 nRST
 Text Label 3150 4275 0    60   ~ 0
 SWDIO
@@ -595,25 +595,25 @@ Text Label 7500 5950 2    60   ~ 0
 RFM_NSS
 Text Label 7500 6050 2    60   ~ 0
 RFM_RESET
-Text Label 5000 6500 0    60   ~ 0
+Text Label 3050 3775 0    60   ~ 0
 RFM_DIO0
-Text Label 5000 6600 0    60   ~ 0
+Text Label 3050 4575 0    60   ~ 0
 RFM_DIO1
-Text Label 5000 6700 0    60   ~ 0
+Text Label 3050 4675 0    60   ~ 0
 RFM_DIO2
-Text Label 5000 6800 0    60   ~ 0
+Text Label 3050 3575 0    60   ~ 0
 RFM_DIO3
-Text Label 5000 6900 0    60   ~ 0
+Text Label 3050 3675 0    60   ~ 0
 RFM_DIO4
-Text Label 5000 7000 0    60   ~ 0
+Text Label 3050 4775 0    60   ~ 0
 RFM_DIO5
-Text Label 5000 6000 0    60   ~ 0
+Text Label 3050 4975 0    60   ~ 0
 RFM_NSS
-Text Label 5000 6100 0    60   ~ 0
+Text Label 3050 5075 0    60   ~ 0
 RFM_SCK
-Text Label 5000 6200 0    60   ~ 0
+Text Label 3050 5175 0    60   ~ 0
 RFM_MISO
-Text Label 5000 6300 0    60   ~ 0
+Text Label 3050 5275 0    60   ~ 0
 RFM_MOSI
 Text Label 8750 3800 0    60   ~ 0
 LCD_DB4
@@ -629,37 +629,37 @@ Text Label 7600 4250 2    60   ~ 0
 LCD_E
 Text Label 7275 2050 0    60   ~ 0
 BATT_MON
-Text Label 5000 4600 0    60   ~ 0
+Text Label 1700 4825 2    60   ~ 0
 CH1_SW
-Text Label 5000 4700 0    60   ~ 0
+Text Label 1700 5725 2    60   ~ 0
 CH2_SW
-Text Label 5000 4800 0    60   ~ 0
+Text Label 1700 5925 2    60   ~ 0
 CH3_SW
-Text Label 5000 4900 0    60   ~ 0
+Text Label 1700 6125 2    60   ~ 0
 CH4_SW
-Text Label 5000 4100 0    60   ~ 0
+Text Label 1700 4625 2    60   ~ 0
 CH1_LED
-Text Label 5000 4200 0    60   ~ 0
+Text Label 1700 5625 2    60   ~ 0
 CH2_LED
-Text Label 5000 4300 0    60   ~ 0
+Text Label 1700 5825 2    60   ~ 0
 CH3_LED
-Text Label 5000 4400 0    60   ~ 0
+Text Label 1700 6025 2    60   ~ 0
 CH4_LED
-Text Label 5000 5900 0    60   ~ 0
+Text Label 3050 4875 0    60   ~ 0
 RFM_RESET
-Text Label 5000 5100 0    60   ~ 0
+Text Label 1700 5225 2    60   ~ 0
 LCD_DB4
-Text Label 5000 5200 0    60   ~ 0
+Text Label 1700 5325 2    60   ~ 0
 LCD_DB5
-Text Label 5000 5300 0    60   ~ 0
+Text Label 1700 5425 2    60   ~ 0
 LCD_DB6
-Text Label 5000 5400 0    60   ~ 0
+Text Label 1700 5525 2    60   ~ 0
 LCD_DB7
-Text Label 5000 5600 0    60   ~ 0
+Text Label 3050 5975 0    60   ~ 0
 LCD_RS
-Text Label 5000 5700 0    60   ~ 0
+Text Label 1700 4925 2    60   ~ 0
 LCD_E
-Text Label 5000 3900 0    60   ~ 0
+Text Label 1700 4725 2    60   ~ 0
 BATT_MON
 $Comp
 L TestPoint TP102
@@ -675,12 +675,12 @@ $EndComp
 $Comp
 L TestPoint TP101
 U 1 1 559DB26A
-P 3500 3125
-F 0 "TP101" H 3500 3050 60  0000 C CNN
-F 1 "nRST" H 3500 2950 60  0000 C CNN
-F 2 "common:TESTPOINT" H 3500 3125 60  0001 C CNN
-F 3 "" H 3500 3125 60  0000 C CNN
-	1    3500 3125
+P 3500 3025
+F 0 "TP101" H 3500 2950 60  0000 C CNN
+F 1 "nRST" H 3500 2850 60  0000 C CNN
+F 2 "common:TESTPOINT" H 3500 3025 60  0001 C CNN
+F 3 "" H 3500 3025 60  0000 C CNN
+	1    3500 3025
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -1040,16 +1040,16 @@ Wire Wire Line
 	1200 4175 1200 4275
 Connection ~ 1600 4175
 Wire Wire Line
-	3650 3125 3650 3175
-Connection ~ 3650 3125
+	3650 3025 3650 3075
+Connection ~ 3650 3025
 Wire Wire Line
-	3050 3475 3650 3475
+	3050 3375 3650 3375
 Wire Wire Line
-	3600 3475 3600 3525
+	3600 3375 3600 3425
 Wire Wire Line
-	3400 3125 3800 3125
+	3400 3025 3800 3025
 Wire Wire Line
-	3400 3375 3050 3375
+	3400 3275 3050 3275
 Wire Wire Line
 	3050 3975 3950 3975
 Wire Wire Line
@@ -1113,8 +1113,8 @@ Wire Wire Line
 Wire Wire Line
 	7100 4150 7600 4150
 Wire Wire Line
-	3400 3125 3400 3375
-Connection ~ 3600 3475
+	3400 3025 3400 3275
+Connection ~ 3600 3375
 Wire Wire Line
 	4750 1650 4750 1600
 Wire Wire Line
@@ -1140,7 +1140,7 @@ Wire Wire Line
 Wire Wire Line
 	3050 4375 3150 4375
 Connection ~ 10425 950 
-Connection ~ 3500 3125
+Connection ~ 3500 3025
 Wire Wire Line
 	3050 4075 3550 4075
 Wire Wire Line
@@ -1351,11 +1351,11 @@ F 4 "2331781" H 1475 1250 60  0001 C CNN "Farnell"
 	1    1475 1250
 	0    1    1    0   
 $EndComp
-Text Label 5000 3800 0    60   ~ 0
+Text Label 3050 5575 0    60   ~ 0
 ARM_SW
-Text Label 5000 3700 0    60   ~ 0
+Text Label 3050 5475 0    60   ~ 0
 DISARM_LED
-Text Label 5000 3600 0    60   ~ 0
+Text Label 3050 5375 0    60   ~ 0
 ARM_LED
 $Comp
 L PART U104
