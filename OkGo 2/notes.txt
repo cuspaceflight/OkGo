@@ -31,6 +31,9 @@ Control battery wiring:
 	end-plate and to JST-PA on PCB.
 	PCB routes battery via fuse to JST-PA for power button and then onwards.
 
+Pin Assigning
+-------------
+PC13,14,15 cannot source current and only sink 3mA and are limited to 2MHz into 30pF
 
 
 Casing and mechanics
