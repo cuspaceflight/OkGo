@@ -46,6 +46,7 @@ USART locations:
 21: USART3_TX
 22: USART3_RX
 
+ADC locations: pin 10-19 inc
 
 
 Casing and mechanics
