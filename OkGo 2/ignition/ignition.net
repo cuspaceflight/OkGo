@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source "/home/dwt27/git/okgo/OkGo 2/ignition/ignition.sch")
-    (date "Sat 08 Aug 2015 11:58:36 BST")
+    (date "Tue 11 Aug 2015 23:59:24 BST")
     (tool "Eeschema 0.201507280910+6003~25~ubuntu14.04.1-product")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -321,9 +321,9 @@
       (tstamp 55C42A9D))
     (comp (ref P107)
       (value ARM_LED)
-      (footprint common:JST-PA-2)
+      (footprint ignition:JST-PA-2-VERT)
       (fields
-        (field (name Farnell) 1830747))
+        (field (name Farnell) 1830734))
       (libsource (lib conn) (part CONN_01X02))
       (sheetpath (names /) (tstamps /))
       (tstamp 55C63A4F))
@@ -639,9 +639,9 @@
       (tstamp 559DE049))
     (comp (ref P204)
       (value CH1_LED)
-      (footprint common:JST-PA-2)
+      (footprint ignition:JST-PA-2-VERT)
       (fields
-        (field (name Farnell) 1830747))
+        (field (name Farnell) 1830734))
       (libsource (lib conn) (part CONN_01X02))
       (sheetpath (names /firing/) (tstamps /559E15BF/))
       (tstamp 55A971CC))
@@ -690,9 +690,9 @@
       (tstamp 55A9929B))
     (comp (ref P210)
       (value CH2_LED)
-      (footprint common:JST-PA-2)
+      (footprint ignition:JST-PA-2-VERT)
       (fields
-        (field (name Farnell) 1830747))
+        (field (name Farnell) 1830734))
       (libsource (lib conn) (part CONN_01X02))
       (sheetpath (names /firing/) (tstamps /559E15BF/))
       (tstamp 55A992AD))
@@ -741,9 +741,9 @@
       (tstamp 55A9A2BA))
     (comp (ref P201)
       (value CH3_LED)
-      (footprint common:JST-PA-2)
+      (footprint ignition:JST-PA-2-VERT)
       (fields
-        (field (name Farnell) 1830747))
+        (field (name Farnell) 1830734))
       (libsource (lib conn) (part CONN_01X02))
       (sheetpath (names /firing/) (tstamps /559E15BF/))
       (tstamp 55A9A2CC))
@@ -792,9 +792,9 @@
       (tstamp 55A9B17F))
     (comp (ref P207)
       (value CH4_LED)
-      (footprint common:JST-PA-2)
+      (footprint ignition:JST-PA-2-VERT)
       (fields
-        (field (name Farnell) 1830747))
+        (field (name Farnell) 1830734))
       (libsource (lib conn) (part CONN_01X02))
       (sheetpath (names /firing/) (tstamps /559E15BF/))
       (tstamp 55A9B191))
@@ -906,30 +906,6 @@
       (sheetpath (names /firing/) (tstamps /559E15BF/))
       (tstamp 55AABA53)))
   (libparts
-    (libpart (lib device) (part C)
-      (description "Unpolarized capacitor")
-      (footprints
-        (fp C?)
-        (fp C_????_*)
-        (fp C_????)
-        (fp SMD*_c)
-        (fp Capacitor*))
-      (fields
-        (field (name Reference) C)
-        (field (name Value) C))
-      (pins
-        (pin (num 1) (name ~) (type passive))
-        (pin (num 2) (name ~) (type passive))))
-    (libpart (lib device) (part Crystal)
-      (description "Two pin crystal")
-      (footprints
-        (fp Crystal_*))
-      (fields
-        (field (name Reference) Y)
-        (field (name Value) Crystal))
-      (pins
-        (pin (num 1) (name 1) (type passive))
-        (pin (num 2) (name 2) (type passive))))
     (libpart (lib device) (part D)
       (description Diode)
       (footprints
@@ -944,20 +920,25 @@
       (pins
         (pin (num 1) (name K) (type passive))
         (pin (num 2) (name A) (type passive))))
-    (libpart (lib device) (part D_Schottky_Small)
-      (description "Diode Schottky")
-      (footprints
-        (fp Diode_*)
-        (fp D-Pak_TO252AA)
-        (fp *SingleDiode)
-        (fp *SingleDiode*)
-        (fp *_Diode_*))
+    (libpart (lib device) (part Q_NMOS_GSD)
+      (description "Transistor N-MOSFET (general)")
       (fields
-        (field (name Reference) D)
-        (field (name Value) D_Schottky_Small))
+        (field (name Reference) Q)
+        (field (name Value) Q_NMOS_GSD))
       (pins
-        (pin (num 1) (name K) (type passive))
-        (pin (num 2) (name A) (type passive))))
+        (pin (num 1) (name G) (type input))
+        (pin (num 2) (name S) (type passive))
+        (pin (num 3) (name D) (type passive))))
+    (libpart (lib device) (part Crystal)
+      (description "Two pin crystal")
+      (footprints
+        (fp Crystal_*))
+      (fields
+        (field (name Reference) Y)
+        (field (name Value) Crystal))
+      (pins
+        (pin (num 1) (name 1) (type passive))
+        (pin (num 2) (name 2) (type passive))))
     (libpart (lib device) (part FUSE)
       (fields
         (field (name Reference) F)
@@ -980,52 +961,6 @@
       (pins
         (pin (num 1) (name K) (type passive))
         (pin (num 2) (name A) (type passive))))
-    (libpart (lib device) (part Q_NMOS_GSD)
-      (description "Transistor N-MOSFET (general)")
-      (fields
-        (field (name Reference) Q)
-        (field (name Value) Q_NMOS_GSD))
-      (pins
-        (pin (num 1) (name G) (type input))
-        (pin (num 2) (name S) (type passive))
-        (pin (num 3) (name D) (type passive))))
-    (libpart (lib device) (part R)
-      (description Resistor)
-      (footprints
-        (fp R_*)
-        (fp Resistor_*))
-      (fields
-        (field (name Reference) R)
-        (field (name Value) R))
-      (pins
-        (pin (num 1) (name ~) (type passive))
-        (pin (num 2) (name ~) (type passive))))
-    (libpart (lib conn) (part CONN_01X02)
-      (footprints
-        (fp Pin_Header_Straight_1X02)
-        (fp Pin_Header_Angled_1X02)
-        (fp Socket_Strip_Straight_1X02)
-        (fp Socket_Strip_Angled_1X02))
-      (fields
-        (field (name Reference) P)
-        (field (name Value) CONN_01X02))
-      (pins
-        (pin (num 1) (name P1) (type passive))
-        (pin (num 2) (name P2) (type passive))))
-    (libpart (lib conn) (part CONN_01X04)
-      (footprints
-        (fp Pin_Header_Straight_1X04)
-        (fp Pin_Header_Angled_1X04)
-        (fp Socket_Strip_Straight_1X04)
-        (fp Socket_Strip_Angled_1X04))
-      (fields
-        (field (name Reference) P)
-        (field (name Value) CONN_01X04))
-      (pins
-        (pin (num 1) (name P1) (type passive))
-        (pin (num 2) (name P2) (type passive))
-        (pin (num 3) (name P3) (type passive))
-        (pin (num 4) (name P4) (type passive))))
     (libpart (lib relay_spst) (part RELAY_SPST)
       (fields
         (field (name Reference) K)
@@ -1072,14 +1007,6 @@
         (pin (num 8) (name TDI) (type BiDi))
         (pin (num 9) (name GND) (type power_in))
         (pin (num 10) (name nRESET) (type output))))
-    (libpart (lib tvs_small) (part TVS_small)
-      (description "Transient voltage suppressor diode (bi-directional)")
-      (fields
-        (field (name Reference) D)
-        (field (name Value) TVS_small))
-      (pins
-        (pin (num 1) (name ~) (type passive))
-        (pin (num 2) (name ~) (type passive))))
     (libpart (lib stm32f071cbt6) (part STM32F071CBT6)
       (fields
         (field (name Reference) U)
@@ -1133,12 +1060,14 @@
         (pin (num 46) (name PB9) (type 3state))
         (pin (num 47) (name VSS) (type power_in))
         (pin (num 48) (name VDD) (type power_in))))
-    (libpart (lib testpoint) (part TestPoint)
+    (libpart (lib tvs_small) (part TVS_small)
+      (description "Transient voltage suppressor diode (bi-directional)")
       (fields
-        (field (name Reference) TP)
-        (field (name Value) TestPoint))
+        (field (name Reference) D)
+        (field (name Value) TVS_small))
       (pins
-        (pin (num 1) (name ~) (type passive))))
+        (pin (num 1) (name ~) (type passive))
+        (pin (num 2) (name ~) (type passive))))
     (libpart (lib sma) (part SMA)
       (fields
         (field (name Reference) P)
@@ -1149,6 +1078,12 @@
         (pin (num 3) (name GND) (type power_in))
         (pin (num 4) (name GND) (type power_in))
         (pin (num 5) (name GND) (type power_in))))
+    (libpart (lib testpoint) (part TestPoint)
+      (fields
+        (field (name Reference) TP)
+        (field (name Value) TestPoint))
+      (pins
+        (pin (num 1) (name ~) (type passive))))
     (libpart (lib lipo_3s) (part LiPO_3S)
       (fields
         (field (name Reference) BT)
@@ -1172,14 +1107,6 @@
       (fields
         (field (name Reference) U)
         (field (name Value) PART)))
-    (libpart (lib tsr-0_5) (part TSR-0_5)
-      (fields
-        (field (name Reference) U)
-        (field (name Value) TSR-0_5))
-      (pins
-        (pin (num 1) (name +VIN) (type power_in))
-        (pin (num 2) (name GND) (type passive))
-        (pin (num 3) (name +VOUT) (type power_out))))
     (libpart (lib led_bicolour) (part LED_bicolour)
       (description Led)
       (footprints
@@ -1190,12 +1117,83 @@
         (field (name Value) LED_bicolour))
       (pins
         (pin (num 1) (name K) (type passive))
-        (pin (num 2) (name A) (type passive)))))
+        (pin (num 2) (name A) (type passive))))
+    (libpart (lib tsr-0_5) (part TSR-0_5)
+      (fields
+        (field (name Reference) U)
+        (field (name Value) TSR-0_5))
+      (pins
+        (pin (num 1) (name +VIN) (type power_in))
+        (pin (num 2) (name GND) (type passive))
+        (pin (num 3) (name +VOUT) (type power_out))))
+    (libpart (lib conn) (part CONN_01X02)
+      (footprints
+        (fp Pin_Header_Straight_1X02)
+        (fp Pin_Header_Angled_1X02)
+        (fp Socket_Strip_Straight_1X02)
+        (fp Socket_Strip_Angled_1X02))
+      (fields
+        (field (name Reference) P)
+        (field (name Value) CONN_01X02))
+      (pins
+        (pin (num 1) (name P1) (type passive))
+        (pin (num 2) (name P2) (type passive))))
+    (libpart (lib conn) (part CONN_01X04)
+      (footprints
+        (fp Pin_Header_Straight_1X04)
+        (fp Pin_Header_Angled_1X04)
+        (fp Socket_Strip_Straight_1X04)
+        (fp Socket_Strip_Angled_1X04))
+      (fields
+        (field (name Reference) P)
+        (field (name Value) CONN_01X04))
+      (pins
+        (pin (num 1) (name P1) (type passive))
+        (pin (num 2) (name P2) (type passive))
+        (pin (num 3) (name P3) (type passive))
+        (pin (num 4) (name P4) (type passive))))
+    (libpart (lib device) (part D_Schottky_Small)
+      (description "Diode Schottky")
+      (footprints
+        (fp Diode_*)
+        (fp D-Pak_TO252AA)
+        (fp *SingleDiode)
+        (fp *SingleDiode*)
+        (fp *_Diode_*))
+      (fields
+        (field (name Reference) D)
+        (field (name Value) D_Schottky_Small))
+      (pins
+        (pin (num 1) (name K) (type passive))
+        (pin (num 2) (name A) (type passive))))
+    (libpart (lib device) (part C)
+      (description "Unpolarized capacitor")
+      (footprints
+        (fp C?)
+        (fp C_????_*)
+        (fp C_????)
+        (fp SMD*_c)
+        (fp Capacitor*))
+      (fields
+        (field (name Reference) C)
+        (field (name Value) C))
+      (pins
+        (pin (num 1) (name ~) (type passive))
+        (pin (num 2) (name ~) (type passive))))
+    (libpart (lib device) (part R)
+      (description Resistor)
+      (footprints
+        (fp R_*)
+        (fp Resistor_*))
+      (fields
+        (field (name Reference) R)
+        (field (name Value) R))
+      (pins
+        (pin (num 1) (name ~) (type passive))
+        (pin (num 2) (name ~) (type passive)))))
   (libraries
     (library (logical device)
       (uri /usr/share/kicad/library/device.lib))
-    (library (logical conn)
-      (uri /usr/share/kicad/library/conn.lib))
     (library (logical rfm95w)
       (uri "/home/dwt27/git/okgo/OkGo 2/common/rfm95w.lib"))
     (library (logical swd)
@@ -1204,12 +1202,10 @@
       (uri "/home/dwt27/git/okgo/OkGo 2/ignition/relay_spst.lib"))
     (library (logical stm32f071cbt6)
       (uri "/home/dwt27/git/okgo/OkGo 2/common/stm32f071cbt6.lib"))
-    (library (logical tvs_small)
-      (uri "/home/dwt27/git/okgo/OkGo 2/common/tvs_small.lib"))
-    (library (logical testpoint)
-      (uri "/home/dwt27/git/okgo/OkGo 2/common/testpoint.lib"))
     (library (logical sma)
       (uri "/home/dwt27/git/okgo/OkGo 2/common/sma.lib"))
+    (library (logical testpoint)
+      (uri "/home/dwt27/git/okgo/OkGo 2/common/testpoint.lib"))
     (library (logical lipo_3s)
       (uri "/home/dwt27/git/okgo/OkGo 2/ignition/lipo_3s.lib"))
     (library (logical spst_small)
@@ -1219,7 +1215,11 @@
     (library (logical led_bicolour)
       (uri "/home/dwt27/git/okgo/OkGo 2/common/led_bicolour.lib"))
     (library (logical tsr-0_5)
-      (uri "/home/dwt27/git/okgo/OkGo 2/ignition/tsr-0_5.lib")))
+      (uri "/home/dwt27/git/okgo/OkGo 2/ignition/tsr-0_5.lib"))
+    (library (logical conn)
+      (uri /usr/share/kicad/library/conn.lib))
+    (library (logical tvs_small)
+      (uri "/home/dwt27/git/okgo/OkGo 2/common/tvs_small.lib")))
   (nets
     (net (code 1) (name /nRST)
       (node (ref TP103) (pin 1))

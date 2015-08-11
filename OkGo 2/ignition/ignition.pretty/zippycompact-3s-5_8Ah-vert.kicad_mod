@@ -1,0 +1,12 @@
+(module zippycompact-3s-5_8Ah (layer F.Cu) (tedit 55C9F49C)
+  (fp_text reference REF** (at 0 0.75) (layer F.SilkS) hide
+    (effects (font (size 1.5 1.5) (thickness 0.15)))
+  )
+  (fp_text value zippycompact-3s-5_8Ah (at 1 -2) (layer F.Fab)
+    (effects (font (size 1.5 1.5) (thickness 0.15)))
+  )
+  (fp_line (start -82 14) (end -82 -14) (layer F.SilkS) (width 0.15))
+  (fp_line (start 82 -14) (end 82 14) (layer F.SilkS) (width 0.15))
+  (fp_line (start 82 14) (end -82 14) (layer F.SilkS) (width 0.15))
+  (fp_line (start -82 -14) (end 82 -14) (layer F.SilkS) (width 0.15))
+)
