@@ -1,6 +1,7 @@
 Parts to find
 -------------
-Ignition case
+Ignition case:
+http://www.rapidonline.com/Mechanical-Fastenings-Fixings/1555t2gy-Watertight-Pc-Enclosure-Styled-Lid-180-X-120-X-90-Grey-30-4649
 Control: waterproof keyswitch for arming
 Batteries:
 	Control

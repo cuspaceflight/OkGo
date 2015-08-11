@@ -1,0 +1,164 @@
+Bill Of Materials
+=================
+
+Source file: ignition.xml
+Date: 2015-08-07T23:51:56.700515
+
+Parts Missing Footprints
+------------------------
+P103   CHARGE_CASE    
+SW101  20A ROCKER     
+U104   BEZEL          
+BT101  LiPO_3S        
+U102   FUSE 15A       
+U101   CLIP           
+P102   JST_XH_M       
+P101   JST_XH_F       
+D102   RED/GREEN      
+P104   BATT           
+P205   CH1_LED        
+D207   RED            
+U202   BEZEL          
+P211   CH2_LED        
+D215   GREEN          
+U204   BEZEL          
+P202   CH3_LED        
+D203   BLUE           
+U201   BEZEL          
+P208   CH4_LED        
+D211   WHITE          
+U203   BEZEL          
+
+Parts Missing Order Codes
+-------------------------
+U103   SWD             common:FTSH-105-01-F-D-K
+U105   RFM95W          common:RFM95W
+TP101  BATT            common:TESTPOINT
+TP102  GND             common:TESTPOINT
+TP104  3v3             common:TESTPOINT
+TP103  nRST            common:TESTPOINT
+P103   CHARGE_CASE     None
+P102   JST_XH_M        None
+P101   JST_XH_F        None
+P104   BATT            None
+TP205  ContCH1         common:TESTPOINT
+TP207  ContCH2         common:TESTPOINT
+TP204  ContCH3         common:TESTPOINT
+TP206  ContCH4         common:TESTPOINT
+TP202  USRelay         common:TESTPOINT
+TP203  RelaySense      common:TESTPOINT
+TP201  FiringDist      common:TESTPOINT
+R209   510R            Resistors_SMD:R_0805
+R219   510             Resistors_SMD:R_0805
+R205   430             Resistors_SMD:R_0805
+R215   430             Resistors_SMD:R_0805
+
+Inconsistent Order Codes
+------------------------
+  Farnell
+  ~~~~~~~
+    1830747: 
+      P204   CH1_LED         common:JST-PA-2
+      P210   CH2_LED         common:JST-PA-2
+      P201   CH3_LED         common:JST-PA-2
+      P207   CH4_LED         common:JST-PA-2
+    2308798: 
+      P105   BATT            ignition:PCB_SPADE
+      P206   CH1             ignition:PCB_SPADE
+      P212   CH2             ignition:PCB_SPADE
+      P203   CH3             ignition:PCB_SPADE
+      P209   CH4             ignition:PCB_SPADE
+    1830726: 
+      P205   CH1_LED         None
+      P211   CH2_LED         None
+      P202   CH3_LED         None
+      P208   CH4_LED         None
+    1603990: 
+      F101   6.3x32          ignition:6x32_fuseclip
+      U101   CLIP            None
+
+Vendor Specific BOMs
+--------------------
+  URL
+  ~~~
+http://hobbyking.com/hobbyking/store/uh_viewItem.asp?idProduct=34640,1,1x BT101 None
+
+
+  Farnell
+  ~~~~~~~
+2101329,1,1x 8MHz XTAL50x32
+1603990,2,2x 6.3x32 CLIP None 6x32_fusec
+2331823,6,6x 100k R_0805
+SC11628,5,5x BEZEL None
+2331808,4,4x 10k R_0805
+2331786,5,5x 180R R_0805
+2331783,1,1x 100R R_0805
+2331781,1,1x 75R R_0805
+2308798,5,5x CH1 CH2 BATT CH4 CH3 PCB_SP
+1829561,1,1x FUSE 15A None
+2053833,5,5x BSS138BK SOT-23
+9237682,1,1x 3k3 R_0805
+1845742,2,2x 4u7 C_0805
+1414668,2,2x 15p C_0805
+1839503,1,1x 20A ROCKER None
+1629044,5,5x 16A SPST Relay_RT314
+2452032,5,5x MBR2H200SFT1G SOD-123FL
+2432093,1,1x STM32F071CBT6 LQFP-48_7x7mm
+1830747,4,4x CH3_LED CH4_LED CH1_LED CH2
+9227792,1,1x 1u C_0805
+1830726,4,4x CH3_LED CH4_LED CH1_LED CH2
+2331796,5,5x 1k R_0805
+2362115,1,1x 100u C_1206
+1608592,1,1x SMA SMA-142-0701-801
+9237755,1,1x 10k R_0805
+2335728,1,1x RED None
+1510671,5,5x D SOD-123F
+1581207,1,1x RED/GREEN None
+2335726,1,1x GREEN None
+2368174,6,6x TVS_small R_0603
+2451539,1,1x TSR 0.5-2433 TSR-0_5
+2407344,5,5x 100n C_0805
+2407341,1,1x 10n C_0805
+1855547,1,1x WHITE None
+1855546,1,1x BLUE None
+
+
+Assembly BOM
+------------
+http://hobbyking.com/hobbyking/store/uh_viewItem.asp?idProduct=34640 1   LiPO_3S         None            BT101
+2101329              1   8MHz            XTAL50x32       Y101
+1603990              2   6.3x32,CLIP     None,6x32_fuseclip F101 U101
+2331823              6   100k            R_0805          R202 R204 R210 R214 R220 R224
+SC11628              5   BEZEL           None            U104 U201 U202 U203 U204
+2331808              4   10k             R_0805          R207 R212 R217 R222
+2331786              5   180R            R_0805          R201 R208 R213 R218 R223
+2331783              1   100R            R_0805          R104
+2331781              1   75R             R_0805          R103
+2308798              5   CH1,CH2,BATT,CH4,CH3 PCB_SPADE       P105 P203 P206 P209 P212
+1829561              1   FUSE 15A        None            U102
+2053833              5   BSS138BK        SOT-23          Q201 Q202 Q203 Q204 Q205
+9237682              1   3k3             R_0805          R102
+1845742              2   4u7             C_0805          C103 C106
+1414668              2   15p             C_0805          C111 C112
+1839503              1   20A ROCKER      None            SW101
+1629044              5   16A SPST        Relay_RT314     K201 K202 K203 K204 K205
+2452032              5   MBR2H200SFT1G   SOD-123FL       D201 D205 D209 D213 D217
+2432093              1   STM32F071CBT6   LQFP-48_7x7mm_Pitch0.5mm U106
+1830747              4   CH3_LED,CH4_LED,CH1_LED,CH2_LED JST-PA-2        P201 P204 P207 P210
+9227792              1   1u              C_0805          C110
+1830726              4   CH3_LED,CH4_LED,CH1_LED,CH2_LED None            P202 P205 P208 P211
+2331796              5   1k              R_0805          R203 R206 R211 R216 R221
+2362115              1   100u            C_1206          C108
+1608592              1   SMA             SMA-142-0701-801 P106
+9237755              1   10k             R_0805          R101
+2335728              1   RED             None            D207
+1510671              5   D               SOD-123F        D202 D204 D208 D212 D216
+1581207              1   RED/GREEN       None            D102
+2335726              1   GREEN           None            D215
+2368174              6   TVS_small       R_0603          D101 D103 D206 D210 D214 D218
+2451539              1   TSR 0.5-2433    TSR-0_5         U107
+2407344              5   100n            C_0805          C101 C102 C104 C105 C109
+2407341              1   10n             C_0805          C107
+1855547              1   WHITE           None            D211
+1855546              1   BLUE            None            D203
+
