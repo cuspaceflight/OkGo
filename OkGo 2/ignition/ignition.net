@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source "/home/dwt27/git/okgo/OkGo 2/ignition/ignition.sch")
-    (date "Tue 11 Aug 2015 23:59:24 BST")
+    (date "Wed 12 Aug 2015 01:12:31 BST")
     (tool "Eeschema 0.201507280910+6003~25~ubuntu14.04.1-product")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -906,6 +906,51 @@
       (sheetpath (names /firing/) (tstamps /559E15BF/))
       (tstamp 55AABA53)))
   (libparts
+    (libpart (lib device) (part Q_NMOS_GSD)
+      (description "Transistor N-MOSFET (general)")
+      (fields
+        (field (name Reference) Q)
+        (field (name Value) Q_NMOS_GSD))
+      (pins
+        (pin (num 1) (name G) (type input))
+        (pin (num 2) (name S) (type passive))
+        (pin (num 3) (name D) (type passive))))
+    (libpart (lib conn) (part CONN_01X04)
+      (footprints
+        (fp Pin_Header_Straight_1X04)
+        (fp Pin_Header_Angled_1X04)
+        (fp Socket_Strip_Straight_1X04)
+        (fp Socket_Strip_Angled_1X04))
+      (fields
+        (field (name Reference) P)
+        (field (name Value) CONN_01X04))
+      (pins
+        (pin (num 1) (name P1) (type passive))
+        (pin (num 2) (name P2) (type passive))
+        (pin (num 3) (name P3) (type passive))
+        (pin (num 4) (name P4) (type passive))))
+    (libpart (lib device) (part Crystal)
+      (description "Two pin crystal")
+      (footprints
+        (fp Crystal_*))
+      (fields
+        (field (name Reference) Y)
+        (field (name Value) Crystal))
+      (pins
+        (pin (num 1) (name 1) (type passive))
+        (pin (num 2) (name 2) (type passive))))
+    (libpart (lib conn) (part CONN_01X02)
+      (footprints
+        (fp Pin_Header_Straight_1X02)
+        (fp Pin_Header_Angled_1X02)
+        (fp Socket_Strip_Straight_1X02)
+        (fp Socket_Strip_Angled_1X02))
+      (fields
+        (field (name Reference) P)
+        (field (name Value) CONN_01X02))
+      (pins
+        (pin (num 1) (name P1) (type passive))
+        (pin (num 2) (name P2) (type passive))))
     (libpart (lib device) (part D)
       (description Diode)
       (footprints
@@ -920,32 +965,31 @@
       (pins
         (pin (num 1) (name K) (type passive))
         (pin (num 2) (name A) (type passive))))
-    (libpart (lib device) (part Q_NMOS_GSD)
-      (description "Transistor N-MOSFET (general)")
-      (fields
-        (field (name Reference) Q)
-        (field (name Value) Q_NMOS_GSD))
-      (pins
-        (pin (num 1) (name G) (type input))
-        (pin (num 2) (name S) (type passive))
-        (pin (num 3) (name D) (type passive))))
-    (libpart (lib device) (part Crystal)
-      (description "Two pin crystal")
+    (libpart (lib device) (part R)
+      (description Resistor)
       (footprints
-        (fp Crystal_*))
+        (fp R_*)
+        (fp Resistor_*))
       (fields
-        (field (name Reference) Y)
-        (field (name Value) Crystal))
+        (field (name Reference) R)
+        (field (name Value) R))
       (pins
-        (pin (num 1) (name 1) (type passive))
-        (pin (num 2) (name 2) (type passive))))
-    (libpart (lib device) (part FUSE)
+        (pin (num 1) (name ~) (type passive))
+        (pin (num 2) (name ~) (type passive))))
+    (libpart (lib device) (part C)
+      (description "Unpolarized capacitor")
+      (footprints
+        (fp C?)
+        (fp C_????_*)
+        (fp C_????)
+        (fp SMD*_c)
+        (fp Capacitor*))
       (fields
-        (field (name Reference) F)
-        (field (name Value) FUSE))
+        (field (name Reference) C)
+        (field (name Value) C))
       (pins
-        (pin (num 1) (name ~) (type input))
-        (pin (num 2) (name ~) (type input))))
+        (pin (num 1) (name ~) (type passive))
+        (pin (num 2) (name ~) (type passive))))
     (libpart (lib device) (part LED)
       (footprints
         (fp LED-3MM)
@@ -1126,32 +1170,6 @@
         (pin (num 1) (name +VIN) (type power_in))
         (pin (num 2) (name GND) (type passive))
         (pin (num 3) (name +VOUT) (type power_out))))
-    (libpart (lib conn) (part CONN_01X02)
-      (footprints
-        (fp Pin_Header_Straight_1X02)
-        (fp Pin_Header_Angled_1X02)
-        (fp Socket_Strip_Straight_1X02)
-        (fp Socket_Strip_Angled_1X02))
-      (fields
-        (field (name Reference) P)
-        (field (name Value) CONN_01X02))
-      (pins
-        (pin (num 1) (name P1) (type passive))
-        (pin (num 2) (name P2) (type passive))))
-    (libpart (lib conn) (part CONN_01X04)
-      (footprints
-        (fp Pin_Header_Straight_1X04)
-        (fp Pin_Header_Angled_1X04)
-        (fp Socket_Strip_Straight_1X04)
-        (fp Socket_Strip_Angled_1X04))
-      (fields
-        (field (name Reference) P)
-        (field (name Value) CONN_01X04))
-      (pins
-        (pin (num 1) (name P1) (type passive))
-        (pin (num 2) (name P2) (type passive))
-        (pin (num 3) (name P3) (type passive))
-        (pin (num 4) (name P4) (type passive))))
     (libpart (lib device) (part D_Schottky_Small)
       (description "Diode Schottky")
       (footprints
@@ -1166,34 +1184,20 @@
       (pins
         (pin (num 1) (name K) (type passive))
         (pin (num 2) (name A) (type passive))))
-    (libpart (lib device) (part C)
-      (description "Unpolarized capacitor")
-      (footprints
-        (fp C?)
-        (fp C_????_*)
-        (fp C_????)
-        (fp SMD*_c)
-        (fp Capacitor*))
+    (libpart (lib device) (part FUSE)
       (fields
-        (field (name Reference) C)
-        (field (name Value) C))
+        (field (name Reference) F)
+        (field (name Value) FUSE))
       (pins
-        (pin (num 1) (name ~) (type passive))
-        (pin (num 2) (name ~) (type passive))))
-    (libpart (lib device) (part R)
-      (description Resistor)
-      (footprints
-        (fp R_*)
-        (fp Resistor_*))
-      (fields
-        (field (name Reference) R)
-        (field (name Value) R))
-      (pins
-        (pin (num 1) (name ~) (type passive))
-        (pin (num 2) (name ~) (type passive)))))
+        (pin (num 1) (name ~) (type input))
+        (pin (num 2) (name ~) (type input)))))
   (libraries
+    (library (logical conn)
+      (uri /usr/share/kicad/library/conn.lib))
     (library (logical device)
       (uri /usr/share/kicad/library/device.lib))
+    (library (logical tvs_small)
+      (uri "/home/dwt27/git/okgo/OkGo 2/common/tvs_small.lib"))
     (library (logical rfm95w)
       (uri "/home/dwt27/git/okgo/OkGo 2/common/rfm95w.lib"))
     (library (logical swd)
@@ -1215,11 +1219,7 @@
     (library (logical led_bicolour)
       (uri "/home/dwt27/git/okgo/OkGo 2/common/led_bicolour.lib"))
     (library (logical tsr-0_5)
-      (uri "/home/dwt27/git/okgo/OkGo 2/ignition/tsr-0_5.lib"))
-    (library (logical conn)
-      (uri /usr/share/kicad/library/conn.lib))
-    (library (logical tvs_small)
-      (uri "/home/dwt27/git/okgo/OkGo 2/common/tvs_small.lib")))
+      (uri "/home/dwt27/git/okgo/OkGo 2/ignition/tsr-0_5.lib")))
   (nets
     (net (code 1) (name /nRST)
       (node (ref TP103) (pin 1))
@@ -1252,8 +1252,8 @@
       (node (ref R221) (pin 1))
       (node (ref D216) (pin 1))
       (node (ref C107) (pin 1))
-      (node (ref C105) (pin 1))
       (node (ref U106) (pin 24))
+      (node (ref C105) (pin 1))
       (node (ref R206) (pin 1))
       (node (ref U106) (pin 9))
       (node (ref D202) (pin 1)))
@@ -1313,7 +1313,7 @@
       (node (ref R215) (pin 2))
       (node (ref K202) (pin 2))
       (node (ref D209) (pin 1))
-      (node (ref D217) (pin 2))
+      (node (ref D217) (pin 1))
       (node (ref D205) (pin 1))
       (node (ref R205) (pin 2))
       (node (ref U107) (pin 1))
@@ -1565,11 +1565,11 @@
     (net (code 94) (name "Net-(P210-Pad2)")
       (node (ref P210) (pin 2))
       (node (ref R219) (pin 1)))
-    (net (code 95) (name "Net-(D217-Pad1)")
+    (net (code 95) (name "Net-(D217-Pad2)")
       (node (ref K205) (pin 1))
       (node (ref P210) (pin 1))
       (node (ref Q205) (pin 3))
-      (node (ref D217) (pin 1)))
+      (node (ref D217) (pin 2)))
     (net (code 96) (name "Net-(D209-Pad2)")
       (node (ref K203) (pin 1))
       (node (ref Q203) (pin 3))
