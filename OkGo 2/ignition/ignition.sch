@@ -364,7 +364,7 @@ P 2650 6150
 F 0 "U106" V 2700 6300 60  0000 C CNN
 F 1 "STM32F071CBT6" V 2600 6300 60  0000 C CNN
 F 2 "Housings_QFP:LQFP-48_7x7mm_Pitch0.5mm" H 2650 6350 60  0001 C CNN
-F 3 "" H 2650 6350 60  0000 C CNN
+F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00098745.pdf" H 2650 6350 60  0001 C CNN
 F 4 "2432093" H 2650 6150 60  0001 C CNN "Farnell"
 	1    2650 6150
 	1    0    0    -1  
@@ -514,25 +514,25 @@ Text Label 9700 3750 2    60   ~ 0
 UPSTREAM_RELAY
 Text Label 9700 3850 2    60   ~ 0
 RELAY_SENSE
-Text Label 5900 3150 0    60   ~ 0
+Text Label 3300 6800 0    60   ~ 0
 FIRE_CH1
-Text Label 5900 3250 0    60   ~ 0
+Text Label 3300 6700 0    60   ~ 0
 FIRE_CH2
-Text Label 5900 3350 0    60   ~ 0
+Text Label 1950 7450 2    60   ~ 0
 FIRE_CH3
-Text Label 5900 3450 0    60   ~ 0
+Text Label 1950 7350 2    60   ~ 0
 FIRE_CH4
-Text Label 5900 3650 0    60   ~ 0
+Text Label 1950 5950 2    60   ~ 0
 CONT_CH1
-Text Label 5900 3750 0    60   ~ 0
+Text Label 3300 6600 0    60   ~ 0
 CONT_CH2
-Text Label 5900 3850 0    60   ~ 0
+Text Label 3300 6500 0    60   ~ 0
 CONT_CH3
-Text Label 5900 3950 0    60   ~ 0
+Text Label 3300 6400 0    60   ~ 0
 CONT_CH4
-Text Label 5900 4150 0    60   ~ 0
+Text Label 3300 6900 0    60   ~ 0
 UPSTREAM_RELAY
-Text Label 5900 4250 0    60   ~ 0
+Text Label 1950 6050 2    60   ~ 0
 RELAY_SENSE
 Text Label 3350 5600 0    60   ~ 0
 SWDIO
@@ -546,7 +546,7 @@ Text Label 10600 1550 0    60   ~ 0
 nRST
 Text Label 5725 1650 0    60   ~ 0
 BATT_MON
-Text Label 5900 2950 0    60   ~ 0
+Text Label 3300 5900 0    60   ~ 0
 BATT_MON
 Text Label 10050 5150 0    60   ~ 0
 RFM_DIO0
@@ -570,27 +570,27 @@ Text Label 8750 5950 2    60   ~ 0
 RFM_NSS
 Text Label 8750 6050 2    60   ~ 0
 RFM_RESET
-Text Label 5900 4450 0    60   ~ 0
+Text Label 3300 4900 0    60   ~ 0
 RFM_DIO0
-Text Label 5900 4550 0    60   ~ 0
+Text Label 3300 5000 0    60   ~ 0
 RFM_DIO1
-Text Label 5900 4650 0    60   ~ 0
+Text Label 3300 5100 0    60   ~ 0
 RFM_DIO2
-Text Label 5900 4750 0    60   ~ 0
+Text Label 1950 6750 2    60   ~ 0
 RFM_DIO3
-Text Label 5900 4850 0    60   ~ 0
+Text Label 1950 6850 2    60   ~ 0
 RFM_DIO4
-Text Label 5900 4950 0    60   ~ 0
+Text Label 1950 6650 2    60   ~ 0
 RFM_DIO5
-Text Label 5900 5150 0    60   ~ 0
+Text Label 3300 7300 0    60   ~ 0
 RFM_NSS
-Text Label 5900 5250 0    60   ~ 0
+Text Label 1950 6250 2    60   ~ 0
 RFM_SCK
-Text Label 5900 5350 0    60   ~ 0
+Text Label 1950 6350 2    60   ~ 0
 RFM_MISO
-Text Label 5900 5450 0    60   ~ 0
+Text Label 1950 6450 2    60   ~ 0
 RFM_MOSI
-Text Label 5900 5550 0    60   ~ 0
+Text Label 1950 6550 2    60   ~ 0
 RFM_RESET
 Text Label 4200 4350 0    60   ~ 0
 nRST
@@ -745,9 +745,9 @@ Text Label 2075 2700 2    60   ~ 0
 ARM_LED
 Text Label 2075 2900 2    60   ~ 0
 DISARM_LED
-Text Label 5900 2850 0    60   ~ 0
+Text Label 3300 7000 0    60   ~ 0
 ARM_LED
-Text Label 5900 2750 0    60   ~ 0
+Text Label 3300 7100 0    60   ~ 0
 DISARM_LED
 $Comp
 L PART U104

@@ -49,6 +49,27 @@ USART locations:
 
 ADC locations: pin 10-19 inc
 
+SPI locations:
+SPI1_NSS	14
+SPI1_SCK 	15
+SPI1_MISO	16
+SPI1_MOSI	17
+
+SPI1_NSS	38
+SPI1_SCK	39
+SPI1_MISO	40
+SPI1_MOSI	41
+
+SPI2_NSS	25
+SPI2_SCK 	21
+SPI2_MISO	27
+SPI2_MOSI	28
+
+SPI2_NSS	46
+SPI2_SCK	26
+SPI2_MISO	27
+SPI2_MOSI	28
+
 
 Casing and mechanics
 ---------------------
