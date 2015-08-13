@@ -570,17 +570,17 @@ Text Label 8750 5950 2    60   ~ 0
 RFM_NSS
 Text Label 8750 6050 2    60   ~ 0
 RFM_RESET
-Text Label 3300 4900 0    60   ~ 0
+Text Label 3300 5100 0    60   ~ 0
 RFM_DIO0
 Text Label 3300 5000 0    60   ~ 0
 RFM_DIO1
-Text Label 3300 5100 0    60   ~ 0
+Text Label 3300 4900 0    60   ~ 0
 RFM_DIO2
-Text Label 1950 6750 2    60   ~ 0
+Text Label 1950 6550 2    60   ~ 0
 RFM_DIO3
-Text Label 1950 6850 2    60   ~ 0
-RFM_DIO4
 Text Label 1950 6650 2    60   ~ 0
+RFM_DIO4
+Text Label 3300 7000 0    60   ~ 0
 RFM_DIO5
 Text Label 3300 7300 0    60   ~ 0
 RFM_NSS
@@ -590,7 +590,7 @@ Text Label 1950 6350 2    60   ~ 0
 RFM_MISO
 Text Label 1950 6450 2    60   ~ 0
 RFM_MOSI
-Text Label 1950 6550 2    60   ~ 0
+Text Label 3300 7100 0    60   ~ 0
 RFM_RESET
 Text Label 4200 4350 0    60   ~ 0
 nRST
@@ -745,9 +745,9 @@ Text Label 2075 2700 2    60   ~ 0
 ARM_LED
 Text Label 2075 2900 2    60   ~ 0
 DISARM_LED
-Text Label 3300 7000 0    60   ~ 0
+Text Label 1950 6750 2    60   ~ 0
 ARM_LED
-Text Label 3300 7100 0    60   ~ 0
+Text Label 1950 6850 2    60   ~ 0
 DISARM_LED
 $Comp
 L PART U104
