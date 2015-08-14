@@ -1,9 +1,9 @@
-(kicad_pcb (version 4) (host pcbnew 0.201507280910+6003~25~ubuntu14.04.1-product)
+(kicad_pcb (version 4) (host pcbnew 0.201508140901+6091~28~ubuntu14.04.1-product)
 
   (general
     (links 172)
     (no_connects 0)
-    (area 131.781381 64.915 227.315572 132.361)
+    (area 132.479 64.915 226.087 132.361)
     (thickness 1.6)
     (drawings 28)
     (tracks 899)
@@ -2540,6 +2540,8 @@
   (segment (start 159.004 121.666) (end 159.004 121.6) (width 0.254) (layer F.Cu) (net 1) (tstamp 55BD4BBD))
   (segment (start 222.599 89.821) (end 222.758 89.662) (width 0.254) (layer F.Cu) (net 1) (tstamp 55BD536C))
   (segment (start 222.758 89.662) (end 223.012 89.728) (width 0.254) (layer F.Cu) (net 1) (tstamp 55BD536E))
+  (via (at 153.924 101.346) (size 0.762) (drill 0.4064) (layers F.Cu B.Cu) (net 2))
+  (segment (start 152.4 101.346) (end 153.924 101.346) (width 0.254) (layer F.Cu) (net 2))
   (segment (start 168.438 98.52) (end 168.438 99.604) (width 0.254) (layer F.Cu) (net 2))
   (segment (start 169.938 99.81) (end 169.926 99.822) (width 0.254) (layer F.Cu) (net 2) (tstamp 55BD5C1E))
   (via (at 169.926 99.822) (size 0.762) (drill 0.4064) (layers F.Cu B.Cu) (net 2))
@@ -2571,8 +2573,6 @@
   (segment (start 166.338 103.62) (end 167.144 103.62) (width 0.254) (layer F.Cu) (net 2))
   (via (at 167.64 103.124) (size 0.762) (drill 0.4064) (layers F.Cu B.Cu) (net 2))
   (segment (start 167.144 103.62) (end 167.64 103.124) (width 0.254) (layer F.Cu) (net 2) (tstamp 55BD5BC6))
-  (segment (start 152.4 101.346) (end 153.924 101.346) (width 0.254) (layer F.Cu) (net 2))
-  (via (at 153.924 101.346) (size 0.762) (drill 0.4064) (layers F.Cu B.Cu) (net 2))
   (segment (start 152.4 102.378) (end 152.4 101.346) (width 0.254) (layer F.Cu) (net 2))
   (segment (start 152.4 101.346) (end 152.4 100.33) (width 0.254) (layer F.Cu) (net 2) (tstamp 55BD5A77))
   (segment (start 152.4 100.33) (end 152.4 100.314) (width 0.254) (layer F.Cu) (net 2) (tstamp 55BD5A76))
@@ -4577,6 +4577,16 @@
         (xy 167.43 95.858) (xy 168.232 95.858) (xy 168.232 94.134) (xy 167.43 94.134) (xy 167.278 94.286)
         (xy 167.191877 94.286) (xy 167.191877 93.355) (xy 167.170958 93.243827) (xy 167.131493 93.182496) (xy 167.135829 93.176007)
         (xy 167.178 92.964) (xy 167.178 91.58187)
+      )
+    )
+    (filled_polygon
+      (pts
+        (xy 162.641 100.075995) (xy 162.640999 100.076) (xy 162.673503 100.239406) (xy 162.766065 100.377935) (xy 164.081131 101.693)
+        (xy 161.224869 101.693) (xy 158.289935 98.758065) (xy 158.151406 98.665503) (xy 157.988 98.632999) (xy 157.987995 98.633)
+        (xy 157.257877 98.633) (xy 157.257877 97.964) (xy 157.236958 97.852827) (xy 157.171255 97.750721) (xy 157.110194 97.709)
+        (xy 158.241995 97.709) (xy 158.242 97.709001) (xy 158.405406 97.676497) (xy 158.543935 97.583935) (xy 162.353932 93.773937)
+        (xy 162.353935 93.773935) (xy 162.446497 93.635406) (xy 162.451054 93.612497) (xy 162.479001 93.472) (xy 162.479 93.471995)
+        (xy 162.479 93.13256) (xy 162.583173 93.112958) (xy 162.641 93.075748)
       )
     )
     (filled_polygon
