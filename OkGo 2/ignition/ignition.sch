@@ -363,7 +363,7 @@ U 1 1 559C32F0
 P 2650 6150
 F 0 "U106" V 2700 6300 60  0000 C CNN
 F 1 "STM32F071CBT6" V 2600 6300 60  0000 C CNN
-F 2 "Housings_QFP:LQFP-48_7x7mm_Pitch0.5mm" H 2650 6350 60  0001 C CNN
+F 2 "common:LQFP48_ST" H 2650 6350 60  0001 C CNN
 F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00098745.pdf" H 2650 6350 60  0001 C CNN
 F 4 "2432093" H 2650 6150 60  0001 C CNN "Farnell"
 	1    2650 6150
@@ -679,7 +679,7 @@ P 4225 1250
 F 0 "F101" H 4200 1375 50  0000 C CNN
 F 1 "6.3x32" H 4100 1200 50  0000 C CNN
 F 2 "ignition:6x32_fuseclip" H 4225 1250 60  0001 C CNN
-F 3 "" H 4225 1250 60  0000 C CNN
+F 3 "http://www.littelfuse.com/~/media/electronics/datasheets/fuse_clips/littelfuse_fuse_clip_102_122_datasheet.pdf.pdf" H 4225 1250 60  0001 C CNN
 F 4 "1603990" H 4225 1250 60  0001 C CNN "Farnell"
 	1    4225 1250
 	1    0    0    -1  
