@@ -1,4 +1,4 @@
-update=Tue 28 Jul 2015 15:24:10 BST
+update=Wed 19 Aug 2015 21:59:46 BST
 version=1
 last_client=kicad
 [pcbnew]
@@ -72,3 +72,4 @@ LibName40=push_illum
 LibName41=push_illum_straight
 LibName42=mej2s0305sc
 LibName43=led_bicolour
+LibName44=pololu_s7v7f5
