@@ -1,4 +1,4 @@
-(kicad_pcb (version 4) (host pcbnew 0.201507280910+6003~25~ubuntu14.04.1-product)
+(kicad_pcb (version 4) (host pcbnew 0.201508100901+6080~28~ubuntu14.04.1-product)
 
   (general
     (links 245)
@@ -14,8 +14,8 @@
 
   (page A4)
   (layers
-    (0 F.Cu signal hide)
-    (31 B.Cu signal)
+    (0 F.Cu signal)
+    (31 B.Cu signal hide)
     (32 B.Adhes user)
     (33 F.Adhes user)
     (34 B.Paste user)
@@ -37,7 +37,7 @@
   )
 
   (setup
-    (last_trace_width 3.175)
+    (last_trace_width 0.254)
     (user_trace_width 0.508)
     (user_trace_width 0.762)
     (user_trace_width 1.016)
@@ -5749,7 +5749,7 @@
   (gr_text "CONT\nCH4" (at 192.405 90.043) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.2)))
   )
-  (gr_text "CONT\nCH4" (at 174.117 103.759) (layer F.SilkS)
+  (gr_text "CONT\nCH3" (at 174.117 103.759) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.2)))
   )
   (gr_text "CH4 LED" (at 180.594 105.283) (layer F.SilkS)
@@ -5767,7 +5767,7 @@
   (gr_text "CONT\nCH1" (at 145.542 103.886) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.2)))
   )
-  (gr_text "CH1\nLED" (at 138.049 104.394) (layer F.SilkS)
+  (gr_text "CH1 LED" (at 138 103.7) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.2)))
   )
   (gr_text "RELAY\nSENSE" (at 127 102.108) (layer F.SilkS)
