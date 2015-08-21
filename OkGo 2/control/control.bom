@@ -2,62 +2,63 @@ Bill Of Materials
 =================
 
 Source file: control.xml
-Date: 2015-07-18T17:41:33.343428
+Date: 2015-08-21T12:08:28.282910
 
 Parts Missing Footprints
 ------------------------
 BT101  LiPO_1S        
-SW102  KEYSWITCH      
-P104   KEYSW          
-P101   BATT           
-SW101  LATCHING PUSH  
-D102   RED/GREEN      
-U103   BEZEL          
-U101   FUSE 1A        
+P103   BATT_CASE      
+SW101  KEYSWITCH      
+P101   KEYSW          
+P104   BATT           
+SW102  ROCKER         
+U104   BEZEL          
 P107   ARM_LED        
-P202   CH1            
+D102   RED/GREEN      
+P109   POWER_SW       
+P203   CH1            
 U201   RED            
-P206   CH2            
-U203   GREEN          
-P204   CH3            
-U202   BLUE           
+P204   CH2            
+U202   GREEN          
+P207   CH3            
+U203   BLUE           
 P208   CH4            
 U204   WHITE          
 
 Parts Missing Order Codes
 -------------------------
-U108   SWD             common:FTSH-105-01-F-D-K
-U104   LCD_HD44780     Pin_Headers:Pin_Header_Straight_1x16
-U106   RFM95W          common:RFM95W
+U101   SWD             common:FTSH-105-01-F-D-K
 TP102  3v3             common:TESTPOINT
-TP101  BATT            common:TESTPOINT
-TP103  GND             common:TESTPOINT
-TP104  nRST            common:TESTPOINT
-SW102  KEYSWITCH       None
+TP101  nRST            common:TESTPOINT
+P103   BATT_CASE       None
+SW101  KEYSWITCH       None
+U103   pololu_S7V7F5   control:polulo_S7V7F5
 
 Inconsistent Order Codes
 ------------------------
   Farnell
   ~~~~~~~
     1830747: 
-      P103   BATT_CASE       common:JST-PA-2
-      P105   KEYSW           common:JST-PA-2
-      P102   BATT            common:JST-PA-2
+      P102   KEYSW           common:JST-PA-2
+      P105   BATT            common:JST-PA-2
+      P106   ARM_LED         common:JST-PA-2
+      P110   POWER_SW        common:JST-PA-2
     1830729: 
-      P107   ARM_LED         None
-      P202   CH1             None
-      P206   CH2             None
-      P204   CH3             None
+      P203   CH1             None
+      P204   CH2             None
+      P207   CH3             None
       P208   CH4             None
     1830726: 
-      P104   KEYSW           None
-      P101   BATT            None
+      P101   KEYSW           None
+      P104   BATT            None
+      P107   ARM_LED         None
+      P109   POWER_SW        None
     1830749: 
-      P106   ARM_LED         common:JST-PA-4
+      P111   SERIAL          common:JST-PA-4
       P201   CH1             common:JST-PA-4
-      P205   CH2             common:JST-PA-4
-      P203   CH3             common:JST-PA-4
-      P207   CH4             common:JST-PA-4
+      P202   CH2             common:JST-PA-4
+      P205   CH3             common:JST-PA-4
+      P206   CH4             common:JST-PA-4
 
 Vendor Specific BOMs
 --------------------
@@ -66,41 +67,49 @@ Vendor Specific BOMs
 https://www.coolcomponents.co.uk/lithium-polymer-battery-2000mah.html,1,1x BT101 None
 
 
+  RS
+  ~~
+706-3979,1,,1x--ROCKER--None--SW102
+
+
   Farnell
   ~~~~~~~
 2101329,1,1x 8MHz XTAL50x32
 2362106,2,2x 2u2 C_0805
+2290331,1,1x GREEN LED-0805
 2331823,4,4x 100k R_0805
 SC11628,1,1x BEZEL None
 2067775,1,1x ADP3335 MSOP-8_3x3mm_Pitch0
-2331808,5,5x 10k R_0805
-2331786,4,4x 180R R_0805
+2331808,9,9x 10k R_0805
+1294879,1,1x PTC polyfuse0805
 2331783,1,1x 100R R_0805
+2331781,1,1x 75R R_0805
+RF00490,1,1x RFM95W RFM95W
 SW04850,1,1x WHITE None
 2053833,4,4x BSS138BK SOT-23
 9237682,1,1x 3k3 R_0805
-1830729,5,5x CH1 CH2 CH3 CH4 ARM_LED Non
 1845742,2,2x 4u7 C_0805
 1414668,2,2x 15p C_0805
-FF02178,1,1x FUSE 1A None
-2432093,1,1x STM32F071CBT6 LQFP-48_7x7mm
-1830747,3,3x BATT KEYSW BATT_CASE JST-PA
-1162740,1,1x 5x20 5x20_clip
+2432093,1,1x STM32F071CBT6 LQFP48_ST
+1830747,4,4x BATT POWER_SW KEYSW ARM_LED
+9227881,1,1x 10u C_1206
 9227792,1,1x 1u C_0805
-1830726,2,2x BATT KEYSW None
-2366449,1,1x MEU1S0303ZC meu1
-2362115,1,1x 100u C_1206
-1608592,1,1x SMA SMA-142-0701-801
-9237755,1,1x 10k C_0805
-1830749,5,5x CH1 CH2 CH3 CH4 ARM_LED JST
-2449761,1,1x RED/GREEN None
-2368174,2,2x TVS_small R_0603
+1830726,4,4x BATT POWER_SW KEYSW ARM_LED
+2331786,4,4x 180R R_0805
+1830729,4,4x CH1 CH2 CH3 CH4 None
+2342651,1,1x LCD_HD44780 LCD_MC42004A6W
+1830749,5,5x CH1 SERIAL CH3 CH4 CH2 JST-
 9354824,1,1x 20k LIN bourns3386G
+2099241,2,2x RED LED-0805
+9237755,1,1x 10k R_0805
+1342651,1,1x SMA SMA-142-0701-801
+1581207,1,1x RED/GREEN None
+2368174,5,5x TVS_small R_0603
+2331796,4,4x 1k R_0805
 2407344,5,5x 100n C_0805
 2407341,1,1x 10n C_0805
-2332055,2,2x 68R R_0805
+2099242,1,1x YELLOW LED-0805
 SW04847,1,1x RED None
-SW02719,1,1x LATCHING PUSH None
 SW04849,1,1x BLUE None
 SW04848,1,1x GREEN None
 
@@ -108,39 +117,43 @@ SW04848,1,1x GREEN None
 Assembly BOM
 ------------
 https://www.coolcomponents.co.uk/lithium-polymer-battery-2000mah.html 1   LiPO_1S         None            BT101
+706-3979             1   ROCKER          None            SW102
 2101329              1   8MHz            XTAL50x32       Y101
-2362106              2   2u2             C_0805          C101 C102
-2331823              4   100k            R_0805          R205 R206 R211 R212
-SC11628              1   BEZEL           None            U103
-2067775              1   ADP3335         MSOP-8_3x3mm_Pitch0.65mm U102
-2331808              5   10k             R_0805          R102 R201 R202 R207 R208
-2331786              4   180R            R_0805          R203 R204 R209 R210
-2331783              1   100R            R_0805          R106
+2362106              2   2u2             C_0805          C113 C114
+2290331              1   GREEN           LED-0805        D108
+2331823              4   100k            R_0805          R203 R204 R209 R210
+SC11628              1   BEZEL           None            U104
+2067775              1   ADP3335         MSOP-8_3x3mm_Pitch0.65mm U107
+2331808              9   10k             R_0805          R101 R107 R108 R109 R110 R205 R206 R211 R212
+1294879              1   PTC             polyfuse0805    F101
+2331783              1   100R            R_0805          R102
+2331781              1   75R             R_0805          R103
+RF00490              1   RFM95W          RFM95W          U105
 SW04850              1   WHITE           None            U204
 2053833              4   BSS138BK        SOT-23          Q201 Q202 Q203 Q204
-9237682              1   3k3             R_0805          R101
-1830729              5   CH1,CH2,CH3,CH4,ARM_LED None            P107 P202 P204 P206 P208
-1845742              2   4u7             C_0805          C105 C108
-1414668              2   15p             C_0805          C111 C112
-FF02178              1   FUSE 1A         None            U101
-2432093              1   STM32F071CBT6   LQFP-48_7x7mm_Pitch0.5mm U105
-1830747              3   BATT,KEYSW,BATT_CASE JST-PA-2        P102 P103 P105
-1162740              1   5x20            5x20_clip       F101
-9227792              1   1u              C_0805          C110
-1830726              2   BATT,KEYSW      None            P101 P104
-2366449              1   MEU1S0303ZC     meu1            U107
-2362115              1   100u            C_1206          C113
-1608592              1   SMA             SMA-142-0701-801 P108
-9237755              1   10k             C_0805          R103
-1830749              5   CH1,CH2,CH3,CH4,ARM_LED JST-PA-4        P106 P201 P203 P205 P207
-2449761              1   RED/GREEN       None            D102
-2368174              2   TVS_small       R_0603          D101 D103
+9237682              1   3k3             R_0805          R105
+1845742              2   4u7             C_0805          C103 C105
+1414668              2   15p             C_0805          C109 C110
+2432093              1   STM32F071CBT6   LQFP48_ST       U102
+1830747              4   BATT,POWER_SW,KEYSW,ARM_LED JST-PA-2        P102 P105 P106 P110
+9227881              1   10u             C_1206          C111
+9227792              1   1u              C_0805          C107
+1830726              4   BATT,POWER_SW,KEYSW,ARM_LED None            P101 P104 P107 P109
+2331786              4   180R            R_0805          R201 R202 R207 R208
+1830729              4   CH1,CH2,CH3,CH4 None            P203 P204 P207 P208
+2342651              1   LCD_HD44780     LCD_MC42004A6W  U106
+1830749              5   CH1,SERIAL,CH3,CH4,CH2 JST-PA-4        P111 P201 P202 P205 P206
 9354824              1   20k LIN         bourns3386G     RV101
-2407344              5   100n            C_0805          C103 C104 C106 C107 C114
-2407341              1   10n             C_0805          C109
-2332055              2   68R             R_0805          R104 R105
+2099241              2   RED             LED-0805        D107 D110
+9237755              1   10k             R_0805          R106
+1342651              1   SMA             SMA-142-0701-801 P108
+1581207              1   RED/GREEN       None            D102
+2368174              5   TVS_small       R_0603          D101 D103 D104 D105 D106
+2331796              4   1k              R_0805          R104 R111 R112 R113
+2407344              5   100n            C_0805          C101 C102 C104 C108 C112
+2407341              1   10n             C_0805          C106
+2099242              1   YELLOW          LED-0805        D109
 SW04847              1   RED             None            U201
-SW02719              1   LATCHING PUSH   None            SW101
-SW04849              1   BLUE            None            U202
-SW04848              1   GREEN           None            U203
+SW04849              1   BLUE            None            U203
+SW04848              1   GREEN           None            U202
 
