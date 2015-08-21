@@ -1,0 +1,80 @@
+Control's Tasks
+---------------
+(in no particular order)
+
+* Read battery ADC
+* Retrieve new ignition packet and handle:
+	* Check ID and consider missed packets/timeout
+	* Store RSSI
+	* Store batt voltage
+	* Store cont resistances
+	* Consider status and error flags
+* Observe arm keyswitch and update armed status
+* Update armed LED and channel LEDs
+* Update display:
+	* Ignition voltage and RSSI and status/armed
+	* Control voltage and RSSI and status/armed
+	* Channel continuities
+	* Warnings or comments
+* Send a radio packet (at some interval)
+	* Sequential ID, arm+fire+config from state, checksum
+
+Control's Control Flow
+----------------------
+Setup:
+	* Blank out internal state
+	* Read config from flash
+	* Initialise radio and its freq
+	* Setup ADCs to scan-read
+	* Setup interrupts for radio rx
+Main loop:
+    * Check for new radio packet and retrieve+store packet as necessary.
+	* Consider stored radio packet error/status
+	* Observe arm keyswitch and update armed state
+	* Update arm LED, channel LEDs
+	* Update display (reads batt ADC)
+	* Send a radio packet
+
+Ignition's Tasks
+----------------
+* Read ADCs: battery, 4x continuity
+* Retrieve new control packet and handle:
+	* Store ID
+	* Store RSSI
+	* Update arm and firing states
+* Consider relay stuck-ness and update status/error as necessary
+* Update piezo and arm led and arm state and firing state
+* Send a radio packet:
+	* Replay ID from state, give RSSI and voltage and continuities
+	* Error/status states
+	* Checksum
+
+Ignition's Control Flow
+-----------------------
+Setup:
+	* Blank out internal state
+	* Read config from flash
+	* Initialise radio and its freq
+	* Setup ADCs to scan-read
+	* Setup interrupts for radio rx
+Main loop:
+    * Check for new radio packet and retrieve+store packet as necessary.
+	* Update arm and firing states from stored radio packet
+	* Consider relay stuckness and status / error states (reads stuck ADC)
+	* Update piezo and arm led and arm state and firing state
+	* Send a radio packet (reads cont and batt ADCs)
+
+Notes
+-----
+No need to worry about blocking on ADCs or interrupting upon finishing -
+hopefully I can setup the ADCs to scan-read all relevant values and just
+retrieve values as required.  Might not be optimal for power consumption but
+keeps things easy.
+
+Don't really want to do all the radio SPI chatting in an interrupt handler, so
+there's no point in interrupting on packet RX.  Just make sure the main loop is
+quick enough compared to packet rates that I don't miss packets.
+
+For storing configuration (and auth key one day) one just uses the flash.
+Reading from it is trivial.  It can be written by the core itself after some
+suitable memory unlocking magic, or possibly by the programmer.

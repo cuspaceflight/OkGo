@@ -1,0 +1,21 @@
+General structure: Control sends packets to Ignition at fixed intervals or in response to events.  Ignition actions the requests and replies with status information.  Control will send a low rate of poll packets when disarmed and increase the rate then armed.
+
+Each Control packet will include a sequential identifier which Ignition will include in its reply, such that Control can tell if packets get lost.  Each Ignition reply also includes its observed RSSI so that Control can display both RSSIs in case of asymmetry (for example due to interference)
+
+Control packet structure
+------------------------
+Packet ID (byte)
+Command (byte): Arm, CH1 fire, CH2 fire, CH3 fire, CH4 fire, buzz volume
+Checksum: CRC16 (2 byte)
+
+Ignition packet structure
+-------------------------
+Packet ID (byte)
+RSSI byte
+Voltage byte
+Status byte (armed, errors (relays stuck), CH1-4 firing)
+CH1 cont
+Ch2 cont
+Ch3 cont
+CH4 cont
+Checksum CRC16
