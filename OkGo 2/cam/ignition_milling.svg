@@ -24,15 +24,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="475.87558"
-     inkscape:cy="244.37889"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="354.61279"
+     inkscape:cy="250.53995"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1598"
-     inkscape:window-height="1179"
-     inkscape:window-x="1920"
+     inkscape:window-width="1278"
+     inkscape:window-height="779"
+     inkscape:window-x="0"
      inkscape:window-y="19"
      inkscape:window-maximized="0" />
   <metadata
@@ -240,14 +240,14 @@
          sodipodi:type="arc" />
     </g>
     <rect
-       style="fill:none;fill-opacity:1;stroke:#ffff00;stroke-opacity:1"
+       style="fill:none;stroke:#ffff00;stroke-width:1.03800726;stroke-opacity:1"
        id="rect4239-6-3-3"
-       width="97.795273"
-       height="128.97638"
-       x="284.87585"
-       y="730.7467"
-       rx="13.110236"
-       ry="13.110236" />
+       width="101.7179"
+       height="133.60767"
+       x="282.91455"
+       y="728.43103"
+       rx="13.636096"
+       ry="13.580998" />
     <rect
        style="fill:none;fill-opacity:1;stroke:#ff0000;stroke-opacity:1"
        id="rect4237-8-0-6"
