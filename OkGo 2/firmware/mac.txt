@@ -1,0 +1,18 @@
+Crypto code from https://tls.mbed.org/sha-256-source-code namely SHA256
+
+Control and ignition store the same secret 512 bit key in flash.
+
+All packets sent have an HMAC-SHA256 authentication token attached, which certifies that the message was written by the appropriate box.
+
+To prevent replays, a nonce-challenge-response system is used.
+
+Each box stores a counter.  Let's say ignition stores this counter.  Any time Ignition sends a packet it includes the current value of its counter.  Control's packets to ignition include this counter value.  If Ignition receives a HMAC-valid packet containing its current counter value, it knows this packet is legitimate and not replayed.  It increments its counter, such that this packet may never be used again.  If the packet did not contain the current counter value it is ignored and a response is sent containing the correct counter value.
+
+When control receives a packet from ignition it stores ignition's counter value and includes this in the next packet transmitted to control.
+
+The same is done in reverse.
+
+The counter value is 32 bits.  The higher 16 bits are initialised with a nonce per boot.  Ignition sets this from the lower 16 bits of the hardware counter upon receiving its first packet from control.  Control sets this from the lower 16 bits of the hardware counter upon a radio start (see below).  The lower 16 bits of the counter are incremented as above when a valid (HMAC and non-replayed) packet is received.  It mustn't be incremented upon potentially replayed packet otherwise an adversary could force the counter to a replayable value.  Upon lower 16 bit overflow of the counter, the upper 16 bits is incremented.
+
+Control's radio start works like:
+When control is turned on it displays a menu with CH2 to change buzzer volume, CH3 to change radio frequency and CH4 to start the radio for continuity and status polling.  CH4 press time seeds the counter higher 16 bits.  Alternatively, turning the arm keyswitch also seeds the counter's higher 16 bits and starts the radio.
