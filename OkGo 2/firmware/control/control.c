@@ -47,6 +47,9 @@ void control_init(void)
 
     /* Setup ADC to scan-read battery voltage */
     control_adc_setup();
+
+    /* Initialise display */
+    lcd_init();
 }
 
 void control_adc_setup(void)
@@ -63,6 +66,14 @@ int main(void)
 {
     uint16_t thetime=0; /* TODO! */
     control_init();
+
+    lcd_puts("Hello, world!");
+    lcd_cursor_pos(1, 0);
+    lcd_puts("Second line!");
+    lcd_cursor_pos(2, 0);
+    lcd_puts("Third line!");
+    lcd_cursor_pos(3, 1);
+    lcd_puts("Indent! :o");
 
     while(1)
     {
@@ -92,10 +103,10 @@ int main(void)
         }*/
         gpio_set(LED_GREEN_PORT, LED_GREEN);
         gpio_clear(LED_YELLOW_PORT, LED_YELLOW);
-        delay_ms(200);
+        delay_ms(1000);
         gpio_clear(LED_GREEN_PORT, LED_GREEN);
         gpio_set(LED_YELLOW_PORT, LED_YELLOW);
-        delay_ms(200);
+        delay_ms(1000);
     }
     
     return 0;

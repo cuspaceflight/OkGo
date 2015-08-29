@@ -2,7 +2,7 @@
 #define CONTROL_PINS_H
 
 /* Clock GPIOs, set pin modes (except radio and display) */
-void control_pins_init();
+void control_pins_init(void);
 
 /* LEDs */
 #define LED_GREEN       GPIO12

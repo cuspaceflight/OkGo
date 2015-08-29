@@ -21,8 +21,8 @@ void lcd_clear(void);
 /* A variety of common runtime config options */
 void lcd_config(bool display_active, bool cursor_on, bool cursor_flash);
 
-/* Move the LCD cursor to top-left */
-void lcd_cursor_home(void);
+/* Move the LCD cursor to specified row and col, counting from top left 0,0 */
+void lcd_cursor_pos(uint8_t row, uint8_t col);
 
 /* Write a single character to the LCD */
 void lcd_putc(char c);
