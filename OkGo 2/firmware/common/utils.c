@@ -26,3 +26,13 @@ void gpio_set_bool(uint32_t port, uint32_t pin, bool value)
     else
         gpio_clear(port, pin);
 }
+
+/* Get a boolean value from a GPIO */
+bool gpio_get_bool(uint32_t port, uint32_t pin)
+{
+    if(gpio_get(port, pin) != 0x00)
+        return true;
+    else
+        return false;
+}
+

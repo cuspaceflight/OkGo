@@ -15,6 +15,10 @@ void control_pins_init(void);
 #define LED_DISARM      GPIO9
 #define LED_DISARM_PORT GPIOA
 
+/* Keyswitch */
+#define SW_KEY          GPIO10
+#define SW_KEY_PORT     GPIOA
+
 /* Channels - switches and LEDs */
 #define LED_CH1         GPIO0
 #define LED_CH1_PORT    GPIOB

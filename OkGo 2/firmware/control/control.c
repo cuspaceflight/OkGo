@@ -101,12 +101,9 @@ int main(void)
             packet_len = control_radio_make_packet(command, tx_buf, TX_BUF_LEN);
             rfm_transmit(tx_buf, packet_len, PA_BOOST);
         }*/
-        gpio_set(LED_GREEN_PORT, LED_GREEN);
-        gpio_clear(LED_YELLOW_PORT, LED_YELLOW);
-        delay_ms(1000);
-        gpio_clear(LED_GREEN_PORT, LED_GREEN);
-        gpio_set(LED_YELLOW_PORT, LED_YELLOW);
-        delay_ms(1000);
+        bool key_armed = !gpio_get_bool(SW_KEY_PORT, SW_KEY);
+        gpio_set_bool(LED_ARM_PORT, LED_ARM, key_armed);
+        gpio_set_bool(LED_DISARM_PORT, LED_DISARM, !key_armed);
     }
     
     return 0;

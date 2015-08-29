@@ -14,4 +14,7 @@ void delay_ms(const uint32_t delay);
 /* Set a GPIO to a boolean value */
 void gpio_set_bool(uint32_t port, uint32_t pin, bool value);
 
+/* Get a boolean value from a GPIO */
+bool gpio_get_bool(uint32_t port, uint32_t pin);
+
 #endif
