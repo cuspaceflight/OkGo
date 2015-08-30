@@ -104,6 +104,25 @@ int main(void)
         bool key_armed = !gpio_get_bool(SW_KEY_PORT, SW_KEY);
         gpio_set_bool(LED_ARM_PORT, LED_ARM, key_armed);
         gpio_set_bool(LED_DISARM_PORT, LED_DISARM, !key_armed);
+        
+        if(key_armed)
+        {
+            gpio_set_bool(LED_CH1_PORT, LED_CH1,
+                gpio_get_bool(SW_CH1_PORT, SW_CH1));
+            gpio_set_bool(LED_CH2_PORT, LED_CH2,
+                gpio_get_bool(SW_CH2_PORT, SW_CH2));
+            gpio_set_bool(LED_CH3_PORT, LED_CH3,
+                gpio_get_bool(SW_CH3_PORT, SW_CH3));
+            gpio_set_bool(LED_CH4_PORT, LED_CH4,
+                gpio_get_bool(SW_CH4_PORT, SW_CH4));
+        }
+        else
+        {
+            gpio_clear(LED_CH1_PORT, LED_CH1);
+            gpio_clear(LED_CH2_PORT, LED_CH2);
+            gpio_clear(LED_CH3_PORT, LED_CH3);
+            gpio_clear(LED_CH4_PORT, LED_CH4);
+        }
     }
     
     return 0;

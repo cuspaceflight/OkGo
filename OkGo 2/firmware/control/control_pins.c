@@ -22,4 +22,14 @@ void control_pins_init()
     gpio_mode_setup(LED_ARM_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LED_ARM);
     gpio_mode_setup(LED_DISARM_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,
                     LED_DISARM);
+
+    /* Channel switches and LEDs */
+    gpio_mode_setup(SW_CH1_PORT, GPIO_MODE_INPUT, GPIO_PUPD_NONE, SW_CH1);
+    gpio_mode_setup(LED_CH1_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LED_CH1);
+    gpio_mode_setup(SW_CH2_PORT, GPIO_MODE_INPUT, GPIO_PUPD_NONE, SW_CH2);
+    gpio_mode_setup(LED_CH2_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LED_CH2);
+    gpio_mode_setup(SW_CH3_PORT, GPIO_MODE_INPUT, GPIO_PUPD_NONE, SW_CH3);
+    gpio_mode_setup(LED_CH3_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LED_CH3);
+    gpio_mode_setup(SW_CH4_PORT, GPIO_MODE_INPUT, GPIO_PUPD_NONE, SW_CH4);
+    gpio_mode_setup(LED_CH4_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LED_CH4);
 }
