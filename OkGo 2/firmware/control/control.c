@@ -1,7 +1,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 
 #include "rfm95w.h"

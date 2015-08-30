@@ -1,43 +1,77 @@
-#include <libopencm3/stm32/rcc.h>
+#include <stdint.h>
+#include <stdbool.h>
+
 #include <libopencm3/stm32/gpio.h>
 
-#define LED_PORT GPIOC
-#define LED_PIN GPIO9
-#define LED_RCC RCC_GPIOC
+#include "rfm95w.h"
+#include "utils.h"
 
-/* Private prototypes */
-static void _delay_ms(const uint32_t delay);
+#include "ignition_pins.h"
+
+/* State variables */
+static bool armed;
+static uint16_t centre_freq; /* in kHz */
+
+/* Internal functions */
+void ignition_init(void);
+
+void ignition_init(void)
+{
+    /* Initialise local state variables */
+    armed = false;
+    centre_freq = FREQ_868;
+
+    /* Clock GPIOs, set pin modes */
+    ignition_pins_init();
+
+    /* Initialise radio and local state variables, read stored config*/
+    /* TODO */
+
+    /* Initialise radio */
+    rfm_initialise();
+    rfm_setfreq(centre_freq);
+
+    /* Setup ADC to scan-read battery voltage */
+    /*adc_setup();*/
+}
 
 int main(void)
 {
-    /* Clock the GPIOC peripheral */
-    rcc_periph_clock_enable(LED_RCC);
+    ignition_init();
+    
+    gpio_set(LED_GREEN_PORT, LED_GREEN);
+    gpio_clear(LED_YELLOW_PORT, LED_YELLOW);
+    gpio_set(LED_ARM_PORT, LED_ARM);
+    gpio_clear(LED_DISARM_PORT, LED_DISARM);
+    gpio_set(UPSTREAM_RELAY_PORT, UPSTREAM_RELAY);
 
-    /* Configure the pin as an output */
-    gpio_mode_setup(LED_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LED_PIN);
-
-    /* Flash the LED forever */
     while(1)
     {
-        gpio_set(LED_PORT, LED_PIN);
-        _delay_ms(500);
-        gpio_clear(LED_PORT, LED_PIN);
-        _delay_ms(500);
+        gpio_toggle(LED_GREEN_PORT, LED_GREEN);
+        gpio_toggle(LED_YELLOW_PORT, LED_YELLOW);
+        gpio_toggle(LED_ARM_PORT, LED_ARM);
+        gpio_toggle(LED_DISARM_PORT, LED_DISARM);
+
+        /* Deafen mode: */
+        gpio_set(BUZZER_PORT, BUZZER);
+        delay_ms(50);
+        gpio_clear(BUZZER_PORT, BUZZER);
+
+        gpio_set(FIRE_CH1_PORT, FIRE_CH1);
+        delay_ms(1000);
+        gpio_set(FIRE_CH2_PORT, FIRE_CH2);
+        delay_ms(1000);
+        gpio_set(FIRE_CH3_PORT, FIRE_CH3);
+        delay_ms(1000);
+        gpio_set(FIRE_CH4_PORT, FIRE_CH4);
+        delay_ms(1000);
+        gpio_clear(FIRE_CH1_PORT, FIRE_CH1);
+        gpio_clear(FIRE_CH2_PORT, FIRE_CH2);
+        gpio_clear(FIRE_CH3_PORT, FIRE_CH3);
+        gpio_clear(FIRE_CH4_PORT, FIRE_CH4);
+        delay_ms(1000);
+
     }
     
     return 0;
-}
-
-/**
- * Delay for a short period. This is totally uncalibrated and
- * should not be used for accurate timing.
- * @param delay Number of timing units to delay.
- */
-static void _delay_ms(const uint32_t delay)
-{
-    uint32_t i, j;
-
-    for( i = 0; i < delay; i++ )
-        for( j = 0; j < 1000; j++)
-            __asm__("nop");
 }
