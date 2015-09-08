@@ -1,3 +1,13 @@
+Firing cables
+-------------
+Banana jacks:
+	Red: 1698956
+	Yellow: 1698959
+	Black: 1698957
+Resistor:
+	Need 2.5ohm with >60W handling
+	RE03490 is 5ohm 50W for £1.5 - same as okgo1 I think.
+
 Control 5V budget:
 4x lightup button = 100mA
 LCD = 150mA
