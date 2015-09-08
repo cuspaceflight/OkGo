@@ -16,8 +16,9 @@ extern uint8_t rx_rssi, rx_voltage, rx_status;
 extern uint8_t rx_cont1, rx_cont2, rx_cont3, rx_cont4;
 extern uint16_t rx_checksum;
 
-/* Initialise all the above state variables to sensible defaults */
-void control_radio_state_init(void);
+/* Setup the SPI peripheral and call the RFM95W initialisation procedure.
+ * Also initialise all the above state variables to sensible defaults */
+void control_radio_init(void);
 
 /* Parse a received radio packet and fill in the received packet datastore */
 void control_radio_parse_packet(uint8_t *buf, uint8_t len);

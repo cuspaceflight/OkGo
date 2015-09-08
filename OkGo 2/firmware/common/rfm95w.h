@@ -11,7 +11,7 @@ void rfm_initialise(uint32_t spi_periph);
 
 /* Set the RFM95W centre frequency (in kHz).  You can use this to transition
  * between 868MHz and 915MHz */
-void rfm_setfreq(uint16_t centrefreq);
+void rfm_setfreq(uint32_t centrefreq);
 
 /* Check if a packet has been received and is waiting to be retrieved */
 bool rfm_packet_waiting(void);

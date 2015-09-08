@@ -2,6 +2,9 @@
 #include <stdint.h>
 #include <string.h>
 
+#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/spi.h>
+
 #include "control_radio.h"
 #include "rfm95w.h"
 
@@ -17,9 +20,16 @@ uint8_t rx_rssi, rx_voltage, rx_status;
 uint8_t rx_cont1, rx_cont2, rx_cont3, rx_cont4;
 uint16_t rx_checksum;
 
-/* Initialise all the state variables to sensible defaults */
-void control_radio_state_init(void)
+/* Setup the SPI peripheral and call the RGM95W initialization procedure.
+ * Also initialise all the state variables to sensible defaults */
+void control_radio_init(void)
 {
+    /* TODO: Setup pins and SPI peripheral */
+
+    /* Run RFM95W initialization */
+    rfm_initialise(SPI1);
+
+    /* Setup state variables to sensible defaults */
 	memset(tx_buf, 0, TX_BUF_LEN);
 	memset(rx_buf, 0, RX_BUF_LEN);
 	packet_id = 0;

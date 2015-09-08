@@ -36,12 +36,11 @@ void control_init(void)
     /* Clock GPIOs, set pin modes */
     control_pins_init();
 
-    /* Initialise radio state variables, read stored config*/
-    control_radio_state_init();
+    /* Read stored config including centre frequency*/
     control_read_config();
 
-    /* Initialise radio */
-    rfm_initialise();
+    /* Initialise radio and radio state */
+    control_radio_init();
     rfm_setfreq(centre_freq);
 
     /* Setup ADC to scan-read battery voltage */
