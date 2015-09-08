@@ -21,7 +21,10 @@
 
 BINARY = ignition
 
-SOURCES = $(filter-out $(BINARY).c, $(wildcard *.c))
+LIBS = ../common/utils.c ../common/rfm95w.c
+SOURCES = $(filter-out $(BINARY).c, $(wildcard *.c)) ${LIBS}
 OBJS = $(SOURCES:.c=.o)
+
+CPPFLAGS += -I../common/
 
 include ../common/Makefile.f0.include

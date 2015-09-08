@@ -26,7 +26,6 @@ Setup:
 	* Read config from flash
 	* Initialise radio and its freq
 	* Setup ADCs to scan-read
-	* Setup interrupts for radio rx
 Main loop:
     * Check for new radio packet and retrieve+store packet as necessary.
 	* Consider stored radio packet error/status
@@ -56,7 +55,6 @@ Setup:
 	* Read config from flash
 	* Initialise radio and its freq
 	* Setup ADCs to scan-read
-	* Setup interrupts for radio rx
 Main loop:
     * Check for new radio packet and retrieve+store packet as necessary.
 	* Update arm and firing states from stored radio packet
