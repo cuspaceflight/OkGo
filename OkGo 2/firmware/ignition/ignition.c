@@ -2,6 +2,7 @@
 #include <stdbool.h>
 
 #include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/rcc.h>
 
 #include "rfm95w.h"
 #include "utils.h"
@@ -20,6 +21,9 @@ void ignition_init(void)
     /* Initialise local state variables */
     armed = false;
     centre_freq = FREQ_868;
+
+    /* Setup crystal oscillator */
+    rcc_clock_setup_in_hsi_out_48mhz();
 
     /* Clock GPIOs, set pin modes */
     ignition_pins_init();

@@ -5,16 +5,30 @@
 #include "utils.h"
 
 /**
- * Delay for a short period. This is totally uncalibrated and
- * should not be used for accurate timing.
- * @param delay Number of timing units to delay.
+ * Delay for approximately a millisecond.  Very roughly calibrated by eye to
+ * within about 20% precision.
+ * @param delay Number of milliseconds to delay.
  */
 void delay_ms(const uint32_t delay)
 {
 	uint32_t i, j;
 
     for( i = 0; i < delay; i++ )
-        for( j = 0; j < 1000; j++)
+        for( j = 0; j < 5000; j++)
+            __asm__("nop");
+}
+
+/**
+ * Delay for approximately a microsecond.  Very roughly calibrated by eye to
+ * within about 20% precision.
+ * @param delay Number of microseconds to delay.
+ */
+void delay_us(const uint32_t delay)
+{
+	uint32_t i, j;
+
+    for( i = 0; i < delay; i++ )
+        for( j = 0; j < 9; j++)
             __asm__("nop");
 }
 

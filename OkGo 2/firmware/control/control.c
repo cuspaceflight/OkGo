@@ -2,6 +2,7 @@
 #include <stdbool.h>
 
 #include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/rcc.h>
 
 #include "rfm95w.h"
 #include "utils.h"
@@ -33,6 +34,9 @@ void control_init(void)
     centre_freq = FREQ_868;
     packet_delay = SLOW_PACKET_DELAY;
 
+    /* Setup crystal oscillator */
+    rcc_clock_setup_in_hsi_out_48mhz();
+
     /* Clock GPIOs, set pin modes */
     control_pins_init();
 
@@ -41,7 +45,7 @@ void control_init(void)
 
     /* Initialise radio and radio state */
     control_radio_init();
-    rfm_setfreq(centre_freq);
+/*    rfm_setfreq(centre_freq);*/
 
     /* Setup ADC to scan-read battery voltage */
     control_adc_setup();
@@ -73,6 +77,9 @@ int main(void)
     lcd_cursor_pos(3, 1);
     lcd_puts("Indent! :o");
 
+    gpio_set(LED_GREEN_PORT, LED_GREEN);
+    gpio_clear(LED_YELLOW_PORT, LED_YELLOW);
+
     while(1)
     {
         /*
@@ -99,7 +106,7 @@ int main(void)
             packet_len = control_radio_make_packet(command, tx_buf, TX_BUF_LEN);
             rfm_transmit(tx_buf, packet_len, PA_BOOST);
         }*/
-        bool key_armed = !gpio_get_bool(SW_KEY_PORT, SW_KEY);
+        /*bool key_armed = !gpio_get_bool(SW_KEY_PORT, SW_KEY);
         gpio_set_bool(LED_ARM_PORT, LED_ARM, key_armed);
         gpio_set_bool(LED_DISARM_PORT, LED_DISARM, !key_armed);
         
@@ -120,7 +127,12 @@ int main(void)
             gpio_clear(LED_CH2_PORT, LED_CH2);
             gpio_clear(LED_CH3_PORT, LED_CH3);
             gpio_clear(LED_CH4_PORT, LED_CH4);
-        }
+        }*/
+
+        gpio_toggle(LED_GREEN_PORT, LED_GREEN);
+        gpio_toggle(LED_YELLOW_PORT, LED_YELLOW);
+        delay_us(1000000u);
+        
     }
     
     return 0;
