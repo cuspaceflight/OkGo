@@ -7,11 +7,6 @@
 #include "rfm95w.h"
 #include "rfm95w_registers.h"
 
-/************** Exported Constants ************************/
-/* Base frequencies, in Hz */
-const uint32_t FREQ_868 = 868000000u, FREQ_915 = 915000000u;
-
-
 /************** Internal global variabls ******************/
 uint32_t rfm_spi;
 
@@ -99,22 +94,23 @@ void rfm_initialise(uint32_t spi_periph)
 {
     rfm_spi = spi_periph;
 
-	/* Wait for chip to warm up */
-    delay_ms(10);
-
-    /* Setup pin multiplexing for appropriate SPI periph */
-    /* TODO: Actually this is done in *_radio.c */
+    /* Pinmodes are setup in (ignition|control)_radio.c */
 
     /* Initialise SPI peripheral */
+    spi_reset(rfm_spi);
     spi_init_master(rfm_spi,
-                    10000000, /* 1MHz */
+                    SPI_CR1_BAUDRATE_FPCLK_DIV_64, /* Slightly under 1MHz */
                     SPI_CR1_CPOL_CLK_TO_0_WHEN_IDLE, /* ??? */
                     SPI_CR1_CPHA_CLK_TRANSITION_1,
-                    SPI_CR1_CRCL_8BIT, /* DFF / CRC length */
+                    SPI_CR1_CRCL_8BIT, /* DFF/CRC length */
                     SPI_CR1_MSBFIRST); /* MSB first */
-    
-    /* Leave the radio in sleep mode so we can set frequency.
-     * rfm_setfreq will bring the radio up to stand-by after doing this. */
+
+    /* Manual NSS handling: */
+    spi_enable_software_slave_management(SPI1);
+    spi_set_nss_high(rfm_spi);
+
+	/* Wait for chip to warm up */
+    delay_ms(10);
 }
 
 /* Set the RFM95W centre frequency (in Hz).  You can use this to transition

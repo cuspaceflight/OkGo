@@ -55,6 +55,12 @@ void control_pins_init(void);
 /* Radio */
 #define RFM_NSS         GPIO4
 #define RFM_NSS_PORT    GPIOA
+#define RFM_SCK         GPIO5
+#define RFM_SCK_PORT    GPIOA
+#define RFM_MISO        GPIO6
+#define RFM_MISO_PORT   GPIOA
+#define RFM_MOSI        GPIO7
+#define RFM_MOSI_PORT   GPIOA
 #define RFM_RESET       GPIO3
 #define RFM_RESET_PORT  GPIOA
 #define RFM_DIO0        GPIO13

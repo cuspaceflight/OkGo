@@ -4,8 +4,13 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-extern const uint32_t FREQ_868, FREQ_915;
+/************* Exported constants ****************/
+/* TODO: Make these actually sensible */
+#define FREQ_868 868000000u
+#define FREQ_915 915000000u
 
+
+/************* Exported functions ****************/
 /* Initialise the RFM95W.  Not sure what this might involve. */
 void rfm_initialise(uint32_t spi_periph);
 

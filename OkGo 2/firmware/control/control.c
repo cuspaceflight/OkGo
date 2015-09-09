@@ -18,7 +18,7 @@ const bool PA_BOOST = false;
 
 /* State variables */
 static bool armed;
-static uint16_t centre_freq; /* in kHz */
+static uint32_t centre_freq; /* in kHz */
 static uint16_t packet_delay;
 static uint32_t last_tx_time;
 
@@ -45,7 +45,7 @@ void control_init(void)
 
     /* Initialise radio and radio state */
     control_radio_init();
-/*    rfm_setfreq(centre_freq);*/
+    rfm_setfreq(centre_freq);
 
     /* Setup ADC to scan-read battery voltage */
     control_adc_setup();

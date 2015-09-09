@@ -3,8 +3,10 @@
 #include <string.h>
 
 #include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/spi.h>
 
+#include "control_pins.h"
 #include "control_radio.h"
 #include "rfm95w.h"
 
@@ -24,7 +26,21 @@ uint16_t rx_checksum;
  * Also initialise all the state variables to sensible defaults */
 void control_radio_init(void)
 {
-    /* TODO: Setup pins and SPI peripheral */
+    /* Clock SPI1 peripheral and setup GPIOs appropriately: 
+     * NSS, SCK, MOSI, RESET are outputs,
+     * MISO is input.
+     * SPI setup is done in rfm95w.c */
+    rcc_periph_clock_enable(RCC_SPI1);
+    gpio_mode_setup(RFM_NSS_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, RFM_NSS);
+    gpio_mode_setup(RFM_SCK_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, RFM_SCK);
+    gpio_mode_setup(RFM_MOSI_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, RFM_MOSI);
+    /*gpio_mode_setup(RFM_RESET_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,
+                    RFM_RESET);*/
+    gpio_mode_setup(RFM_MISO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_NONE, RFM_MISO);
+
+    /* Bring the radio out of reset: rfm_init will wait for it to warm up */
+    /*gpio_set(RFM_RESET_PORT, RFM_RESET);*/
+    /* By default leave RFM_RESET high-Z as requested by datasheet */
 
     /* Run RFM95W initialization */
     rfm_initialise(SPI1);
