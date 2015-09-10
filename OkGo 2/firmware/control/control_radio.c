@@ -31,14 +31,20 @@ void control_radio_init(void)
      * MISO is input.
      * SPI setup is done in rfm95w.c */
     rcc_periph_clock_enable(RCC_SPI1);
+
+    /* Make sure NSS doesn't blip when we enable it: */
+    gpio_set(RFM_NSS_PORT, RFM_NSS);
     gpio_mode_setup(RFM_NSS_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, RFM_NSS);
-    gpio_mode_setup(RFM_SCK_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, RFM_SCK);
-    gpio_mode_setup(RFM_MOSI_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, RFM_MOSI);
-    /*gpio_mode_setup(RFM_RESET_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,
-                    RFM_RESET);*/
-    gpio_mode_setup(RFM_MISO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_NONE, RFM_MISO);
+    gpio_mode_setup(RFM_SCK_PORT, GPIO_MODE_AF, GPIO_PUPD_NONE, RFM_SCK);
+    gpio_mode_setup(RFM_MOSI_PORT, GPIO_MODE_AF, GPIO_PUPD_NONE, RFM_MOSI);
+    gpio_mode_setup(RFM_MISO_PORT, GPIO_MODE_AF, GPIO_PUPD_NONE, RFM_MISO);
+    gpio_set_af(RFM_SCK_PORT, GPIO_AF0, RFM_SCK);
+    gpio_set_af(RFM_MOSI_PORT, GPIO_AF0, RFM_MOSI);
+    gpio_set_af(RFM_MISO_PORT, GPIO_AF0, RFM_MISO);
 
     /* Bring the radio out of reset: rfm_init will wait for it to warm up */
+    /*gpio_mode_setup(RFM_RESET_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,
+                    RFM_RESET);*/
     /*gpio_set(RFM_RESET_PORT, RFM_RESET);*/
     /* By default leave RFM_RESET high-Z as requested by datasheet */
 

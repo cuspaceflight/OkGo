@@ -7,8 +7,12 @@
 #include "rfm95w.h"
 #include "rfm95w_registers.h"
 
+/* TODO DEBUG FIXME: */
+#include <libopencm3/stm32/gpio.h>
+#include "../control/control_pins.h"
+
 /************** Internal global variabls ******************/
-uint32_t rfm_spi;
+static uint32_t rfm_spi;
 
 
 /********** Internal function declarations ****************/
@@ -45,23 +49,29 @@ void _rfm_setmode(uint8_t mode)
     _rfm_writereg(RFM_RegOpMode, RegOpMode);
 }
 
+uint8_t _rfm_spi_xfer8(uint8_t data)
+{
+	spi_send8(rfm_spi, data);
+	return spi_read8(rfm_spi);
+}
+
 /* Write the byte of data to the address */
 void _rfm_writereg(uint8_t address, uint8_t data)
 {
-    spi_set_nss_low(rfm_spi);
-    spi_write(rfm_spi, address | 0b10000000); /* Set MSbit for write */
-    spi_write(rfm_spi, data);
-    spi_set_nss_high(rfm_spi);
+    gpio_clear(RFM_NSS_PORT, RFM_NSS);
+    (void)_rfm_spi_xfer8(address | (1<<7));
+    (void)_rfm_spi_xfer8(data);
+    gpio_set(RFM_NSS_PORT, RFM_NSS);
 }
 
 /* Read a byte of data from the address */
 uint8_t _rfm_readreg(uint8_t address)
 {
     uint8_t data;
-    spi_set_nss_low(rfm_spi);
-    spi_write(rfm_spi, address & 0b01111111); /* Clear MSbit for read */
-    data = spi_read(rfm_spi);
-    spi_set_nss_high(rfm_spi);
+    gpio_clear(RFM_NSS_PORT, RFM_NSS);
+    (void)_rfm_spi_xfer8(address & 0b01111111); /* Clear MSbit: read */
+    data = _rfm_spi_xfer8(0x00);
+    gpio_set(RFM_NSS_PORT, RFM_NSS);
     return data;
 }
 
@@ -69,22 +79,22 @@ uint8_t _rfm_readreg(uint8_t address)
 void _rfm_bulkwrite(uint8_t address, uint8_t *buffer, uint8_t len)
 {
     uint8_t i;
-    spi_set_nss_low(rfm_spi);
-    spi_write(rfm_spi, address | 0b10000000); /* Set MSbit for write */
+    gpio_clear(RFM_NSS_PORT, RFM_NSS);
+    (void)_rfm_spi_xfer8(address | 0b10000000); /* Set MSbit: write */
     for(i=0; i<len; i++)
-        spi_write(rfm_spi, buffer[i]);
-    spi_set_nss_high(rfm_spi);
+        (void)_rfm_spi_xfer8(buffer[i]);
+    gpio_set(RFM_NSS_PORT, RFM_NSS);
 }
 
 /* Bulk read from a register to a buffer */
 void _rfm_bulkread(uint8_t address, uint8_t *buffer, uint8_t len)
 {
     uint8_t i;
-    spi_set_nss_low(rfm_spi);
-    spi_write(rfm_spi, address & 0b01111111); /* Clear MSbit for read */
+    gpio_clear(RFM_NSS_PORT, RFM_NSS);
+    (void)_rfm_spi_xfer8(address & 0b01111111); /* Clear MSbit: read */
     for(i=0; i<len; i++)
-        buffer[i] = spi_read(rfm_spi);
-    spi_set_nss_high(rfm_spi);
+        buffer[i] = _rfm_spi_xfer8(0x00);
+    gpio_set(RFM_NSS_PORT, RFM_NSS);
 }
 
 
@@ -98,6 +108,7 @@ void rfm_initialise(uint32_t spi_periph)
 
     /* Initialise SPI peripheral */
     spi_reset(rfm_spi);
+    spi_disable_crc(rfm_spi);
     spi_init_master(rfm_spi,
                     SPI_CR1_BAUDRATE_FPCLK_DIV_64, /* Slightly under 1MHz */
                     SPI_CR1_CPOL_CLK_TO_0_WHEN_IDLE, /* ??? */
@@ -106,8 +117,14 @@ void rfm_initialise(uint32_t spi_periph)
                     SPI_CR1_MSBFIRST); /* MSB first */
 
     /* Manual NSS handling: */
-    spi_enable_software_slave_management(SPI1);
+    spi_enable_software_slave_management(rfm_spi);
     spi_set_nss_high(rfm_spi);
+    gpio_set(RFM_NSS_PORT, RFM_NSS);
+
+    spi_set_data_size(rfm_spi, 0x07); /* 8-bit mode = 0b0111 */
+    spi_fifo_reception_threshold_8bit(rfm_spi); /* 8-bit rx-length */
+
+    spi_enable(rfm_spi);
 
 	/* Wait for chip to warm up */
     delay_ms(10);
