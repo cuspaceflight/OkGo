@@ -25,6 +25,11 @@ void ignition_pins_init()
     gpio_mode_setup(BUZZER_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, BUZZER);
 
     /* Upstream relay and firing channels */
+    gpio_clear(UPSTREAM_RELAY_PORT, UPSTREAM_RELAY);
+    gpio_clear(FIRE_CH1_PORT, FIRE_CH1);
+    gpio_clear(FIRE_CH2_PORT, FIRE_CH2);
+    gpio_clear(FIRE_CH3_PORT, FIRE_CH3);
+    gpio_clear(FIRE_CH4_PORT, FIRE_CH4);
     gpio_mode_setup(UPSTREAM_RELAY_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,
                     UPSTREAM_RELAY);
     gpio_mode_setup(FIRE_CH1_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, FIRE_CH1);

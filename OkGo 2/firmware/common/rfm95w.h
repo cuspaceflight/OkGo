@@ -5,24 +5,29 @@
 #include <stdint.h>
 
 /************* Exported constants ****************/
+/* These frequency register values are found using:
+ * Freq = FRF * 32,000,000 / 2^19
+ * FRF = Freq / 32,000,000 * 2^19 */
+
 /* http://stakeholders.ofcom.org.uk/binaries/spectrum/spectrum-policy-area/spectrum-management/research-guidelines-tech-info/interface-requirements/IR_2030-june2014.pdf
  * Limit 25mW = 14dBm ERP, no channel bw limit
- * Either limit duty cycle to 1% or implement Directive 1999/5/EC or equiv. */
-#define FREQ_868 865913993u
+ * Either limit duty cycle to 1% or implement Directive 1999/5/EC or equiv.
+ * Freq = 865,913,993 Hz -> FRF = 14187134.8613 */
+#define FRF_868 14187135u
 
 /* http://www.digikey.com/en/articles/techzone/2011/may/unlicensed-915-mhz-band-fits-many-applications-and-allows-higher-transmit-power
  * Limit 4W = 36dBm, unsure of bw limit
- * DSSS required but not FHSS */
-#define FREQ_915 925892009u
+ * DSSS required but not FHSS
+ * Freq = 925,892,009 Hz -> FRF = 15169814.6755 */
+#define FRF_915 15169815u
 
 
 /************* Exported functions ****************/
-/* Initialise the RFM95W.  Not sure what this might involve. */
-void rfm_initialise(uint32_t spi_periph);
+/* Initialise the RFM95W. */
+void rfm_initialise(uint32_t spi_periph, uint32_t nss_port, uint32_t nss_pin);
 
-/* Set the RFM95W centre frequency (in kHz).  You can use this to transition
- * between 868MHz and 915MHz */
-void rfm_setfreq(uint32_t centrefreq);
+/* Set the RFM95W centre frequency using an FRF register value */
+void rfm_setfreq(uint32_t frf);
 
 /* Check if a packet has been received and is waiting to be retrieved */
 bool rfm_packet_waiting(void);

@@ -6,8 +6,8 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/spi.h>
 
-#include "control_pins.h"
-#include "control_radio.h"
+#include "ignition_pins.h"
+#include "ignition_radio.h"
 #include "rfm95w.h"
 
 /* Local radio state: */
@@ -24,7 +24,7 @@ uint16_t rx_checksum;
 
 /* Setup the SPI peripheral and call the RGM95W initialization procedure.
  * Also initialise all the state variables to sensible defaults */
-void control_radio_init(void)
+void ignition_radio_init(void)
 {
     /* Clock SPI1 peripheral and setup GPIOs appropriately: 
      * NSS, SCK, MOSI, RESET are outputs,
@@ -42,12 +42,6 @@ void control_radio_init(void)
     gpio_set_af(RFM_MOSI_PORT, GPIO_AF0, RFM_MOSI);
     gpio_set_af(RFM_MISO_PORT, GPIO_AF0, RFM_MISO);
 
-    /* Bring the radio out of reset: rfm_init will wait for it to warm up */
-    /*gpio_mode_setup(RFM_RESET_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,
-                    RFM_RESET);*/
-    /*gpio_set(RFM_RESET_PORT, RFM_RESET);*/
-    /* By default leave RFM_RESET high-Z as requested by datasheet */
-
     /* Run RFM95W initialization */
     rfm_initialise(SPI1, RFM_NSS_PORT, RFM_NSS);
 
@@ -61,7 +55,7 @@ void control_radio_init(void)
 }
 
 /* Parse a received radio packet and fill in the received packet datastore */
-void control_radio_parse_packet(uint8_t *buf, uint8_t len)
+void ignition_radio_parse_packet(uint8_t *buf, uint8_t len)
 {
 	// TODO
 	(void)buf;
@@ -70,7 +64,7 @@ void control_radio_parse_packet(uint8_t *buf, uint8_t len)
 
 /* Make a packet with the supplied command byte (arm status, fire status, buzzer
  * control into the supplied buffer.  Returns packet length. */
-uint8_t control_radio_make_packet(uint8_t command, uint8_t *buf, uint8_t len)
+uint8_t ignition_radio_make_packet(uint8_t command, uint8_t *buf, uint8_t len)
 {
 	// TODO
 	(void)command;

@@ -31,7 +31,7 @@ void control_init(void)
 {
     /* Initialise local state variables */
     armed = false;
-    centre_freq = FREQ_868;
+    centre_freq = FRF_868;
     packet_delay = SLOW_PACKET_DELAY;
 
     /* Setup crystal oscillator */

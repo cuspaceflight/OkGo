@@ -48,5 +48,14 @@ void ignition_pins_init(void);
 #define RFM_DIO4_PORT       GPIOB
 #define RFM_DIO5            GPIO11
 #define RFM_DIO5_PORT       GPIOA
+#define RFM_NSS 			GPIO15
+#define RFM_NSS_PORT 		GPIOA
+#define RFM_SCK 			GPIO3
+#define RFM_SCK_PORT 		GPIOB
+#define RFM_MISO 			GPIO4
+#define RFM_MISO_PORT 		GPIOB
+#define RFM_MOSI 			GPIO5
+#define RFM_MOSI_PORT 		GPIOB
+
 
 #endif

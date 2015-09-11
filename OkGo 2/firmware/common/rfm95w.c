@@ -2,20 +2,22 @@
 #include <stdint.h>
 
 #include <libopencm3/stm32/spi.h>
+#include <libopencm3/stm32/gpio.h>
 
 #include "utils.h"
 #include "rfm95w.h"
 #include "rfm95w_registers.h"
 
-/* TODO DEBUG FIXME: */
-#include <libopencm3/stm32/gpio.h>
-#include "../control/control_pins.h"
-
 /************** Internal global variabls ******************/
 static uint32_t rfm_spi;
+static uint32_t rfm_nss_port;
+static uint32_t rfm_nss;
 
 
 /********** Internal function declarations ****************/
+/* Send and receive 8 bits, blocking until completion */
+uint8_t _rfm_spi_xfer8(uint8_t data);
+
 /* Set the RFM mode to one of the RFM_MODE_* options */
 void _rfm_setmode(uint8_t mode);
 
@@ -49,6 +51,7 @@ void _rfm_setmode(uint8_t mode)
     _rfm_writereg(RFM_RegOpMode, RegOpMode);
 }
 
+/* Send and receive 8 bits, blocking until completion */
 uint8_t _rfm_spi_xfer8(uint8_t data)
 {
 	spi_send8(rfm_spi, data);
@@ -58,20 +61,20 @@ uint8_t _rfm_spi_xfer8(uint8_t data)
 /* Write the byte of data to the address */
 void _rfm_writereg(uint8_t address, uint8_t data)
 {
-    gpio_clear(RFM_NSS_PORT, RFM_NSS);
+    gpio_clear(rfm_nss_port, rfm_nss);
     (void)_rfm_spi_xfer8(address | (1<<7));
     (void)_rfm_spi_xfer8(data);
-    gpio_set(RFM_NSS_PORT, RFM_NSS);
+    gpio_set(rfm_nss_port, rfm_nss);
 }
 
 /* Read a byte of data from the address */
 uint8_t _rfm_readreg(uint8_t address)
 {
     uint8_t data;
-    gpio_clear(RFM_NSS_PORT, RFM_NSS);
+    gpio_clear(rfm_nss_port, rfm_nss);
     (void)_rfm_spi_xfer8(address & 0b01111111); /* Clear MSbit: read */
     data = _rfm_spi_xfer8(0x00);
-    gpio_set(RFM_NSS_PORT, RFM_NSS);
+    gpio_set(rfm_nss_port, rfm_nss);
     return data;
 }
 
@@ -79,30 +82,35 @@ uint8_t _rfm_readreg(uint8_t address)
 void _rfm_bulkwrite(uint8_t address, uint8_t *buffer, uint8_t len)
 {
     uint8_t i;
-    gpio_clear(RFM_NSS_PORT, RFM_NSS);
+    gpio_clear(rfm_nss_port, rfm_nss);
     (void)_rfm_spi_xfer8(address | 0b10000000); /* Set MSbit: write */
     for(i=0; i<len; i++)
         (void)_rfm_spi_xfer8(buffer[i]);
-    gpio_set(RFM_NSS_PORT, RFM_NSS);
+    gpio_set(rfm_nss_port, rfm_nss);
 }
 
 /* Bulk read from a register to a buffer */
 void _rfm_bulkread(uint8_t address, uint8_t *buffer, uint8_t len)
 {
     uint8_t i;
-    gpio_clear(RFM_NSS_PORT, RFM_NSS);
+    gpio_clear(rfm_nss_port, rfm_nss);
     (void)_rfm_spi_xfer8(address & 0b01111111); /* Clear MSbit: read */
     for(i=0; i<len; i++)
         buffer[i] = _rfm_spi_xfer8(0x00);
-    gpio_set(RFM_NSS_PORT, RFM_NSS);
+    gpio_set(rfm_nss_port, rfm_nss);
 }
 
 
 /************* External function definitions ***************/
 /* Initialise the RFM95W.  Well, mainly the SPI peripheral. */
-void rfm_initialise(uint32_t spi_periph)
+void rfm_initialise(uint32_t spi_periph, uint32_t nss_port, uint32_t nss_pin)
 {
+	uint8_t RegOpMode;
+
+	/* Store the boards specifics for later use */
     rfm_spi = spi_periph;
+    rfm_nss_port = nss_port;
+    rfm_nss = nss_pin;
 
     /* Pinmodes are setup in (ignition|control)_radio.c */
 
@@ -119,7 +127,7 @@ void rfm_initialise(uint32_t spi_periph)
     /* Manual NSS handling: */
     spi_enable_software_slave_management(rfm_spi);
     spi_set_nss_high(rfm_spi);
-    gpio_set(RFM_NSS_PORT, RFM_NSS);
+    gpio_set(rfm_nss_port, rfm_nss);
 
     spi_set_data_size(rfm_spi, 0x07); /* 8-bit mode = 0b0111 */
     spi_fifo_reception_threshold_8bit(rfm_spi); /* 8-bit rx-length */
@@ -128,28 +136,26 @@ void rfm_initialise(uint32_t spi_periph)
 
 	/* Wait for chip to warm up */
     delay_ms(10);
+
+    /* Check we're in sleep mode */
+    _rfm_setmode(RFM_MODE_SLEEP);
+    RegOpMode = _rfm_readreg(RFM_RegOpMode);
+    /* Activate LoRa! */
+    RegOpMode |= RFM_LongRangeMode; 
+    _rfm_writereg(RFM_RegOpMode, RegOpMode);
+
 }
 
-/* Set the RFM95W centre frequency (in Hz).  You can use this to transition
- * between 868MHz and 915MHz */
-void rfm_setfreq(uint32_t centrefreq)
+/* Set the RFM95W centre frequency using an FRF register value */
+void rfm_setfreq(uint32_t frf)
 {
-    /* The RFM95W uses RegFrf such that:
-     * F_RF = F_STEP x RegFrf[0:24], and,
-     * F_STEP = F_XOSC / 2^19 = 61.0 Hz
-     * So we calculate RegFrf = F_RF / 61.0 */
-
-    uint32_t RegFrf = 0;
-    const uint32_t F_STEP = 61;
-    RegFrf = centrefreq / F_STEP; /* Truncation is probably fine here */
-
 	/* Check the radio is sleeping to set the frequency */
     _rfm_setmode(RFM_MODE_SLEEP);
 
     /* Write 24 bits of frequency */
-    _rfm_writereg(RFM_RegFrfMsb, (RegFrf>>16) & 0xff);
-    _rfm_writereg(RFM_RegFrfMid, (RegFrf>>8) & 0xff);
-    _rfm_writereg(RFM_RegFrfLsb, RegFrf & 0xff);
+    _rfm_writereg(RFM_RegFrfMsb, (frf>>16) & 0xff);
+    _rfm_writereg(RFM_RegFrfMid, (frf>>8) & 0xff);
+    _rfm_writereg(RFM_RegFrfLsb, frf & 0xff);
 
     /* Wake up the radio, spin up the synthesizers! */
     _rfm_setmode(RFM_MODE_STANDBY);
