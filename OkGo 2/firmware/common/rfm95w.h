@@ -5,9 +5,15 @@
 #include <stdint.h>
 
 /************* Exported constants ****************/
-/* TODO: Make these actually sensible */
-#define FREQ_868 868000000u
-#define FREQ_915 915000000u
+/* http://stakeholders.ofcom.org.uk/binaries/spectrum/spectrum-policy-area/spectrum-management/research-guidelines-tech-info/interface-requirements/IR_2030-june2014.pdf
+ * Limit 25mW = 14dBm ERP, no channel bw limit
+ * Either limit duty cycle to 1% or implement Directive 1999/5/EC or equiv. */
+#define FREQ_868 865913993u
+
+/* http://www.digikey.com/en/articles/techzone/2011/may/unlicensed-915-mhz-band-fits-many-applications-and-allows-higher-transmit-power
+ * Limit 4W = 36dBm, unsure of bw limit
+ * DSSS required but not FHSS */
+#define FREQ_915 925892009u
 
 
 /************* Exported functions ****************/
