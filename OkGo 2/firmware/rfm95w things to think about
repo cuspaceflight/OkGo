@@ -1,0 +1,50 @@
+rfm95w things to think about
+
+Link budget setup:
+I have a fixed data rate and want to maximise link budget
+Set spreading to max and choose a bandwidth to give me the data-rate I want
+
+Ignition packets are 43 bytes and control are 37, for a total of 80 bytes per exchange, or 640 bits.  I want to do this 10 times a second with only 1% link utilisation.  This means sending 640*10=6400 bits in 1% of a second, or
+640,000 bits per second.
+
+Choosing 125kHz / SF8 / Coding 4/8 for testing.
+
+RegModemConfig1
+RegModemConfig2
+
+Packet sending: regpayloadlength
+Packet receipt: (look at CRC)
+
+Add a CRC
+Actually tell receiver payload length
+
+
+BW/kHz	SF	bps		Sensitivity
+62.5	12	15		-139
+62.5	11	31		-137
+125		12	31		-136
+62.5	10	61		-135
+125		11	61		-133
+250		12	61		-133
+62.5	9	122		-132
+125		10	122		-132
+250		11	122		-130
+500		12	122		
+62.5	8	244		-129
+125		9	244		-129
+250		10	244		-128
+500		11	244	
+62.5	7	488		-126
+125		8	488		-126
+250		9	488		-125
+500		10	488		-125
+62.5	6	977		-121
+125		7	977		-123
+250		8	977		-123
+500		9	977		-122
+125		6	1953	-118
+250		7	1953	-120
+500		8	1953	-119
+250		6	3906	-115
+500		7	3906	-116
+500		6	7813	-111

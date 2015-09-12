@@ -52,12 +52,26 @@ int main(void)
 
         rfm_receive(&rx_buf_byte, 1);
 
-        gpio_set(UPSTREAM_RELAY_PORT, UPSTREAM_RELAY);
-
-        gpio_set_bool(FIRE_CH1_PORT, FIRE_CH1, (rx_buf_byte&0x01)>>0);
-        gpio_set_bool(FIRE_CH2_PORT, FIRE_CH2, (rx_buf_byte&0x02)>>1);
-        gpio_set_bool(FIRE_CH3_PORT, FIRE_CH3, (rx_buf_byte&0x04)>>2);
-        gpio_set_bool(FIRE_CH4_PORT, FIRE_CH4, (rx_buf_byte&0x08)>>3);
+        if(rx_buf_byte&0x10)
+        {
+            gpio_set(LED_ARM_PORT, LED_ARM);
+            gpio_clear(LED_DISARM_PORT, LED_DISARM);
+            gpio_set(UPSTREAM_RELAY_PORT, UPSTREAM_RELAY);
+            gpio_set_bool(FIRE_CH1_PORT, FIRE_CH1, (rx_buf_byte&0x01)>>0);
+            gpio_set_bool(FIRE_CH2_PORT, FIRE_CH2, (rx_buf_byte&0x02)>>1);
+            gpio_set_bool(FIRE_CH3_PORT, FIRE_CH3, (rx_buf_byte&0x04)>>2);
+            gpio_set_bool(FIRE_CH4_PORT, FIRE_CH4, (rx_buf_byte&0x08)>>3);
+        }
+        else
+        {
+            gpio_clear(LED_ARM_PORT, LED_ARM);
+            gpio_set(LED_DISARM_PORT, LED_DISARM);
+            gpio_clear(UPSTREAM_RELAY_PORT, UPSTREAM_RELAY);
+            gpio_clear(FIRE_CH1_PORT, FIRE_CH1);
+            gpio_clear(FIRE_CH2_PORT, FIRE_CH2);
+            gpio_clear(FIRE_CH3_PORT, FIRE_CH3);
+            gpio_clear(FIRE_CH4_PORT, FIRE_CH4);
+        }
 
         gpio_toggle(LED_GREEN_PORT, LED_GREEN);
         gpio_toggle(LED_YELLOW_PORT, LED_YELLOW);
