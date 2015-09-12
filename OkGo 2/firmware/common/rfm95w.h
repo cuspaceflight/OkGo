@@ -33,10 +33,13 @@ void rfm_setfreq(uint32_t frf);
 bool rfm_packet_waiting(void);
 
 /* Transmit a packet length len stored in buf, optional PA_BOOST to 100mW TX */
-void rfm_transmit(uint8_t *buf, uint8_t len, bool pa_boost);
+void rfm_transmit(uint8_t *buf, uint8_t len);
 
 /* Retrieve a received packet into buf, max length max_len */
 void rfm_receive(uint8_t *buf, uint8_t max_len);
+
+/* Set transmit power to a dBm value from 0 to +17dBm */
+void rfm_setpower(uint8_t power);
 
 #endif
 

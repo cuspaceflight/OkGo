@@ -105,7 +105,7 @@ void _rfm_bulkread(uint8_t address, uint8_t *buffer, uint8_t len)
 /* Initialise the RFM95W.  Well, mainly the SPI peripheral. */
 void rfm_initialise(uint32_t spi_periph, uint32_t nss_port, uint32_t nss_pin)
 {
-	uint8_t RegOpMode;
+	uint8_t RegOpMode, RegModemConfig1, RegModemConfig2;
 
 	/* Store the boards specifics for later use */
     rfm_spi = spi_periph;
@@ -144,6 +144,21 @@ void rfm_initialise(uint32_t spi_periph, uint32_t nss_port, uint32_t nss_pin)
     RegOpMode |= RFM_LongRangeMode; 
     _rfm_writereg(RFM_RegOpMode, RegOpMode);
 
+    /* Set bandwidth to 125kHz -> 0111 */
+    RegModemConfig1 = RFM_Bw2 | RFM_Bw1 | RFM_Bw0;
+    /* Set coding rate to 4/8 -> 100 */
+    RegModemConfig1 |= RFM_CodingRate2;
+    /* No CRCs for now: Implicit header mode */
+    RegModemConfig1 |= RFM_ImplicitHeaderModeOn;
+    /* Write config: */
+    _rfm_writereg(RFM_RegModemConfig1, RegModemConfig1);
+
+    /* Set SF8 = 256 chips/symbol */
+    RegModemConfig2 = RFM_SpreadingFactor3;
+    /* Write config: */
+    _rfm_writereg(RFM_RegModemConfig2, RegModemConfig2);
+
+
 }
 
 /* Set the RFM95W centre frequency using an FRF register value */
@@ -178,11 +193,8 @@ bool rfm_packet_waiting(void)
 }
 
 /* Transmit a packet length len stored in buf, optional PA_BOOST to 100mW TX */
-void rfm_transmit(uint8_t *buf, uint8_t len, bool pa_boost)
+void rfm_transmit(uint8_t *buf, uint8_t len)
 {
-	/* TODO: For now, ignore pa_boost */
-	(void)pa_boost;
-
     /* Move to the beginning of the TX FIFO */
     _rfm_writereg(RFM_RegFifoAddrPtr, _rfm_readreg(RFM_RegFifoTxBaseAddr));
 
@@ -224,5 +236,35 @@ void rfm_receive(uint8_t *buf, uint8_t max_len)
         _rfm_bulkread(RFM_RegFifo, buf, rx_len);
     else /* Cap length if it exceeds our buffer size */
         _rfm_bulkread(RFM_RegFifo, buf, max_len);
+}
+
+/* Set transmit power to a dBm value from 0 to +17dBm */
+void rfm_setpower(uint8_t power)
+{
+	uint8_t RegPaConfig = 0x00;
+
+	/* TODO: For now disable boost powers, so maximum power is +14dBm */
+	if(power > 14)
+		power = 0; /* 0dBm = 1mW default */
+
+	/* Set MaxPower to 7 for max power in boost or normal mode */
+	RegPaConfig |= RFM_MaxPower2 | RFM_MaxPower1 | RFM_MaxPower0;
+
+	/* Boost mode */
+	if(power > 14)
+	{
+		RegPaConfig |= RFM_PaSelect; /* Enable BOOST PA! */
+		/* Pmax = 10.8 + 0.6*7 = +15dBm
+		 * Pout = 2 + OutputPower
+		 * OutputPower = Pout - 2 */
+		RegPaConfig |= (power - 2) & 0b00001111;
+	}
+	else /* Normal non-boost mode */
+	{
+		/* Pmax = 10.8 + 0.6*7 = +15dBm
+		 * Pout = OutputPower */
+		RegPaConfig |= power & 0b00001111;
+	}
+	_rfm_writereg(RFM_RegPaConfig, RegPaConfig);
 }
 

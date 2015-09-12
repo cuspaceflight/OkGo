@@ -46,6 +46,8 @@ void control_init(void)
     /* Initialise radio and radio state */
     control_radio_init();
     rfm_setfreq(centre_freq);
+    rfm_setpower(0);
+
 
     /* Setup ADC to scan-read battery voltage */
     control_adc_setup();
@@ -69,19 +71,20 @@ int main(void)
     uint16_t thetime=0; /* TODO! */
     control_init();
 
-    lcd_puts("Hello, world!");
+    /*lcd_puts("Hello, world!");
     lcd_cursor_pos(1, 0);
     lcd_puts("Second line!");
     lcd_cursor_pos(2, 0);
     lcd_puts("Third line!");
     lcd_cursor_pos(3, 1);
-    lcd_puts("Indent! :o");
+    lcd_puts("Indent! :o");*/
 
     gpio_set(LED_GREEN_PORT, LED_GREEN);
     gpio_clear(LED_YELLOW_PORT, LED_YELLOW);
 
     while(1)
     {
+        uint8_t tx_buf_byte;
         /*
         if(rfm_packet_waiting())
         {
@@ -130,8 +133,18 @@ int main(void)
         }*/
 
         gpio_toggle(LED_GREEN_PORT, LED_GREEN);
-        gpio_toggle(LED_YELLOW_PORT, LED_YELLOW);
-        delay_us(1000000u);
+
+        tx_buf_byte = 0x00;
+        tx_buf_byte |= !gpio_get_bool(SW_CH1_PORT, SW_CH1)<<0;
+        tx_buf_byte |= !gpio_get_bool(SW_CH2_PORT, SW_CH2)<<1;
+        tx_buf_byte |= !gpio_get_bool(SW_CH3_PORT, SW_CH3)<<2;
+        tx_buf_byte |= !gpio_get_bool(SW_CH4_PORT, SW_CH4)<<3;
+
+        gpio_set(LED_YELLOW_PORT, LED_YELLOW);
+        rfm_transmit(&tx_buf_byte, 1);
+        gpio_clear(LED_YELLOW_PORT, LED_YELLOW);
+
+        delay_ms(100u);
         
     }
     

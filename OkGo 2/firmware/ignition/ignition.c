@@ -32,6 +32,7 @@ void ignition_init(void)
     /* Initialise radio and local state variables, read stored config*/
     ignition_radio_init();
     rfm_setfreq(centre_freq);
+    rfm_setpower(0);
     
 
     /* Setup ADC to scan-read battery voltage */
@@ -47,8 +48,20 @@ int main(void)
     
     while(1)
     {
+        uint8_t rx_buf_byte;
+
+        rfm_receive(&rx_buf_byte, 1);
+
+        gpio_set(UPSTREAM_RELAY_PORT, UPSTREAM_RELAY);
+
+        gpio_set_bool(FIRE_CH1_PORT, FIRE_CH1, (rx_buf_byte&0x01)>>0);
+        gpio_set_bool(FIRE_CH2_PORT, FIRE_CH2, (rx_buf_byte&0x02)>>1);
+        gpio_set_bool(FIRE_CH3_PORT, FIRE_CH3, (rx_buf_byte&0x04)>>2);
+        gpio_set_bool(FIRE_CH4_PORT, FIRE_CH4, (rx_buf_byte&0x08)>>3);
+
         gpio_toggle(LED_GREEN_PORT, LED_GREEN);
         gpio_toggle(LED_YELLOW_PORT, LED_YELLOW);
+
         /*gpio_toggle(LED_ARM_PORT, LED_ARM);
         gpio_toggle(LED_DISARM_PORT, LED_DISARM);*/
 
@@ -69,7 +82,6 @@ int main(void)
         gpio_clear(FIRE_CH2_PORT, FIRE_CH2);
         gpio_clear(FIRE_CH3_PORT, FIRE_CH3);
         gpio_clear(FIRE_CH4_PORT, FIRE_CH4);*/
-        delay_ms(1000);
 
     }
     
