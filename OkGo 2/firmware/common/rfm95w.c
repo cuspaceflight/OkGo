@@ -148,13 +148,15 @@ void rfm_initialise(uint32_t spi_periph, uint32_t nss_port, uint32_t nss_pin)
     RegModemConfig1 = RFM_Bw2 | RFM_Bw1 | RFM_Bw0;
     /* Set coding rate to 4/8 -> 100 */
     RegModemConfig1 |= RFM_CodingRate2;
-    /* No CRCs for now: Implicit header mode */
+    /* Implicit header mode */
     RegModemConfig1 |= RFM_ImplicitHeaderModeOn;
     /* Write config: */
     _rfm_writereg(RFM_RegModemConfig1, RegModemConfig1);
 
     /* Set SF8 = 256 chips/symbol */
     RegModemConfig2 = RFM_SpreadingFactor3;
+    /* Enable CRCs: */
+    RegModemConfig2 |= RFM_RxPayloadCrcOn;
     /* Write config: */
     _rfm_writereg(RFM_RegModemConfig2, RegModemConfig2);
 
@@ -195,6 +197,9 @@ bool rfm_packet_waiting(void)
 /* Transmit a packet length len stored in buf, optional PA_BOOST to 100mW TX */
 void rfm_transmit(uint8_t *buf, uint8_t len)
 {
+	/* Set packet length */
+	_rfm_writereg(RFM_RegPayloadLength, 1);
+
     /* Move to the beginning of the TX FIFO */
     _rfm_writereg(RFM_RegFifoAddrPtr, _rfm_readreg(RFM_RegFifoTxBaseAddr));
 
@@ -208,34 +213,44 @@ void rfm_transmit(uint8_t *buf, uint8_t len)
     while((_rfm_readreg(RFM_RegOpMode) & 0b00000111) == RFM_MODE_TX);
 }
 
-/* Retrieve a received packet into buf, max length max_len */
-void rfm_receive(uint8_t *buf, uint8_t max_len)
+/* Retrieve a received packet, length len, into buf */
+void rfm_receive(uint8_t *buf, uint8_t len)
 {
-    uint8_t rx_len;
+    uint8_t RegIrqFlags;
+    bool valid_received = false;
 
-    /* Set Fifo to beginning of RX buffer */
-    _rfm_writereg(RFM_RegFifoAddrPtr, _rfm_readreg(RFM_RegFifoRxBaseAddr));
+   	/* Set packet length */
+	_rfm_writereg(RFM_RegPayloadLength, len);
 
-    /* Initiate receive using mode change */
-    _rfm_setmode(RFM_MODE_RXCONTINUOUS);
+    do
+    {
+	    /* Set Fifo to beginning of RX buffer */
+	    _rfm_writereg(RFM_RegFifoAddrPtr, _rfm_readreg(RFM_RegFifoRxBaseAddr));
 
-    /* Block until receipt. Hoping continuous rx doesn't timeout. */
-    while(!(_rfm_readreg(RFM_RegIrqFlags) & RFM_RxDone));
+	    /* Initiate receive using mode change */
+	    _rfm_setmode(RFM_MODE_RXSINGLE);
 
-    /* Clear rxdone interrupt */
-    _rfm_writereg(RFM_RegIrqFlags, RFM_RxDone);
+	    /* Block until receipt or timeout */
+	    do
+			RegIrqFlags = _rfm_readreg(RFM_RegIrqFlags);
+		while(!(RegIrqFlags & (RFM_RxDone | RFM_RxTimeout)));
 
-    /* TODO: CRC handling. Add crc bool flag and ignore receipt if bad crc */
+		/* Received if not timeout and CRC done and length correct */
+		valid_received = (RegIrqFlags & RFM_RxDone) &&
+					     !(RegIrqFlags & RFM_PayloadCrcError) &&
+					     (_rfm_readreg(RFM_RegRxNbBytes) == len);
+
+	    /* Clear RxDone, RxTimeout, and CRC fail interrupts */
+	    _rfm_writereg(RFM_RegIrqFlags,
+	    			  RFM_RxDone | RFM_PayloadCrcError | RFM_RxTimeout);
+	}
+	while(!valid_received);
 
     /* Move FIFO pointer to beginning of last packet received */
     _rfm_writereg(RFM_RegFifoAddrPtr, _rfm_readreg(RFM_RegFifoRxCurrentAddr));
 
-    /* Read packet out of FIFO into our buffer */
-    rx_len = _rfm_readreg(RFM_RegRxNbBytes);
-    if(rx_len <= max_len)
-        _rfm_bulkread(RFM_RegFifo, buf, rx_len);
-    else /* Cap length if it exceeds our buffer size */
-        _rfm_bulkread(RFM_RegFifo, buf, max_len);
+	/* Read packet out of FIFO into our buffer */
+    _rfm_bulkread(RFM_RegFifo, buf, len);
 }
 
 /* Set transmit power to a dBm value from 0 to +17dBm */
