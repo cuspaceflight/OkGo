@@ -10,21 +10,9 @@
 #include "control_radio.h"
 #include "rfm95w.h"
 
-/* Local radio state: */
-uint32_t packet_id;
-
-/* Transmit and receive packet buffers */
-uint8_t tx_buf[TX_BUF_LEN], rx_buf[RX_BUF_LEN];
-
-/* Received packet datastore: */
-uint32_t rx_packet_id;
-uint8_t rx_rssi, rx_voltage, rx_status;
-uint8_t rx_cont1, rx_cont2, rx_cont3, rx_cont4;
-uint16_t rx_checksum;
-
 /* Setup the SPI peripheral and call the RGM95W initialization procedure.
  * Also initialise all the state variables to sensible defaults */
-void control_radio_init(void)
+void control_radio_init(control_radio_state *radio_state)
 {
     /* Clock SPI1 peripheral and setup GPIOs appropriately: 
      * NSS, SCK, MOSI, RESET are outputs,
@@ -52,12 +40,14 @@ void control_radio_init(void)
     rfm_initialise(SPI1, RFM_NSS_PORT, RFM_NSS);
 
     /* Setup state variables to sensible defaults */
-	memset(tx_buf, 0, TX_BUF_LEN);
-	memset(rx_buf, 0, RX_BUF_LEN);
-	packet_id = 0;
-	rx_packet_id = rx_rssi = rx_voltage = rx_status = 0;
-	rx_cont1 = rx_cont2 = rx_cont3 = rx_cont4 = 0;
-	rx_checksum = 0;
+	radio_state->rx_packet_id = 0; /* packet_id 0 indicates no valid receipt */
+    radio_state->rx_rssi = 0;
+    radio_state->rx_voltage = 0;
+    radio_state->rx_status = 0;
+	radio_state->rx_cont1 = 0;
+    radio_state->rx_cont2 = 0;
+    radio_state->rx_cont3 = 0;
+    radio_state->rx_cont4 = 0;
 }
 
 /* Parse a received radio packet and fill in the received packet datastore */

@@ -15,7 +15,8 @@ RegModemConfig2
 Packet sending: regpayloadlength
 Packet receipt: (look at CRC)
 
-Add a CRC
+Add a CRC:
+
 Actually tell receiver payload length
 
 
