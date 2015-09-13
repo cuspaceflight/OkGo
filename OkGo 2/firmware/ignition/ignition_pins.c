@@ -10,21 +10,26 @@ void ignition_pins_init()
     rcc_periph_clock_enable(RCC_GPIOB);
     rcc_periph_clock_enable(RCC_GPIOC);
 
-    /* Debug LEDs */
+    /* Debug LEDs.  Default off. */
+    gpio_clear(LED_GREEN_PORT, LED_GREEN);
+    gpio_clear(LED_YELLOW_PORT, LED_YELLOW);
     gpio_mode_setup(LED_GREEN_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,
                     LED_GREEN);
     gpio_mode_setup(LED_YELLOW_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,
                     LED_YELLOW);
 
-    /* Arm/disarm LED */
+    /* Arm/disarm LED.  Default off. */
+    gpio_clear(LED_ARM_PORT, LED_ARM);
+    gpio_clear(LED_DISARM_PORT, LED_DISARM);
     gpio_mode_setup(LED_ARM_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LED_ARM);
     gpio_mode_setup(LED_DISARM_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,
                     LED_DISARM);
 
-    /* Piezo buzzer */
+    /* Piezo buzzer.  Default off */
+    gpio_clear(BUZZER_PORT, BUZZER);
     gpio_mode_setup(BUZZER_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, BUZZER);
 
-    /* Upstream relay and firing channels */
+    /* Upstream relay and firing channels, default all off */
     gpio_clear(UPSTREAM_RELAY_PORT, UPSTREAM_RELAY);
     gpio_clear(FIRE_CH1_PORT, FIRE_CH1);
     gpio_clear(FIRE_CH2_PORT, FIRE_CH2);
@@ -36,9 +41,8 @@ void ignition_pins_init()
     gpio_mode_setup(FIRE_CH2_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, FIRE_CH2);
     gpio_mode_setup(FIRE_CH3_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, FIRE_CH3);
     gpio_mode_setup(FIRE_CH4_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, FIRE_CH4);
-    /* TODO FIXME: Find a safe way to set pin initial states! */
 
-    /* Analog pins */
+    /* Analog inputs */
     gpio_mode_setup(BATT_MON_PORT, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, BATT_MON);
     gpio_mode_setup(RELAY_SENSE_PORT, GPIO_MODE_ANALOG, GPIO_PUPD_NONE,
                     RELAY_SENSE);
