@@ -6,6 +6,7 @@
 
 #include "rfm95w.h"
 #include "utils.h"
+#include "adc.h"
 
 #include "ignition_pins.h"
 #include "ignition_radio.h"
@@ -34,9 +35,9 @@ void ignition_init(void)
     rfm_setfreq(centre_freq);
     rfm_setpower(0);
     
-
-    /* Setup ADC to scan-read battery voltage */
-    /*adc_setup();*/
+    /* ADC Setup: Clock periph, run init. Pins done in ignition_pins */
+    rcc_periph_clock_enable(RCC_ADC);
+    adc_init();
 }
 
 int main(void)

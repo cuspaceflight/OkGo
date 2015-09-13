@@ -13,6 +13,7 @@
 #include "control_radio.h"
 #include "control_pins.h"
 #include "display.h"
+#include "adc.h"
 
 /* Configuration constants */
 const uint16_t SLOW_PACKET_DELAY = 2000; /* delay in ms */
@@ -23,9 +24,6 @@ const uint8_t RADIO_POWER_DBM = 0; /* Radio tx power in dBm */
 
 /* Initialisation including clocks, pins, radio, state, ADCs */
 void control_init(control_state *state, control_radio_state *radio_state);
-
-/* Setup ADC pins and strobed reading */
-void control_adc_setup(void);
 
 /* Convert a channel status enum into a string and print to LCD */
 void control_display_ch_status(uint8_t ch_status);
@@ -43,7 +41,6 @@ void control_init(control_state *state, control_radio_state *radio_state)
     state->ch2_status = CH_STATUS_OK;
     state->ch3_status = CH_STATUS_OK;
     state->ch4_status = CH_STATUS_OK;
-    state->batt_voltage = 0;
 
     /* Setup crystal oscillator */
     rcc_clock_setup_in_hsi_out_48mhz();
@@ -56,17 +53,12 @@ void control_init(control_state *state, control_radio_state *radio_state)
     rfm_setfreq(state->centre_frf);
     rfm_setpower(RADIO_POWER_DBM);
 
-
-    /* Setup ADC to scan-read battery voltage */
-    control_adc_setup();
+    /* ADC Setup: Clock periph, run init. Pins done in control_pins */
+    rcc_periph_clock_enable(RCC_ADC);
+    adc_init();
 
     /* Initialise display */
     lcd_init();
-}
-
-void control_adc_setup(void)
-{
-    // TODO
 }
 
 void control_display_ch_status(uint8_t ch_status)
@@ -90,11 +82,20 @@ void control_display_ch_status(uint8_t ch_status)
 void control_display_update(control_state *state,
                             control_radio_state *radio_state)
 {
+    uint32_t adc_val;
+    uint8_t control_batt_voltage;
+    adc_val = adc_read(ADC_CH_CTRL_BATT); /* Read raw value */
+    adc_val = adc_to_volts_x10(adc_val); /* Convert to tenths of a volt */
+    /* Batt voltage comes via a 3k3 over 10k potential divider such that
+     * V = Vbatt * 10/13.3
+     * Vbatt = V * 133/100 */
+    control_batt_voltage = adc_val * 133 / 100;
+
     /* Control battery voltage */
     lcd_puts("CBAT:");
-    lcd_putc('0' + state->batt_voltage / 10);
+    lcd_putc('0' + control_batt_voltage / 10);
     lcd_putc('.');
-    lcd_putc('0' + state->batt_voltage % 10);
+    lcd_putc('0' + control_batt_voltage % 10);
     lcd_putc('V');
     if(radio_state->rx_packet_id == 0)
     {

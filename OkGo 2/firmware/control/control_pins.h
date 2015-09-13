@@ -76,4 +76,8 @@ void control_pins_init(void);
 #define RFM_DIO5        GPIO2
 #define RFM_DIO5_PORT   GPIOA
 
+/* Analog pins */
+#define BATT_MON		GPIO1
+#define BATT_MON_PORT	GPIOB
+
 #endif

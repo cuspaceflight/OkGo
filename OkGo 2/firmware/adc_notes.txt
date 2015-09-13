@@ -1,0 +1,29 @@
+adc notes
+
+12-bit adc
+internal channels: V_ref, temperature, VBAT (VDD)
+Single shot or scan, latter performs automatic conversion on a group of analog inputs.
+Can be DMAed
+Result stored in left- or right-aligned 16-bit register (set ALIGN in ADC_CFGR1 to decide)
+Choose resolution 12- 10- 8- 6-bit
+1us conversion for 12-bit and faster for lower res.
+Use RES[1:0] in ADC_CFGR1 to set resolution
+
+When ADC is disabled (ADEN=0), calibrate by setting ADCAL=1, then leave the ADC alone until calibration finishes and ADCAL=0.
+
+Only touch ADEN and ADCAL when ADC is disabled
+Only touch ADSTART and ADDIS when ADC enabled and no pending disable request
+Only touch other config bits (ADC_*) when ADEN=1 and ADSTART=0 (no ongoing conversion)
+Only touch ADSTP if ADC enabled and no pending disable request.
+
+Select scan channels using CHSEL (set bits for channels we want, CH0-18) and SCANDIR
+
+Program sampling time to allow sampling capacitor to charge, based on impedance of source.  ADC_SMPR->SMP[2:0] sets sample time as a number of ADC clock cycles.  Sample time is common to all channels.
+Analog switch has R=1k and sampling capacitor is 8pF.  Input impedances are on the order of 10k.  This gives a 99% rise-time of 400ns.  
+
+Dedicated ADC clock is 14MHz making each ADC clock 71ns.  For our 99% rise we need 400/71=6 ADC clocks, so go with 13.5.
+
+For continuous conversion, set CONT=1 in ADC_CFGR1 then ADSTART=1 and it will go and go and go.  Each conversion result is stored in ADC_DR and an interrupt optionally interrupts.
+EXTEN = 0x0 for software-only triggering.
+
+Normal strobe ADCing just dumps everything into the same ADC_DR register.  For easy readback you need to DMA it to a circular buffer.

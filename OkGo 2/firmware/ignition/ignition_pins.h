@@ -57,5 +57,18 @@ void ignition_pins_init(void);
 #define RFM_MOSI 			GPIO5
 #define RFM_MOSI_PORT 		GPIOB
 
+/* Analog pins */
+#define BATT_MON 			GPIO0
+#define BATT_MON_PORT		GPIOA
+#define RELAY_SENSE 		GPIO1
+#define RELAY_SENSE_PORT	GPIOB
+#define CONT_CH1			GPIO0
+#define CONT_CH1_PORT		GPIOB
+#define CONT_CH2			GPIO7
+#define CONT_CH2_PORT		GPIOA
+#define CONT_CH3			GPIO6
+#define CONT_CH3_PORT		GPIOA
+#define CONT_CH4			GPIO5
+#define CONT_CH4_PORT		GPIOA
 
 #endif

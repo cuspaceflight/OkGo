@@ -32,4 +32,7 @@ void control_pins_init()
     gpio_mode_setup(LED_CH3_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LED_CH3);
     gpio_mode_setup(SW_CH4_PORT, GPIO_MODE_INPUT, GPIO_PUPD_NONE, SW_CH4);
     gpio_mode_setup(LED_CH4_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LED_CH4);
+
+    /* Analog pins */
+    gpio_mode_setup(BATT_MON_PORT, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, BATT_MON);
 }

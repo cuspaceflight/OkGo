@@ -21,7 +21,7 @@
 
 BINARY = ignition
 
-LIBS = ../common/utils.c ../common/rfm95w.c
+LIBS = ../common/utils.c ../common/rfm95w.c ../common/adc.c
 SOURCES = $(filter-out $(BINARY).c, $(wildcard *.c)) ${LIBS}
 OBJS = $(SOURCES:.c=.o)
 

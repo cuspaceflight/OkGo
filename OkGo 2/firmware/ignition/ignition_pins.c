@@ -37,5 +37,14 @@ void ignition_pins_init()
     gpio_mode_setup(FIRE_CH3_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, FIRE_CH3);
     gpio_mode_setup(FIRE_CH4_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, FIRE_CH4);
     /* TODO FIXME: Find a safe way to set pin initial states! */
+
+    /* Analog pins */
+    gpio_mode_setup(BATT_MON_PORT, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, BATT_MON);
+    gpio_mode_setup(RELAY_SENSE_PORT, GPIO_MODE_ANALOG, GPIO_PUPD_NONE,
+                    RELAY_SENSE);
+    gpio_mode_setup(CONT_CH1_PORT, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, CONT_CH1);
+    gpio_mode_setup(CONT_CH2_PORT, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, CONT_CH2);
+    gpio_mode_setup(CONT_CH3_PORT, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, CONT_CH3);
+    gpio_mode_setup(CONT_CH4_PORT, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, CONT_CH4);
 }
 
