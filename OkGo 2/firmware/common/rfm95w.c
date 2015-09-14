@@ -198,7 +198,7 @@ bool rfm_packet_waiting(void)
 void rfm_transmit(uint8_t *buf, uint8_t len)
 {
 	/* Set packet length */
-	_rfm_writereg(RFM_RegPayloadLength, 1);
+	_rfm_writereg(RFM_RegPayloadLength, len);
 
     /* Move to the beginning of the TX FIFO */
     _rfm_writereg(RFM_RegFifoAddrPtr, _rfm_readreg(RFM_RegFifoTxBaseAddr));
@@ -216,7 +216,7 @@ void rfm_transmit(uint8_t *buf, uint8_t len)
 /* Retrieve a received packet, length len, into buf */
 void rfm_receive(uint8_t *buf, uint8_t len)
 {
-    volatile uint8_t RegIrqFlags;
+    uint8_t RegIrqFlags;
     bool valid_received = false;
 
    	/* Set packet length */
@@ -224,7 +224,6 @@ void rfm_receive(uint8_t *buf, uint8_t len)
 
     do
     {
-        volatile uint8_t foobar = false;
 	    /* Set Fifo to beginning of RX buffer */
 	    _rfm_writereg(RFM_RegFifoAddrPtr, _rfm_readreg(RFM_RegFifoRxBaseAddr));
 
@@ -238,15 +237,8 @@ void rfm_receive(uint8_t *buf, uint8_t len)
 
 		/* Received if not timeout and CRC done and length correct */
 		valid_received = (_rfm_readreg(RFM_RegRxNbBytes) == len) &&
-                         (RegIrqFlags & RFM_RxDone);/* &&
-					     !(RegIrqFlags & RFM_PayloadCrcError);*/
-
-        foobar = (RegIrqFlags & RFM_PayloadCrcError);
-        if(foobar)
-        {
-            (void)foobar;
-        }
-
+                         (RegIrqFlags & RFM_RxDone) &&
+					     !(RegIrqFlags & RFM_PayloadCrcError);
 
 	    /* Clear RxDone, RxTimeout, and CRC fail interrupts */
 	    _rfm_writereg(RFM_RegIrqFlags,

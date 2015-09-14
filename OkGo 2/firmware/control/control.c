@@ -159,15 +159,6 @@ int main(void)
     gpio_set(LED_GREEN_PORT, LED_GREEN);
     gpio_clear(LED_YELLOW_PORT, LED_YELLOW);
 
-    while(true)
-    {
-        gpio_set(LED_YELLOW_PORT, LED_YELLOW);
-        control_radio_transmit(&state, &radio_state);
-        gpio_clear(LED_YELLOW_PORT, LED_YELLOW);
-        delay_ms(500);
-    }
-
-
     while(1)
     {
         /* Arming status */

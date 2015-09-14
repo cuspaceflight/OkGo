@@ -55,13 +55,6 @@ int main(void)
     while(1)
     {
         ignition_radio_receive_blocking(&radio_state);
-        gpio_toggle(LED_GREEN_PORT, LED_GREEN);
-        gpio_toggle(LED_YELLOW_PORT, LED_YELLOW);
-    }
-    
-    while(1)
-    {
-        ignition_radio_receive_blocking(&radio_state);
         if(radio_state.valid_rx)
         {
             state.armed = radio_state.command & (1<<4);
