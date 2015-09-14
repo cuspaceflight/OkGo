@@ -18,7 +18,7 @@ void adc_init(void);
 /* Read an ADC value, blocking and returning result */
 uint16_t adc_read(uint8_t channel);
 
-/* Convert an ADC-read value to a voltage in tenths of a volt */
-uint8_t adc_to_volts_x10(uint16_t raw);
+/* Convert an ADC-read value to a voltage in millivolts */
+uint32_t adc_to_millivolts(uint16_t raw);
 
 #endif

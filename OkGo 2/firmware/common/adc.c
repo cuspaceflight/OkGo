@@ -37,15 +37,14 @@ uint16_t adc_read(uint8_t channel)
 	return adc_read_regular(ADC1);
 }
 
-/* Convert an ADC-read value to a voltage in tenths of a volt */
-uint8_t adc_to_volts_x10(uint16_t raw)
+/* Convert an ADC-read value to a voltage in millivolts */
+uint32_t adc_to_millivolts(uint16_t raw)
 {
 	/* From ref manual p253, V = VDD_A / FULL_SCALE * raw
 	 * Our VDD is always 3.3V and FULL_SCALE is 2^12 - 1
 	 * So V = 3.3/(2^12 - 1) * raw
-	 * Multiplying by 10 for tenths of a volt gives:
-	 * V*10 = raw / 124
+	 * Multiplying by 1000 for millivolts gives:
+	 * V*1000 = raw * 25 / 31
 	 */
-	 uint16_t Vx10 = raw / 124;
-	 return (uint8_t)Vx10;
+	 return (uint32_t)raw * 25 / 31;
 }

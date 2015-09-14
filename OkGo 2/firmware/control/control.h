@@ -8,10 +8,6 @@
 #define CH_STATUS_CONT_ERR 1
 #define CH_STATUS_FIRE 2
 
-/* ADC channels */
-#define ADC_BATT 0
-
-
 /* Structs */
 typedef struct
 {

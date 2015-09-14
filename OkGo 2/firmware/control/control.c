@@ -83,9 +83,9 @@ void control_display_update(control_state *state,
                             control_radio_state *radio_state)
 {
     uint32_t adc_val;
-    uint8_t control_batt_voltage;
+    uint32_t control_batt_voltage;
     adc_val = adc_read(ADC_CH_CTRL_BATT); /* Read raw value */
-    adc_val = adc_to_volts_x10(adc_val); /* Convert to tenths of a volt */
+    adc_val = adc_to_millivolts(adc_val); /* Convert to millivolts */
     /* Batt voltage comes via a 3k3 over 10k potential divider such that
      * V = Vbatt * 10/13.3
      * Vbatt = V * 133/100 */
@@ -93,9 +93,12 @@ void control_display_update(control_state *state,
 
     /* Control battery voltage */
     lcd_puts("CBAT:");
-    lcd_putc('0' + control_batt_voltage / 10);
+    lcd_putc('0' + control_batt_voltage / 1000);
     lcd_putc('.');
-    lcd_putc('0' + control_batt_voltage % 10);
+    if((control_batt_voltage / 10) % 10 >= 5)
+        lcd_putc('0' + (control_batt_voltage / 100) % 10 + 1);
+    else
+        lcd_putc('0' + (control_batt_voltage / 100) % 10);
     lcd_putc('V');
     if(radio_state->rx_packet_id == 0)
     {
@@ -129,17 +132,14 @@ void control_display_update(control_state *state,
         lcd_puts("          ");
     }
     else
-        switch(radio_state->rx_status)
-        {
-            case RX_STATUS_ARM:
+        if(radio_state->rx_status & (0b11100000))
+            lcd_puts("I:ERROR  ");
+        else
+            if(radio_state->rx_status & (1<<4))
                 lcd_puts("I:ARMED  ");
-                break;
-            case RX_STATUS_DISARM:
+            else
                 lcd_puts("I:DISARM ");
-                break;
-            default:
-                lcd_puts("I:ERROR  ");
-        }
+
 
     /* Control channel status */
     lcd_cursor_pos(3, 0);
