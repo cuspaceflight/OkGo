@@ -9,6 +9,7 @@
 #include "control_pins.h"
 #include "control_radio.h"
 #include "rfm95w.h"
+#include "control.h"
 
 /* Setup the SPI peripheral and call the RGM95W initialization procedure.
  * Also initialise all the state variables to sensible defaults */
@@ -40,7 +41,7 @@ void control_radio_init(control_radio_state *radio_state)
     rfm_initialise(SPI1, RFM_NSS_PORT, RFM_NSS);
 
     /* Setup state variables to sensible defaults */
-	radio_state->rx_packet_id = 0; /* packet_id 0 indicates no valid receipt */
+	radio_state->valid_rx = false;
     radio_state->rx_rssi = 0;
     radio_state->rx_voltage = 0;
     radio_state->rx_status = 0;
@@ -50,21 +51,54 @@ void control_radio_init(control_radio_state *radio_state)
     radio_state->rx_cont4 = 0;
 }
 
-/* Parse a received radio packet and fill in the received packet datastore */
-void control_radio_parse_packet(uint8_t *buf, uint8_t len)
+/* Transmit a packet to ignition based on the contents of state */
+void control_radio_transmit(control_state *state, control_radio_state *radio_state)
 {
-	// TODO
-	(void)buf;
-	(void)len;
+    uint8_t buf[11];
+    uint8_t command = 0;
+
+    (void)radio_state; /* Might use this later for a tx ID */
+
+    command |= state->armed << 4;
+    command |= (state->ch4_status == CH_STATUS_FIRE) << 3;
+    command |= (state->ch3_status == CH_STATUS_FIRE) << 2;
+    command |= (state->ch2_status == CH_STATUS_FIRE) << 1;
+    command |= (state->ch1_status == CH_STATUS_FIRE);
+    buf[0] = command;
+
+    /* TODO: Fill in HMAC-MD5-80 in buf[1:11] */
+
+    rfm_transmit(buf, 11);
 }
 
-/* Make a packet with the supplied command byte (arm status, fire status, buzzer
- * control into the supplied buffer.  Returns packet length. */
-uint8_t control_radio_make_packet(uint8_t command, uint8_t *buf, uint8_t len)
+/* Initiate packet reception and block until a packet is received */
+void control_radio_receive_blocking(control_radio_state *radio_state)
 {
-	// TODO
-	(void)command;
-	(void)buf;
-	(void)len;
-	return 0;
+    uint8_t rx_buf[17];
+
+    rfm_receive(rx_buf, 17);
+    control_radio_parse_packet(radio_state, rx_buf, 17);
+}
+
+/* Parse a received radio packet and fill in the received packet datastore */
+void control_radio_parse_packet(control_radio_state *radio_state, uint8_t *buf,
+                                uint8_t len)
+{
+    if(len != 17)
+    {
+        /* Invalid packet! */
+        radio_state->valid_rx = false;
+        return;
+    }
+
+    radio_state->rx_rssi = buf[0];
+    radio_state->rx_voltage = buf[1];
+    radio_state->rx_status = buf[2];
+    radio_state->rx_cont1 = buf[3];
+    radio_state->rx_cont2 = buf[4];
+    radio_state->rx_cont3 = buf[5];
+    radio_state->rx_cont4 = buf[6];
+    radio_state->valid_rx = true;
+
+    /* TODO: Check HMAC-MD5-80 at buf[7:17] */
 }

@@ -4,19 +4,16 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-/* Transmit and receive packet buffer lengths */
-#define TX_BUF_LEN 255
-#define RX_BUF_LEN 255
-
-#define RX_STATUS_DISARM 0
-#define RX_STATUS_ARM 1
+#include "control.h"
 
 /* Control radio state structure */
 typedef struct
 {
 	/* Received packet datastore */
-	uint32_t rx_packet_id;
-	uint8_t rx_rssi, rx_voltage, rx_status;
+	bool valid_rx;
+	uint8_t packet_rssi; /* RSSI *of* the incoming packet, filled by rx */
+	uint8_t rx_rssi; /* RSSI *in* the incoming packet */
+	uint8_t rx_voltage, rx_status;
 	uint8_t rx_cont1, rx_cont2, rx_cont3, rx_cont4;
 } control_radio_state;
 
@@ -25,11 +22,15 @@ typedef struct
  * Also initialise all the above state variables to sensible defaults */
 void control_radio_init(control_radio_state *radio_state);
 
-/* Parse a received radio packet and fill in the received packet datastore */
-void control_radio_parse_packet(uint8_t *buf, uint8_t len);
+/* Transmit a packet to ignition based on the contents of state */
+void control_radio_transmit(control_state *state,
+							control_radio_state *radio_state);
 
-/* Make a packet with the supplied command byte (arm status, fire status, buzzer
- * control into the supplied buffer.  Returns packet length. */
-uint8_t control_radio_make_packet(uint8_t command, uint8_t *buf, uint8_t len);
+/* Initiate packet reception and block until a packet is received */
+void control_radio_receive_blocking(control_radio_state *radio_state);
+
+/* Parse a received radio packet and fill in the received packet datastore */
+void control_radio_parse_packet(control_radio_state *radio_state, uint8_t *buf,
+								uint8_t len);
 
 #endif

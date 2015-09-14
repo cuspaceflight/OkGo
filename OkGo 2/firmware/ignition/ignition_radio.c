@@ -6,25 +6,15 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/spi.h>
 
+#include "ignition.h"
 #include "ignition_pins.h"
 #include "ignition_radio.h"
 #include "rfm95w.h"
-
-/* Local radio state: */
-uint32_t packet_id;
-
-/* Transmit and receive packet buffers */
-uint8_t tx_buf[TX_BUF_LEN], rx_buf[RX_BUF_LEN];
-
-/* Received packet datastore: */
-uint32_t rx_packet_id;
-uint8_t rx_rssi, rx_voltage, rx_status;
-uint8_t rx_cont1, rx_cont2, rx_cont3, rx_cont4;
-uint16_t rx_checksum;
+#include "adc.h"
 
 /* Setup the SPI peripheral and call the RGM95W initialization procedure.
  * Also initialise all the state variables to sensible defaults */
-void ignition_radio_init(void)
+void ignition_radio_init(ignition_radio_state *radio_state)
 {
     /* Clock SPI1 peripheral and setup GPIOs appropriately: 
      * NSS, SCK, MOSI, RESET are outputs,
@@ -45,30 +35,71 @@ void ignition_radio_init(void)
     /* Run RFM95W initialization */
     rfm_initialise(SPI1, RFM_NSS_PORT, RFM_NSS);
 
-    /* Setup state variables to sensible defaults */
-	memset(tx_buf, 0, TX_BUF_LEN);
-	memset(rx_buf, 0, RX_BUF_LEN);
-	packet_id = 0;
-	rx_packet_id = rx_rssi = rx_voltage = rx_status = 0;
-	rx_cont1 = rx_cont2 = rx_cont3 = rx_cont4 = 0;
-	rx_checksum = 0;
+	radio_state->valid_rx = false;
+}
+
+/* Transmit a packet to control based on the contents of state */
+void ignition_radio_transmit(ignition_state *state,
+                             ignition_radio_state *radio_state)
+{
+    uint8_t buf[17];
+    uint32_t adc_val;
+    uint8_t status;
+
+    buf[0] = radio_state->packet_rssi;
+
+    /* Read battery voltage */
+    adc_val = adc_to_millivolts(adc_read(ADC_CH_IGTN_BATT));
+    /* Pot divider of 10k over 3k3 s.t. V = Vbatt * 3.3/13.3
+     * Vbatt = V * 13.3/3.3 = V * 133/33 */
+    adc_val = adc_val * 133 / 33;
+    if((adc_val / 10) % 10 >= 5) /* Round instead of truncate */
+        buf[1] = adc_val / 100 + 1;
+    else
+        buf[1] = adc_val / 100;
+
+    /* Status byte */
+    status = (state->armed << 4) |
+             (state->fire_ch4 << 3) |
+             (state->fire_ch3 << 2) |
+             (state->fire_ch2 << 1) |
+             (state->fire_ch1);
+    buf[2] = status;
+
+    /* Channel continuities */
+    /* Convert these from 12bit to 8bit, dumping the 4 least significant bits */
+    buf[3] = adc_read(ADC_CH_IGTN_CONT1) >> 4;
+    buf[4] = adc_read(ADC_CH_IGTN_CONT2) >> 4;
+    buf[5] = adc_read(ADC_CH_IGTN_CONT3) >> 4;
+    buf[6] = adc_read(ADC_CH_IGTN_CONT4) >> 4;
+
+    /* TODO: Generate HMAC-MD5-80 in buf[7:17] */
+
+    rfm_transmit(buf, 17);
+}
+
+/* Initiate packet reception and block until a packet is received */
+void ignition_radio_receive_blocking(ignition_radio_state *radio_state)
+{
+    uint8_t rx_buf[11];
+
+    rfm_receive(rx_buf, 11);
+    ignition_radio_parse_packet(radio_state, rx_buf, 11);
 }
 
 /* Parse a received radio packet and fill in the received packet datastore */
-void ignition_radio_parse_packet(uint8_t *buf, uint8_t len)
+void ignition_radio_parse_packet(ignition_radio_state *radio_state,
+                                 uint8_t *buf, uint8_t len)
 {
-	// TODO
-	(void)buf;
-	(void)len;
-}
+    if(len != 11)
+    {
+        /* Invalid packet length! */
+        radio_state->valid_rx = false;
+        return;
+    }
 
-/* Make a packet with the supplied command byte (arm status, fire status, buzzer
- * control into the supplied buffer.  Returns packet length. */
-uint8_t ignition_radio_make_packet(uint8_t command, uint8_t *buf, uint8_t len)
-{
-	// TODO
-	(void)command;
-	(void)buf;
-	(void)len;
-	return 0;
+    radio_state->command = buf[0];
+    radio_state->valid_rx = true;
+
+    /* TODO: Check HMAC-MD5-80 at buf[1:10] */
 }

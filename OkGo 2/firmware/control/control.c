@@ -100,7 +100,7 @@ void control_display_update(control_state *state,
     else
         lcd_putc('0' + (control_batt_voltage / 100) % 10);
     lcd_putc('V');
-    if(radio_state->rx_packet_id == 0)
+    if(!(radio_state->valid_rx))
     {
         lcd_puts(" IBAT:??.?V");
 
@@ -127,7 +127,7 @@ void control_display_update(control_state *state,
         lcd_puts(" C:ARMED  ");
     else
         lcd_puts(" C:DISARM ");
-    if(radio_state->rx_packet_id == 0)
+    if(!(radio_state->valid_rx))
     {
         lcd_puts("          ");
     }
@@ -156,41 +156,21 @@ int main(void)
 
     control_init(&state, &radio_state);
 
-    /*lcd_puts("Hello, world!");
-    lcd_cursor_pos(1, 0);
-    lcd_puts("Second line!");
-    lcd_cursor_pos(2, 0);
-    lcd_puts("Third line!");
-    lcd_cursor_pos(3, 1);
-    lcd_puts("Indent! :o");*/
-
     gpio_set(LED_GREEN_PORT, LED_GREEN);
     gpio_clear(LED_YELLOW_PORT, LED_YELLOW);
 
+    while(true)
+    {
+        gpio_set(LED_YELLOW_PORT, LED_YELLOW);
+        control_radio_transmit(&state, &radio_state);
+        gpio_clear(LED_YELLOW_PORT, LED_YELLOW);
+        delay_ms(500);
+    }
+
+
     while(1)
     {
-        uint8_t tx_buf_byte;
-        /*
-        if(rfm_packet_waiting())
-        {
-            rfm_receive(rx_buf, RX_BUF_LEN);
-            control_radio_parse_packet(rx_buf, RX_BUF_LEN);
-             TODO temporary: boop the receive registers 
-            (void)rx_packet_id;
-            (void)rx_rssi;
-            (void)rx_voltage;
-            (void)rx_status;
-            (void)rx_cont1; (void)rx_cont2; (void)rx_cont3; (void)rx_cont4;
-            (void)rx_checksum;
-        }
-         TODO: Consider Ignition status and error / stuckness 
-         TODO: armed state, arm LED, channel LEDs 
-        display_update();
-        uint8_t packet_len, command;
-        command = 0;TODO bitfield
-        packet_len = control_radio_make_packet(command, tx_buf, TX_BUF_LEN);
-        rfm_transmit(tx_buf, packet_len, PA_BOOST);
-        */
+        /* Arming status */
         state.armed = !gpio_get_bool(SW_KEY_PORT, SW_KEY);
         gpio_set_bool(LED_ARM_PORT, LED_ARM, state.armed);
         gpio_set_bool(LED_DISARM_PORT, LED_DISARM, !(state.armed));
@@ -206,13 +186,6 @@ int main(void)
                                 CH_STATUS_OK:CH_STATUS_FIRE;
             state.ch4_status = gpio_get_bool(SW_CH4_PORT, SW_CH4)?
                                 CH_STATUS_OK:CH_STATUS_FIRE;
-
-            tx_buf_byte = 0x10; /* armed */
-            /* Load firing status into tx byte */
-            tx_buf_byte |= (state.ch1_status == CH_STATUS_FIRE)<<0;
-            tx_buf_byte |= (state.ch2_status == CH_STATUS_FIRE)<<1;
-            tx_buf_byte |= (state.ch3_status == CH_STATUS_FIRE)<<2;
-            tx_buf_byte |= (state.ch4_status == CH_STATUS_FIRE)<<3;
         }
         else
         {
@@ -221,9 +194,8 @@ int main(void)
             state.ch2_status = CH_STATUS_OK;
             state.ch3_status = CH_STATUS_OK;
             state.ch4_status = CH_STATUS_OK;
-            /* Clear tx byte */
-            tx_buf_byte = 0x00;
         }
+
         /* Set channel LEDs based on firing/cont and armed status */
         gpio_set_bool(LED_CH1_PORT, LED_CH1,
                       state.armed && (state.ch1_status == CH_STATUS_OK));
@@ -234,13 +206,16 @@ int main(void)
         gpio_set_bool(LED_CH1_PORT, LED_CH4,
                       state.armed && (state.ch4_status == CH_STATUS_OK));
 
-        gpio_toggle(LED_GREEN_PORT, LED_GREEN);
+        /* Do RX/TX */
         gpio_set(LED_YELLOW_PORT, LED_YELLOW);
-        rfm_transmit(&tx_buf_byte, 1);
+        control_radio_transmit(&state, &radio_state);
+        control_radio_receive_blocking(&radio_state);
         gpio_clear(LED_YELLOW_PORT, LED_YELLOW);
 
+        /* Update display */
         control_display_update(&state, &radio_state);
-
+        
+        gpio_toggle(LED_GREEN_PORT, LED_GREEN);
         delay_ms(FAST_PACKET_DELAY);
     }
     
