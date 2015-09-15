@@ -28,6 +28,9 @@ void control_init(control_state *state, control_radio_state *radio_state);
 /* Convert a channel status enum into a string and print to LCD */
 void control_display_ch_status(uint8_t ch_status);
 
+/* Display a continuity resistance to the LCD */
+void control_display_ch_cont(uint8_t cont);
+
 /* Update display from local state */
 void control_display_update(control_state *state,
                             control_radio_state *radio_state);
@@ -78,10 +81,37 @@ void control_display_ch_status(uint8_t ch_status)
             lcd_puts("     ");
     }
 }
+
+/* Display a continuity resistance to the LCD */
+void control_display_ch_cont(uint8_t cont)
+{
+    lcd_putc('0' + cont / 100);
+    lcd_putc('0' + (cont / 10) % 10);
+    lcd_putc('0' + cont % 10);
+    lcd_putc(0b11110100); /* Character code for ohms */
+    lcd_putc(' ');
+}
+
 /* Update display from local state */
 void control_display_update(control_state *state,
                             control_radio_state *radio_state)
 {
+    /* Display format (no link): 
+     * ######################
+     * #CBAT:3.7V IBAT:??.?V#
+     * # C:ARMED  NO LINK!  #
+     * #                    #
+     * #OK   OK   FIRE OK   #
+     * ######################
+     *
+     * Display format (link):
+     * ######################
+     * #CBAT:3.7V IBAT:12.2V#
+     * # C:ARMED  I:ARMED   #
+     * #002R 255R 255R 000R #
+     * #OK   ERR  ERR  ERR  #
+     * ######################
+     */
     uint32_t adc_val;
     uint32_t control_batt_voltage;
     adc_val = adc_read(ADC_CH_CTRL_BATT); /* Read raw value */
@@ -92,6 +122,7 @@ void control_display_update(control_state *state,
     control_batt_voltage = adc_val * 133 / 100;
 
     /* Control battery voltage */
+    lcd_cursor_pos(0, 0);
     lcd_puts("CBAT:");
     lcd_putc('0' + control_batt_voltage / 1000);
     lcd_putc('.');
@@ -100,14 +131,9 @@ void control_display_update(control_state *state,
     else
         lcd_putc('0' + (control_batt_voltage / 100) % 10);
     lcd_putc('V');
-    if(!(radio_state->valid_rx))
-    {
-        lcd_puts(" IBAT:??.?V");
 
-        lcd_cursor_pos(1, 6);
-        lcd_puts("NO LINK");
-    }
-    else
+    /* Ignition battery voltage */
+    if(radio_state->valid_rx)
     {
         lcd_putc(' ');
         lcd_puts("IBAT:");
@@ -116,20 +142,19 @@ void control_display_update(control_state *state,
         lcd_putc('.');
         lcd_putc('0' + radio_state->rx_voltage % 10);
         lcd_putc('V');
-
-        lcd_cursor_pos(1, 6);
-        lcd_puts("       ");
     }
+    else
+        lcd_puts(" IBAT:??.?V");
 
     /* Control and ignition arm status */
-    lcd_cursor_pos(2, 0);
+    lcd_cursor_pos(1, 0);
     if(state->armed)
         lcd_puts(" C:ARMED  ");
     else
         lcd_puts(" C:DISARM ");
     if(!(radio_state->valid_rx))
     {
-        lcd_puts("          ");
+        lcd_puts("NO LINK!  ");
     }
     else
         if(radio_state->rx_status & (0b11100000))
@@ -140,6 +165,17 @@ void control_display_update(control_state *state,
             else
                 lcd_puts("I:DISARM ");
 
+    /* Channel continuities */
+    lcd_cursor_pos(2, 0);
+    if(radio_state->valid_rx)
+    {
+        control_display_ch_cont(radio_state->rx_cont1);
+        control_display_ch_cont(radio_state->rx_cont2);
+        control_display_ch_cont(radio_state->rx_cont3);
+        control_display_ch_cont(radio_state->rx_cont4);
+    }
+    else
+        lcd_puts("                    ");
 
     /* Control channel status */
     lcd_cursor_pos(3, 0);
