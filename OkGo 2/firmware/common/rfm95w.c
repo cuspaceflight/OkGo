@@ -49,6 +49,9 @@ void _rfm_setmode(uint8_t mode)
     RegOpMode &= 0b11111000; /* Clear old mode */
     RegOpMode |= mode; /* Set new mode */
     _rfm_writereg(RFM_RegOpMode, RegOpMode);
+
+    /* Wait for new mode to take effect */
+    while((_rfm_readreg(RFM_RegOpMode) & 0b00000111) != mode);
 }
 
 /* Send and receive 8 bits, blocking until completion */
@@ -178,25 +181,12 @@ void rfm_setfreq(uint32_t frf)
     _rfm_setmode(RFM_MODE_STANDBY);
 }
 
-/* Check if a packet has been received and is waiting to be retrieved */
-bool rfm_packet_waiting(void)
-{
-    uint8_t RegIrqFlags;
-
-    RegIrqFlags = _rfm_readreg(RFM_RegIrqFlags);
-    if(RegIrqFlags & RFM_RxDone)
-    {
-        /* Clear the interrupt */
-        _rfm_writereg(RFM_RegIrqFlags, RFM_RxDone);
-        return true;
-    }
-    else
-    	return false;
-}
-
 /* Transmit a packet length len stored in buf, optional PA_BOOST to 100mW TX */
 void rfm_transmit(uint8_t *buf, uint8_t len)
 {
+    /* Check we're in stand-by */
+    _rfm_setmode(RFM_MODE_STANDBY);
+
 	/* Set packet length */
 	_rfm_writereg(RFM_RegPayloadLength, len);
 
@@ -211,6 +201,9 @@ void rfm_transmit(uint8_t *buf, uint8_t len)
 
     /* TODO: For now, block on sending */
     while((_rfm_readreg(RFM_RegOpMode) & 0b00000111) == RFM_MODE_TX);
+
+    /* Clear txdone interrupt flag */
+    _rfm_writereg(RFM_RegOpMode, RFM_TxDone);
 }
 
 /* Retrieve a received packet, length len, into buf */
@@ -218,6 +211,9 @@ void rfm_receive(uint8_t *buf, uint8_t len)
 {
     uint8_t RegIrqFlags;
     bool valid_received = false;
+
+    /* Check we're in stand-by */
+    _rfm_setmode(RFM_MODE_STANDBY);
 
    	/* Set packet length */
 	_rfm_writereg(RFM_RegPayloadLength, len);
@@ -251,6 +247,80 @@ void rfm_receive(uint8_t *buf, uint8_t len)
 
 	/* Read packet out of FIFO into our buffer */
     _rfm_bulkread(RFM_RegFifo, buf, len);
+}
+
+/* Check if a packet has been received and is waiting to be retrieved */
+bool rfm_packet_waiting(void)
+{
+    uint8_t RegIrqFlags;
+
+    RegIrqFlags = _rfm_readreg(RFM_RegIrqFlags);
+    if(RegIrqFlags & RFM_RxDone)
+    {
+        /* Clear the interrupt */
+        _rfm_writereg(RFM_RegIrqFlags, RFM_RxDone);
+        return true;
+    }
+    else
+        return false;
+}
+
+/* Put module into receive mode then return */
+void rfm_receive_async(uint8_t len)
+{
+    /* Check we're in stand-by */
+    _rfm_setmode(RFM_MODE_STANDBY);
+
+    /* Set packet length */
+    _rfm_writereg(RFM_RegPayloadLength, len);
+
+    /* Clear possible interrupts */
+    _rfm_writereg(RFM_RegIrqFlags,
+                  RFM_RxDone | RFM_PayloadCrcError | RFM_RxTimeout);
+
+     /* Set Fifo to beginning of RX buffer */
+    _rfm_writereg(RFM_RegFifoAddrPtr, _rfm_readreg(RFM_RegFifoRxBaseAddr));
+
+    /* Initiate receive using mode change */
+    _rfm_setmode(RFM_MODE_RXCONTINUOUS);
+}
+
+/* Attempt to retrieve a packet received in async mode.  Return success */
+bool rfm_packet_retrieve(uint8_t *buf, uint8_t len)
+{
+    volatile uint8_t rx_len, RegIrqFlags;
+
+    RegIrqFlags = _rfm_readreg(RFM_RegIrqFlags);
+    rx_len = _rfm_readreg(RFM_RegRxNbBytes);
+
+    if((RegIrqFlags & RFM_RxDone) &&
+       !(RegIrqFlags & RFM_PayloadCrcError) &&
+       (rx_len == len))
+    {
+        /* Good receive. */
+        /* Move FIFO pointer to beginning of last packet received */
+        _rfm_writereg(RFM_RegFifoAddrPtr,
+                      _rfm_readreg(RFM_RegFifoRxCurrentAddr));
+
+        /* Read packet out of FIFO into our buffer */
+        _rfm_bulkread(RFM_RegFifo, buf, len);
+
+        /* Clear RxDone, RxTimeout, and CRC fail interrupts */
+        _rfm_writereg(RFM_RegIrqFlags,
+                      RFM_RxDone | RFM_PayloadCrcError | RFM_RxTimeout);
+
+        return true; /* Success */
+    }
+    else
+    {
+        /* Bad receive */
+        /* Clear RxDone, RxTimeout, and CRC fail interrupts */
+        _rfm_writereg(RFM_RegIrqFlags,
+                      RFM_RxDone | RFM_PayloadCrcError | RFM_RxTimeout);
+
+        return false; /* Fail */
+    }
+
 }
 
 /* Set transmit power to a dBm value from 0 to +17dBm */

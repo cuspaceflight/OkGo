@@ -87,6 +87,17 @@ void ignition_radio_receive_blocking(ignition_radio_state *radio_state)
     ignition_radio_parse_packet(radio_state, rx_buf, 11);
 }
 
+/* Retrieve and parse a packet received in async receive */
+void ignition_radio_receive_async(ignition_radio_state *radio_state)
+{
+    uint8_t rx_buf[11];
+
+    if(rfm_packet_retrieve(rx_buf, 11))
+        ignition_radio_parse_packet(radio_state, rx_buf, 11);
+    else
+        radio_state->valid_rx = false;
+}
+
 /* Parse a received radio packet and fill in the received packet datastore */
 void ignition_radio_parse_packet(ignition_radio_state *radio_state,
                                  uint8_t *buf, uint8_t len)

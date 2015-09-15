@@ -80,6 +80,17 @@ void control_radio_receive_blocking(control_radio_state *radio_state)
     control_radio_parse_packet(radio_state, rx_buf, 17);
 }
 
+/* Retrieve and parse a packet received in async receive */
+void control_radio_receive_async(control_radio_state *radio_state)
+{
+    uint8_t rx_buf[17];
+
+    if(rfm_packet_retrieve(rx_buf, 17))
+        control_radio_parse_packet(radio_state, rx_buf, 17);
+    else
+        radio_state->valid_rx = false;
+}
+
 /* Parse a received radio packet and fill in the received packet datastore */
 void control_radio_parse_packet(control_radio_state *radio_state, uint8_t *buf,
                                 uint8_t len)

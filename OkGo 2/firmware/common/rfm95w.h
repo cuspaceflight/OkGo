@@ -29,14 +29,21 @@ void rfm_initialise(uint32_t spi_periph, uint32_t nss_port, uint32_t nss_pin);
 /* Set the RFM95W centre frequency using an FRF register value */
 void rfm_setfreq(uint32_t frf);
 
-/* Check if a packet has been received and is waiting to be retrieved */
-bool rfm_packet_waiting(void);
 
 /* Transmit a packet length len stored in buf, optional PA_BOOST to 100mW TX */
 void rfm_transmit(uint8_t *buf, uint8_t len);
 
-/* Retrieve a received packet, length len, into buf */
+/* Retrieve a packet, length len, into buf */
 void rfm_receive(uint8_t *buf, uint8_t len);
+
+/* Put module into receive mode then return */
+void rfm_receive_async(uint8_t len);
+
+/* Check if a packet has been received and is waiting to be retrieved */
+bool rfm_packet_waiting(void);
+
+/* Attempt to retrieve a packet received in async mode.  Return success */
+bool rfm_packet_retrieve(uint8_t *buf, uint8_t len);
 
 /* Set transmit power to a dBm value from 0 to +17dBm */
 void rfm_setpower(uint8_t power);

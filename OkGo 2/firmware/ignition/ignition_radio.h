@@ -24,6 +24,9 @@ void ignition_radio_transmit(ignition_state *state,
 /* Initiate packet reception and block until a packet is received */
 void ignition_radio_receive_blocking(ignition_radio_state *radio_state);
 
+/* Retrieve and parse a packet received in async receive */
+void ignition_radio_receive_async(ignition_radio_state *radio_state);
+
 /* Parse a received radio packet and fill in the received packet datastore */
 void ignition_radio_parse_packet(ignition_radio_state *radio_state,
 							     uint8_t *buf, uint8_t len);

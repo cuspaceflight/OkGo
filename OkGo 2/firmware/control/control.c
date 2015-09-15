@@ -197,17 +197,22 @@ int main(void)
         gpio_set_bool(LED_CH1_PORT, LED_CH4,
                       state.armed && (state.ch4_status == CH_STATUS_OK));
 
-        /* Do RX/TX */
+        /* Do TX */
         gpio_set(LED_YELLOW_PORT, LED_YELLOW);
         control_radio_transmit(&state, &radio_state);
-        control_radio_receive_blocking(&radio_state);
         gpio_clear(LED_YELLOW_PORT, LED_YELLOW);
 
-        /* Update display */
+        /* Setup receiver */
+        rfm_receive_async(17);
+
+        /* Update display and delay */
         control_display_update(&state, &radio_state);
-        
+        delay_ms(1000);
+
+        /* Attempt receive (used in next cycle before delay) */
+        control_radio_receive_async(&radio_state);
+
         gpio_toggle(LED_GREEN_PORT, LED_GREEN);
-        delay_ms(FAST_PACKET_DELAY);
     }
     
     return 0;

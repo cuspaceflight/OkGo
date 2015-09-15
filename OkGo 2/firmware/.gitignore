@@ -2,3 +2,4 @@
 *.elf
 *.map
 *.o
+.gdb_history
