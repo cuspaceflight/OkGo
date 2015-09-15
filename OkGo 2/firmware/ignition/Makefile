@@ -28,3 +28,18 @@ OBJS = $(SOURCES:.c=.o)
 CPPFLAGS += -I../common/
 
 include ../common/Makefile.f0.include
+
+flash: ignition.elf
+	arm-none-eabi-gdb --batch \
+		-ex 'target extended-remote /dev/ttyACM0' \
+		-ex 'monitor version' \
+		-ex 'monitor swdp_scan' \
+		-ex 'attach 1' \
+		-ex 'load control.elf'
+
+debug: control.elf
+	arm-none-eabi-gdb -ex 'target extended-remote /dev/ttyACM0' \
+		-ex 'monitor swdp_scan' \
+		-ex 'attach 1' \
+		-ex 'file control.elf'
+
