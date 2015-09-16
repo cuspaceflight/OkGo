@@ -12,6 +12,7 @@
 #include "ignition_pins.h"
 #include "ignition_radio.h"
 
+const uint8_t RADIO_POWER_DBM = 10; /* Radio tx power in dBm */
 
 /* Internal functions */
 void ignition_init(ignition_state *state, ignition_radio_state *radio_state);
@@ -35,7 +36,7 @@ void ignition_init(ignition_state *state, ignition_radio_state *radio_state)
     /* Initialise radio and local state variables, read stored config*/
     ignition_radio_init(radio_state);
     rfm_setfreq(state->centre_frf);
-    rfm_setpower(0);
+    rfm_setpower(RADIO_POWER_DBM);
     
     /* ADC Setup: Clock periph, run init. Pins done in ignition_pins */
     rcc_periph_clock_enable(RCC_ADC);
