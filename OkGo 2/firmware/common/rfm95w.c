@@ -156,8 +156,9 @@ void rfm_initialise(uint32_t spi_periph, uint32_t nss_port, uint32_t nss_pin)
     /* Write config: */
     _rfm_writereg(RFM_RegModemConfig1, RegModemConfig1);
 
-    /* Set SF8 = 256 chips/symbol */
-    RegModemConfig2 = RFM_SpreadingFactor3;
+    /* Set SF7 = 128 chips/symbol */
+    RegModemConfig2 = RFM_SpreadingFactor2 | RFM_SpreadingFactor1 |
+                      RFM_SpreadingFactor0;
     /* Enable CRCs: */
     RegModemConfig2 |= RFM_RxPayloadCrcOn;
     /* Write config: */

@@ -74,6 +74,8 @@ int main(void)
                 state.fire_ch4 = false;
             }
         }
+
+        delay_ms(10);
         ignition_radio_transmit(&state, &radio_state);
 
         if(state.armed)
