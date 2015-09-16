@@ -323,33 +323,21 @@ bool rfm_packet_retrieve(uint8_t *buf, uint8_t len)
 
 }
 
-/* Set transmit power to a dBm value from 0 to +17dBm */
+/* Set transmit power to a dBm value from 2 to +17dBm */
 void rfm_setpower(uint8_t power)
 {
 	uint8_t RegPaConfig = 0x00;
 
-	/* TODO: For now disable boost powers, so maximum power is +14dBm */
-	if(power > 14)
-		power = 0; /* 0dBm = 1mW default */
+    /* Force boost mode for the HopeRF module, restricts power range to
+     * 2 - 17dBm (without using extra boost to 20dBm) */
+    if((power < 2) || (power > 17))
+        power = 2; /* 2dBm sensible default */
 
-	/* Set MaxPower to 7 for max power in boost or normal mode */
-	RegPaConfig |= RFM_MaxPower2 | RFM_MaxPower1 | RFM_MaxPower0;
+    RegPaConfig |= RFM_PaSelect; /* Select boost PA */
 
-	/* Boost mode */
-	if(power > 14)
-	{
-		RegPaConfig |= RFM_PaSelect; /* Enable BOOST PA! */
-		/* Pmax = 10.8 + 0.6*7 = +15dBm
-		 * Pout = 2 + OutputPower
-		 * OutputPower = Pout - 2 */
-		RegPaConfig |= (power - 2) & 0b00001111;
-	}
-	else /* Normal non-boost mode */
-	{
-		/* Pmax = 10.8 + 0.6*7 = +15dBm
-		 * Pout = OutputPower */
-		RegPaConfig |= power & 0b00001111;
-	}
+    /* Actual Power = OutputPower + 2dBm, so set OutputPower=power-2 */
+    RegPaConfig |= (power - 2);
+
 	_rfm_writereg(RFM_RegPaConfig, RegPaConfig);
 }
 

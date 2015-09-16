@@ -45,7 +45,7 @@ bool rfm_packet_waiting(void);
 /* Attempt to retrieve a packet received in async mode.  Return success */
 bool rfm_packet_retrieve(uint8_t *buf, uint8_t len);
 
-/* Set transmit power to a dBm value from 0 to +17dBm */
+/* Set transmit power to a dBm value from 2 to +17dBm */
 void rfm_setpower(uint8_t power);
 
 #endif
