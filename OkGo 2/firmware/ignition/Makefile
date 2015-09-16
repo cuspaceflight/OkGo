@@ -35,11 +35,11 @@ flash: ignition.elf
 		-ex 'monitor version' \
 		-ex 'monitor swdp_scan' \
 		-ex 'attach 1' \
-		-ex 'load control.elf'
+		-ex 'load ignition.elf'
 
 debug: control.elf
 	arm-none-eabi-gdb -ex 'target extended-remote /dev/ttyACM0' \
 		-ex 'monitor swdp_scan' \
 		-ex 'attach 1' \
-		-ex 'file control.elf'
+		-ex 'file ignition.elf'
 
