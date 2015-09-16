@@ -53,6 +53,12 @@ uint8_t adc_to_ohms(uint16_t raw)
     if(millivolts >= 3300)
         millivolts = 3299; /* Avoid negatives or div by zero */
 
+    /* Remove 48mV offset caused by diode reverse current */
+    if(millivolts >= 48)
+        millivolts -= 48;
+    else
+        millivolts = 0;
+
     ohms = millivolts * 1000 / (3300 - millivolts);
 
     if(ohms >= 10000)

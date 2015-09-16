@@ -16,7 +16,7 @@ void adc_init(void)
 	/* Settings... */
 	adc_set_operation_mode(ADC1, ADC_MODE_SEQUENTIAL);
 	adc_set_right_aligned(ADC1);
-	adc_set_sample_time_on_all_channels(ADC1, ADC_SMPTIME_013DOT5);
+	adc_set_sample_time_on_all_channels(ADC1, ADC_SMPTIME_071DOT5);
 	adc_set_resolution(ADC1, ADC_RESOLUTION_12BIT);
 
     /* Bring up the ADC and wait for stabilisation */
