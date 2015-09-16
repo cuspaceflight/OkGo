@@ -288,7 +288,7 @@ void rfm_receive_async(uint8_t len)
 /* Attempt to retrieve a packet received in async mode.  Return success */
 bool rfm_packet_retrieve(uint8_t *buf, uint8_t len)
 {
-    volatile uint8_t rx_len, RegIrqFlags;
+    uint8_t rx_len, RegIrqFlags;
 
     RegIrqFlags = _rfm_readreg(RFM_RegIrqFlags);
     rx_len = _rfm_readreg(RFM_RegRxNbBytes);

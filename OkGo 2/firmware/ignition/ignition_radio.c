@@ -12,6 +12,11 @@
 #include "rfm95w.h"
 #include "adc.h"
 
+/*********** Internal functions ******************/
+/* Convert raw ADC value to continuity ohms */
+uint8_t adc_to_ohms(uint16_t raw);
+
+/************* Exported functions *****************/
 /* Setup the SPI peripheral and call the RGM95W initialization procedure.
  * Also initialise all the state variables to sensible defaults */
 void ignition_radio_init(ignition_radio_state *radio_state)
@@ -36,6 +41,26 @@ void ignition_radio_init(ignition_radio_state *radio_state)
     rfm_initialise(SPI1, RFM_NSS_PORT, RFM_NSS);
 
 	radio_state->valid_rx = false;
+}
+
+/* Convert raw ADC value to continuity ohms */
+uint8_t adc_to_ohms(uint16_t raw)
+{
+    uint32_t millivolts;
+    uint32_t ohms;
+    
+    millivolts = adc_to_millivolts(raw);
+    if(millivolts >= 3300)
+        millivolts = 3299; /* Avoid negatives or div by zero */
+
+    ohms = millivolts * 1000 / (3300 - millivolts);
+
+    if(ohms >= 10000)
+        return 255; /* magic value meaning open */
+    else if(ohms >= 255)
+        return 254; /* magic value meaning high but not open */
+    else
+        return (uint8_t)ohms;
 }
 
 /* Transmit a packet to control based on the contents of state */
@@ -67,11 +92,10 @@ void ignition_radio_transmit(ignition_state *state,
     buf[2] = status;
 
     /* Channel continuities */
-    /* Convert these from 12bit to 8bit, dumping the 4 least significant bits */
-    buf[3] = adc_read(ADC_CH_IGTN_CONT1) >> 4;
-    buf[4] = adc_read(ADC_CH_IGTN_CONT2) >> 4;
-    buf[5] = adc_read(ADC_CH_IGTN_CONT3) >> 4;
-    buf[6] = adc_read(ADC_CH_IGTN_CONT4) >> 4;
+    buf[3] = adc_to_ohms(adc_read(ADC_CH_IGTN_CONT1));
+    buf[4] = adc_to_ohms(adc_read(ADC_CH_IGTN_CONT2));
+    buf[5] = adc_to_ohms(adc_read(ADC_CH_IGTN_CONT3));
+    buf[6] = adc_to_ohms(adc_read(ADC_CH_IGTN_CONT4));
 
     /* TODO: Generate HMAC-MD5-80 in buf[7:17] */
 
