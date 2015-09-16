@@ -55,9 +55,10 @@ uint8_t adc_to_ohms(uint16_t raw)
 
     ohms = millivolts * 1000 / (3300 - millivolts);
 
-    /* If resistance >= 255 ohms return special "high" value, 255 */
-    if(ohms >= 255)
-        return 255;
+    if(ohms >= 10000)
+        return 255; /* magic value meaning open */
+    else if(ohms >= 255)
+        return 254; /* magic value meaning high but not open */
     else
         return (uint8_t)ohms;
 }

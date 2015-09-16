@@ -85,9 +85,21 @@ void control_display_ch_status(uint8_t ch_status)
 /* Display a continuity resistance to the LCD */
 void control_display_ch_cont(uint8_t cont)
 {
-    lcd_putc('0' + cont / 100);
-    lcd_putc('0' + (cont / 10) % 10);
-    lcd_putc('0' + cont % 10);
+    if(cont == 255)
+    {
+        /* 255 is a magic value meaning open */
+        lcd_puts("  ");
+        lcd_putc(0b11110011);
+    }
+    else if(cont == 254)
+        /* 254 is a magic value meaning >255 but not open */
+        lcd_puts(" hi");
+    else
+    {
+        lcd_putc('0' + cont / 100);
+        lcd_putc('0' + (cont / 10) % 10);
+        lcd_putc('0' + cont % 10);
+    }
     lcd_putc(0b11110100); /* Character code for ohms */
     lcd_putc(' ');
 }
