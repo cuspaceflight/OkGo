@@ -1,5 +1,6 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/dac.h>
 
 #include "ignition_pins.h"
 
@@ -50,5 +51,18 @@ void ignition_pins_init()
     gpio_mode_setup(CONT_CH2_PORT, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, CONT_CH2);
     gpio_mode_setup(CONT_CH3_PORT, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, CONT_CH3);
     gpio_mode_setup(CONT_CH4_PORT, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, CONT_CH4);
+
+    /* Buzzer DAC output */
+    /* First set GPIO to analog to disable the digital stuff attached */
+    gpio_mode_setup(BUZZER_PORT, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, BUZZER);
+    /* Now setup the DAC.  Load in 0 before enabling to turn off buzzer */
+    dac_load_data_buffer_single(0, RIGHT8, CHANNEL_1);
+    dac_trigger_disable(CHANNEL_1);
+    dac_enable(CHANNEL_1);
+}
+
+void ignition_buzzer_set(uint8_t value)
+{
+    dac_load_data_buffer_single(value, RIGHT8, CHANNEL_1);
 }
 
