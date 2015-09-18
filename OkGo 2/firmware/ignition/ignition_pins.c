@@ -26,10 +26,6 @@ void ignition_pins_init()
     gpio_mode_setup(LED_DISARM_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,
                     LED_DISARM);
 
-    /* Piezo buzzer.  Default off */
-    gpio_clear(BUZZER_PORT, BUZZER);
-    gpio_mode_setup(BUZZER_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, BUZZER);
-
     /* Upstream relay and firing channels, default all off */
     gpio_clear(UPSTREAM_RELAY_PORT, UPSTREAM_RELAY);
     gpio_clear(FIRE_CH1_PORT, FIRE_CH1);
@@ -53,7 +49,9 @@ void ignition_pins_init()
     gpio_mode_setup(CONT_CH4_PORT, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, CONT_CH4);
 
     /* Buzzer DAC output */
-    /* First set GPIO to analog to disable the digital stuff attached */
+    /* Clock the DAC: */
+    rcc_periph_clock_enable(RCC_DAC);
+    /* Set GPIO to analog to disable the digital stuff attached */
     gpio_mode_setup(BUZZER_PORT, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, BUZZER);
     /* Now setup the DAC.  Load in 0 before enabling to turn off buzzer */
     dac_load_data_buffer_single(0, RIGHT8, CHANNEL_1);
@@ -63,6 +61,12 @@ void ignition_pins_init()
 
 void ignition_buzzer_set(uint8_t value)
 {
+    /* Good values for this are:
+     * 0 - off
+     * 93 - low
+     * 112 - medium
+     * 255 - deafening
+     * The middle two might be variable or sensitive to temperature */
     dac_load_data_buffer_single(value, RIGHT8, CHANNEL_1);
 }
 
