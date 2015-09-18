@@ -50,3 +50,21 @@ bool gpio_get_bool(uint32_t port, uint32_t pin)
         return false;
 }
 
+/* Setup systick */
+void systick_init(void)
+{
+    /* TODO */
+}
+
+/* Get current systick value */
+uint32_t systick_get(void)
+{
+    /* TODO */
+}
+
+/* Get elapsed milliseconds since provided time */
+uint32_t systick_ms_since(uint32_t begin)
+{
+    /* TODO */
+}
+
