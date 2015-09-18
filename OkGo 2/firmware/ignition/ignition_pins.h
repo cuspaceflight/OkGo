@@ -4,6 +4,9 @@
 /* Clock GPIOs, set pin modes (except radio) */
 void ignition_pins_init(void);
 
+/* Set buzzer DAC output value. */
+void ignition_buzzer_set(uint8_t value);
+
 /* LEDs */
 #define LED_GREEN           GPIO13
 #define LED_GREEN_PORT      GPIOB
