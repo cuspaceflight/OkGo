@@ -132,16 +132,18 @@ void control_display_update(control_state *state,
      * V = Vbatt * 10/13.3
      * Vbatt = V * 133/100 */
     control_batt_voltage = adc_val * 133 / 100;
+    /* We will round to tenths of a volt, AKA 100 millivolts
+     * This bodge means the later implicit truncation acts like a proper round
+     * Ignition is sent over pre-rounded so we don't need to do this for it */
+    if((control_batt_voltage / 10) % 10 >= 5)
+        control_batt_voltage += 10;
 
     /* Control battery voltage */
     lcd_cursor_pos(0, 0);
     lcd_puts("CBAT:");
     lcd_putc('0' + control_batt_voltage / 1000);
     lcd_putc('.');
-    if((control_batt_voltage / 10) % 10 >= 5)
-        lcd_putc('0' + (control_batt_voltage / 100) % 10 + 1);
-    else
-        lcd_putc('0' + (control_batt_voltage / 100) % 10);
+    lcd_putc('0' + (control_batt_voltage / 100) % 10);
     lcd_putc('V');
 
     /* Ignition battery voltage */
