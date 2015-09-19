@@ -20,6 +20,7 @@
 const uint16_t SLOW_PACKET_DELAY = 1000; /* delay in ms */
 const uint16_t FAST_PACKET_DELAY = 200; /* delay in ms */
 const uint8_t RADIO_POWER_DBM = 10; /* Radio tx power in dBm */
+const uint8_t MAX_RESISTANCE = 50; /* Max R in ohms of device otherwise CERR */
 
 /* Internal functions */
 
@@ -71,10 +72,10 @@ void control_display_ch_status(uint8_t ch_status)
     switch(ch_status)
     {
         case CH_STATUS_OK:
-            lcd_puts("OK   ");
+            lcd_puts(" OK  ");
             break;
         case CH_STATUS_CONT_ERR:
-            lcd_puts("ERR  ");
+            lcd_puts(" ERR ");
             break;
         case CH_STATUS_FIRE:
             lcd_puts("FIRE ");
@@ -221,26 +222,37 @@ int main(void)
         state.armed = !gpio_get_bool(SW_KEY_PORT, SW_KEY);
         gpio_set_bool(LED_ARM_PORT, LED_ARM, state.armed);
         gpio_set_bool(LED_DISARM_PORT, LED_DISARM, !(state.armed));
+ 
+        /* Start with channels okay and un-firing */       
+        state.ch1_status = CH_STATUS_OK;
+        state.ch2_status = CH_STATUS_OK;
+        state.ch3_status = CH_STATUS_OK;
+        state.ch4_status = CH_STATUS_OK;
         
+        /* Detect continuity errors */
+        if(radio_state.valid_rx)
+        {
+            if(radio_state.rx_cont1 > MAX_RESISTANCE)
+                state.ch1_status = CH_STATUS_CONT_ERR;
+            if(radio_state.rx_cont2 > MAX_RESISTANCE)
+                state.ch2_status = CH_STATUS_CONT_ERR;
+            if(radio_state.rx_cont3 > MAX_RESISTANCE)
+                state.ch3_status = CH_STATUS_CONT_ERR;
+            if(radio_state.rx_cont4 > MAX_RESISTANCE)
+                state.ch4_status = CH_STATUS_CONT_ERR;
+        }
+
+        /* Detect firing state */
         if(state.armed)
         {
-            /* Set channel statuses to OK or FIRE depending on buttons */
-            state.ch1_status = gpio_get_bool(SW_CH1_PORT, SW_CH1)?
-                                CH_STATUS_OK:CH_STATUS_FIRE;
-            state.ch2_status = gpio_get_bool(SW_CH2_PORT, SW_CH2)?
-                                CH_STATUS_OK:CH_STATUS_FIRE;
-            state.ch3_status = gpio_get_bool(SW_CH3_PORT, SW_CH3)?
-                                CH_STATUS_OK:CH_STATUS_FIRE;
-            state.ch4_status = gpio_get_bool(SW_CH4_PORT, SW_CH4)?
-                                CH_STATUS_OK:CH_STATUS_FIRE;
-        }
-        else
-        {
-            /* Un-fire all channels */
-            state.ch1_status = CH_STATUS_OK;
-            state.ch2_status = CH_STATUS_OK;
-            state.ch3_status = CH_STATUS_OK;
-            state.ch4_status = CH_STATUS_OK;
+            if(!gpio_get_bool(SW_CH1_PORT, SW_CH1))
+                state.ch1_status = CH_STATUS_FIRE;
+            if(!gpio_get_bool(SW_CH2_PORT, SW_CH2))
+                state.ch2_status = CH_STATUS_FIRE;
+            if(!gpio_get_bool(SW_CH3_PORT, SW_CH3))
+                state.ch3_status = CH_STATUS_FIRE;
+            if(!gpio_get_bool(SW_CH4_PORT, SW_CH4))
+                state.ch4_status = CH_STATUS_FIRE;
         }
 
         /* Set channel LEDs based on firing/cont and armed status */
