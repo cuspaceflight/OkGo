@@ -18,7 +18,7 @@
 
 /* Configuration constants */
 const uint16_t SLOW_PACKET_DELAY = 1000; /* delay in ms */
-const uint16_t FAST_PACKET_DELAY = 100; /* delay in ms */
+const uint16_t FAST_PACKET_DELAY = 200; /* delay in ms */
 const uint8_t RADIO_POWER_DBM = 10; /* Radio tx power in dBm */
 
 /* Internal functions */
