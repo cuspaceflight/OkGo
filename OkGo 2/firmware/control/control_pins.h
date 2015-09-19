@@ -1,6 +1,8 @@
 #ifndef CONTROL_PINS_H
 #define CONTROL_PINS_H
 
+#include <libopencm3/stm32/gpio.h>
+
 /* Clock GPIOs, set pin modes (except radio and display) */
 void control_pins_init(void);
 

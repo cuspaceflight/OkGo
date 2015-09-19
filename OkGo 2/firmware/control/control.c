@@ -14,6 +14,7 @@
 #include "control_pins.h"
 #include "display.h"
 #include "adc.h"
+#include "splash.h"
 
 /* Configuration constants */
 const uint16_t SLOW_PACKET_DELAY = 1000; /* delay in ms */
@@ -207,6 +208,8 @@ int main(void)
     uint32_t loop_timer;
 
     control_init(&state, &radio_state);
+
+    splash();
 
     gpio_set(LED_GREEN_PORT, LED_GREEN);
     gpio_clear(LED_YELLOW_PORT, LED_YELLOW);

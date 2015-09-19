@@ -24,9 +24,9 @@ BINARY = control
 LIBS = ../common/utils.c ../common/rfm95w.c ../common/adc.c
 SOURCES = $(filter-out $(BINARY).c, $(wildcard *.c)) ${LIBS}
 OBJS = $(SOURCES:.c=.o)
-
+GIT_COMMIT = $(shell git rev-parse --short=8 HEAD | cut -c 1-8)
 CPPFLAGS += -I../common/
-CFLAGS += -std=c99
+CFLAGS += -std=c99 -DFIRMWARE_VERSION=\"$(GIT_COMMIT)\"
 
 include ../common/Makefile.f0.include
 
