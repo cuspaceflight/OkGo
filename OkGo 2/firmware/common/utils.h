@@ -4,7 +4,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include <libopencm3/stm32/systick.h>
 
 /**
  * Delay for approximately a millisecond. Very roughly calibrated by eye to
@@ -30,11 +29,7 @@ bool gpio_get_bool(uint32_t port, uint32_t pin);
 /* Setup systick */
 void systick_init(void);
 
-/* Get current systick value */
-uint32_t systick_get(void);
-
-/* Get elapsed milliseconds since provided time */
-uint32_t systick_ms_since(uint32_t begin);
-
+/* Get current millisecond timer value */
+uint32_t get_millis(void);
 
 #endif

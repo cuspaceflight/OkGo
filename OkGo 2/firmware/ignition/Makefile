@@ -26,6 +26,7 @@ SOURCES = $(filter-out $(BINARY).c, $(wildcard *.c)) ${LIBS}
 OBJS = $(SOURCES:.c=.o)
 
 CPPFLAGS += -I../common/
+CFLAGS += -std=c99
 
 include ../common/Makefile.f0.include
 

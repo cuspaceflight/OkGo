@@ -45,8 +45,9 @@ void control_init(control_state *state, control_radio_state *radio_state)
     state->ch3_status = CH_STATUS_OK;
     state->ch4_status = CH_STATUS_OK;
 
-    /* Setup crystal oscillator */
+    /* Setup crystal oscillator and systick */
     rcc_clock_setup_in_hsi_out_48mhz();
+    systick_init();
 
     /* Clock GPIOs, set pin modes */
     control_pins_init();
@@ -201,12 +202,14 @@ int main(void)
 {
     control_state state;
     control_radio_state radio_state;
+    uint32_t loop_timer;
 
     control_init(&state, &radio_state);
 
     gpio_set(LED_GREEN_PORT, LED_GREEN);
     gpio_clear(LED_YELLOW_PORT, LED_YELLOW);
 
+    loop_timer = get_millis();
     while(1)
     {
         /* Arming status */
@@ -253,12 +256,15 @@ int main(void)
         /* Setup receiver */
         rfm_receive_async(17);
 
-        /* Update display and delay */
+        /* Update display */
         control_display_update(&state, &radio_state);
+
+        /* Delay to correctly set loop timing */
         if(state.armed)
-            delay_ms(FAST_PACKET_DELAY);
+            while((get_millis() - loop_timer) < FAST_PACKET_DELAY);
         else
-            delay_ms(SLOW_PACKET_DELAY);
+            while((get_millis() - loop_timer) < SLOW_PACKET_DELAY);
+        loop_timer = get_millis();
 
         /* Attempt receive (used in next cycle before delay) */
         control_radio_receive_async(&radio_state);
