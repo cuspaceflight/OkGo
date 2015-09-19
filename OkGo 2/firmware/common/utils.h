@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+
 /**
  * Delay for approximately a millisecond. Very roughly calibrated by eye to
  * within about 20% precision.
@@ -24,5 +25,11 @@ void gpio_set_bool(uint32_t port, uint32_t pin, bool value);
 
 /* Get a boolean value from a GPIO */
 bool gpio_get_bool(uint32_t port, uint32_t pin);
+
+/* Setup systick */
+void systick_init(void);
+
+/* Get current millisecond timer value */
+uint32_t get_millis(void);
 
 #endif

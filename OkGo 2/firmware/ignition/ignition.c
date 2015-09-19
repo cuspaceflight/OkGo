@@ -27,8 +27,9 @@ void ignition_init(ignition_state *state, ignition_radio_state *radio_state)
     state->fire_ch4 = false;
     state->centre_frf = FRF_868;
 
-    /* Setup crystal oscillator */
+    /* Setup crystal oscillator and systick */
     rcc_clock_setup_in_hsi_out_48mhz();
+    systick_init();
 
     /* Clock GPIOs, set pin modes */
     ignition_pins_init();
