@@ -31,7 +31,7 @@ void control_init(control_state *state, control_radio_state *radio_state);
 void control_display_ch_status(uint8_t ch_status);
 
 /* Display a continuity resistance to the LCD */
-void control_display_ch_cont(uint8_t cont);
+void control_display_ch_cont(uint8_t cont, uint8_t ch_status);
 
 /* Update display from local state */
 void control_display_update(control_state *state,
@@ -86,8 +86,15 @@ void control_display_ch_status(uint8_t ch_status)
 }
 
 /* Display a continuity resistance to the LCD */
-void control_display_ch_cont(uint8_t cont)
+void control_display_ch_cont(uint8_t cont, uint8_t ch_status)
 {
+    /* Don't display invalid continuities for firing channels */
+    if(ch_status == CH_STATUS_FIRE)
+    {
+        lcd_puts("     ");
+        return;
+    }
+        
     if(cont == 255)
     {
         /* 255 is a magic value meaning open */
@@ -111,20 +118,20 @@ void control_display_ch_cont(uint8_t cont)
 void control_display_update(control_state *state,
                             control_radio_state *radio_state)
 {
-    /* Display format (no link): 
+    /* Display format (link):
      * ######################
-     * #CBAT:3.7V IBAT:??.?V#
-     * # C:ARMED  NO LINK!  #
-     * #                    #
-     * #OK   OK   FIRE OK   #
+     * #3.7V  DISARM SIG:99%#
+     * #12.2V DISARM SIG:80%#
+     * #002R      255R 000R #
+     * # OK  FIRE ERR   OK  #
      * ######################
      *
-     * Display format (link):
+     * Display format (no link):
      * ######################
-     * #CBAT:3.7V IBAT:12.2V#
-     * # C:ARMED  I:ARMED   #
-     * #002R 255R 255R 000R #
-     * #OK   ERR  ERR  ERR  #
+     * #3.7V  DISARM SIG:0%V#
+     * #      NO LINK!      #
+     * #002R      255R 000R #
+     * # OK  FIRE ERR   OK  #
      * ######################
      */
     uint32_t adc_val;
@@ -147,49 +154,60 @@ void control_display_update(control_state *state,
     lcd_putc('0' + control_batt_voltage / 1000);
     lcd_putc('.');
     lcd_putc('0' + (control_batt_voltage / 100) % 10);
-    lcd_putc('V');
+    lcd_puts("V  ");
 
-    /* Ignition battery voltage */
+    /* Control state */
+    lcd_cursor_pos(0, 6);
+    if(state->armed)
+        lcd_puts("ARMED  ");
+    else
+        lcd_puts("DISARM ");
+
+    /* Control signal level */
+    lcd_cursor_pos(0, 13);
+    lcd_puts("SIG:");
+    lcd_putc('0' + radio_state->packet_rssi / 10);
+    lcd_putc('0' + radio_state->packet_rssi % 10);
+    lcd_putc('%');
+
+    /* Ignition's row: */
+    lcd_cursor_pos(1, 0);
     if(radio_state->valid_rx)
     {
-        lcd_putc(' ');
-        lcd_puts("IBAT:");
+        /* Battery voltage */
         lcd_putc('0' + radio_state->rx_voltage / 100);
         lcd_putc('0' + (radio_state->rx_voltage / 10) % 10);
         lcd_putc('.');
         lcd_putc('0' + radio_state->rx_voltage % 10);
-        lcd_putc('V');
-    }
-    else
-        lcd_puts(" IBAT:??.?V");
+        lcd_puts("V ");
 
-    /* Control and ignition arm status */
-    lcd_cursor_pos(1, 0);
-    if(state->armed)
-        lcd_puts(" C:ARMED  ");
-    else
-        lcd_puts(" C:DISARM ");
-    if(!(radio_state->valid_rx))
-    {
-        lcd_puts("NO LINK!  ");
-    }
-    else
+        /* State: */
         if(radio_state->rx_status & (0b11100000))
-            lcd_puts("I:ERROR  ");
+            lcd_puts("ERROR  ");
         else
             if(radio_state->rx_status & (1<<4))
-                lcd_puts("I:ARMED  ");
+                lcd_puts("ARMED  ");
             else
-                lcd_puts("I:DISARM ");
+                lcd_puts("DISARM ");
+        
+        /* Signal level */
+        lcd_puts("SIG:");
+        lcd_putc('0' + radio_state->rx_rssi / 10);
+        lcd_putc('0' + radio_state->rx_rssi % 10);
+        lcd_putc('%');
+    }
+    else
+        lcd_puts("      NO LINK!      ");
+
 
     /* Channel continuities */
     lcd_cursor_pos(2, 0);
     if(radio_state->valid_rx)
     {
-        control_display_ch_cont(radio_state->rx_cont1);
-        control_display_ch_cont(radio_state->rx_cont2);
-        control_display_ch_cont(radio_state->rx_cont3);
-        control_display_ch_cont(radio_state->rx_cont4);
+        control_display_ch_cont(radio_state->rx_cont1, state->ch1_status);
+        control_display_ch_cont(radio_state->rx_cont2, state->ch2_status);
+        control_display_ch_cont(radio_state->rx_cont3, state->ch3_status);
+        control_display_ch_cont(radio_state->rx_cont4, state->ch4_status);
     }
     else
         lcd_puts("                    ");
