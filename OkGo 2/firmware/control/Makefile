@@ -21,7 +21,7 @@
 
 BINARY = control
 
-LIBS = ../common/utils.c ../common/rfm95w.c ../common/adc.c
+LIBS = ../common/utils.c ../common/rfm95w.c ../common/adc.c ../common/hmac.c ../common/md5.c
 SOURCES = $(filter-out $(BINARY).c, $(wildcard *.c)) ${LIBS}
 OBJS = $(SOURCES:.c=.o)
 GIT_COMMIT = $(shell git rev-parse --short=8 HEAD | cut -c 1-8)
