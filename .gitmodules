@@ -1,0 +1,3 @@
+[submodule "OkGo 2/firmware/libopencm3"]
+	path = OkGo 2/firmware/libopencm3
+	url = https://github.com/libopencm3/libopencm3.git
