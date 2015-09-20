@@ -1,0 +1,3 @@
+Key: Minimum recommended length is L bytes, where L is the hash output length (i.e. 16 bytes for MD5)
+
+Keys longer than B bytes, where B is the block length of the hash (16 bytes for MD5) will be hashed and then have the hash used as the key.  Basically we should have a 16-byte key.

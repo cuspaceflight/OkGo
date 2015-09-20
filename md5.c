@@ -14,8 +14,8 @@
 #define LEFTROTATE(x, c) (((x) << (c)) | ((x) >> (32 - (c))))
 
 /* Constant message buffer length: */
-const uint8_t BUFF_LEN = 64; /* 64 byte buffer */
-const uint8_t PADDED_MESSAGE_LEN = 56; /* 56 bytes of the buffer are
+const uint8_t BUFF_LEN = 128; /* 128 byte buffer */
+const uint8_t PADDED_MESSAGE_LEN = 120; /* 120 bytes of the buffer are
                                         * message -- the rest are message
                                         * length (8 bytes) */
  
