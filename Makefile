@@ -1,7 +1,7 @@
-main: md5
+main: main.c md5.c
+	gcc -c md5.c
+	gcc -c main.c
+	gcc -o main md5.o main.o
 
-md5: md5.c
-	gcc -g -o md5 md5.c
-
-clean: md5
-	rm -f md5
+clean: main
+	rm -f main main.o md5.o
