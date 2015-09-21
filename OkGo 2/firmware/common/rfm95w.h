@@ -48,5 +48,8 @@ bool rfm_packet_retrieve(uint8_t *buf, uint8_t len);
 /* Set transmit power to a dBm value from 2 to +17dBm */
 void rfm_setpower(uint8_t power);
 
+/* Retrieve RSSI/SNR of last packet received */
+uint8_t rfm_getrssi(void);
+
 #endif
 

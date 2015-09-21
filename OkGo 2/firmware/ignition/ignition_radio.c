@@ -115,6 +115,7 @@ void ignition_radio_receive_blocking(ignition_radio_state *radio_state)
 
     rfm_receive(rx_buf, 11);
     ignition_radio_parse_packet(radio_state, rx_buf, 11);
+    radio_state->packet_rssi = rfm_getrssi();
 }
 
 /* Retrieve and parse a packet received in async receive */
@@ -126,6 +127,7 @@ void ignition_radio_receive_async(ignition_radio_state *radio_state)
         ignition_radio_parse_packet(radio_state, rx_buf, 11);
     else
         radio_state->valid_rx = false;
+    radio_state->packet_rssi = rfm_getrssi();
 }
 
 /* Parse a received radio packet and fill in the received packet datastore */

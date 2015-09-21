@@ -342,3 +342,10 @@ void rfm_setpower(uint8_t power)
 	_rfm_writereg(RFM_RegPaConfig, RegPaConfig);
 }
 
+/* Retrieve RSSI/SNR of last packet received */
+uint8_t rfm_getrssi(void)
+{
+    return _rfm_readreg(RFM_RegPktRssiValue);
+    /* Alternatively RFM_RegPktSnrValue */
+}
+
