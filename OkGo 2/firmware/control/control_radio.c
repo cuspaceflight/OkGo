@@ -10,6 +10,8 @@
 #include "control_radio.h"
 #include "rfm95w.h"
 #include "control.h"
+#include "hmac.h"
+#include "key.h"
 
 /* Setup the SPI peripheral and call the RGM95W initialization procedure.
  * Also initialise all the state variables to sensible defaults */
@@ -67,7 +69,8 @@ void control_radio_transmit(control_state *state, control_radio_state *radio_sta
     command |= (state->ch1_status == CH_STATUS_FIRE);
     buf[0] = command;
 
-    /* TODO: Fill in HMAC-MD5-80 in buf[1:11] */
+    /* Generate message HMAC signature */
+    hmac_md5_80(buf, 1, key, key_len, buf + 1);
 
     rfm_transmit(buf, 11);
 }
@@ -98,6 +101,8 @@ void control_radio_receive_async(control_radio_state *radio_state)
 void control_radio_parse_packet(control_radio_state *radio_state, uint8_t *buf,
                                 uint8_t len)
 {
+    uint8_t hmac[10];
+
     if(len != 17)
     {
         /* Invalid packet! */
@@ -112,7 +117,11 @@ void control_radio_parse_packet(control_radio_state *radio_state, uint8_t *buf,
     radio_state->rx_cont2 = buf[4];
     radio_state->rx_cont3 = buf[5];
     radio_state->rx_cont4 = buf[6];
-    radio_state->valid_rx = true;
 
-    /* TODO: Check HMAC-MD5-80 at buf[7:17] */
+    /* Check message HMAC signature */
+    hmac_md5_80(buf, 7, key, key_len, hmac);
+    if(memcmp(hmac, buf + 7, 10) == 0)
+        radio_state->valid_rx = true; /* Good HMAC */
+    else
+        radio_state->valid_rx = false; /* Invalid HMAC */
 }

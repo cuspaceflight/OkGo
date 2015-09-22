@@ -11,6 +11,8 @@
 #include "ignition_radio.h"
 #include "rfm95w.h"
 #include "adc.h"
+#include "hmac.h"
+#include "key.h"
 
 /*********** Internal functions ******************/
 /* Convert raw ADC value to continuity ohms */
@@ -103,7 +105,8 @@ void ignition_radio_transmit(ignition_state *state,
     buf[5] = adc_to_ohms(adc_read(ADC_CH_IGTN_CONT3));
     buf[6] = adc_to_ohms(adc_read(ADC_CH_IGTN_CONT4));
 
-    /* TODO: Generate HMAC-MD5-80 in buf[7:17] */
+    /* Generate message HMAC signature */
+    hmac_md5_80(buf, 7, key, key_len, buf + 7);
 
     rfm_transmit(buf, 17);
 }
@@ -134,6 +137,8 @@ void ignition_radio_receive_async(ignition_radio_state *radio_state)
 void ignition_radio_parse_packet(ignition_radio_state *radio_state,
                                  uint8_t *buf, uint8_t len)
 {
+    uint8_t hmac[10];
+
     if(len != 11)
     {
         /* Invalid packet length! */
@@ -142,7 +147,12 @@ void ignition_radio_parse_packet(ignition_radio_state *radio_state,
     }
 
     radio_state->command = buf[0];
-    radio_state->valid_rx = true;
 
-    /* TODO: Check HMAC-MD5-80 at buf[1:10] */
+    hmac_md5_80(buf, 1, key, key_len, hmac);
+
+    if(memcmp(hmac, buf + 1, 10) == 0)
+        radio_state->valid_rx = true; /* Good HMAC */
+    else
+        radio_state->valid_rx = false; /* Invalid HMAC */
+
 }
