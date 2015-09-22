@@ -21,6 +21,10 @@
  * Freq = 925,892,009 Hz -> FRF = 15169814.6755 */
 #define FRF_915 15169815u
 
+/* Choose between SNR and RSSI display.  Programming each box changes its
+ * signal display format on the control display.  Default with no define is
+ * RSSI display */
+/*#define SIGNAL_DISPLAY_SNR */
 
 /************* Exported functions ****************/
 /* Initialise the RFM95W. */
