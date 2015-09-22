@@ -11,9 +11,7 @@
 #include "rfm95w.h"
 #include "control.h"
 #include "hmac.h"
-
-const uint8_t key[] = {1, 2, 3, 4, 5}; /* TODO: temporary */
-uint8_t key_len = 5;
+#include "key.h"
 
 /* Setup the SPI peripheral and call the RGM95W initialization procedure.
  * Also initialise all the state variables to sensible defaults */
@@ -116,7 +114,7 @@ void control_radio_parse_packet(control_radio_state *radio_state, uint8_t *buf,
     radio_state->rx_cont2 = buf[4];
     radio_state->rx_cont3 = buf[5];
     radio_state->rx_cont4 = buf[6];
-    
+
     /* Check message HMAC signature */
     hmac_md5_80(buf, 7, key, key_len, hmac);
     if(memcmp(hmac, buf + 7, 10) == 0)

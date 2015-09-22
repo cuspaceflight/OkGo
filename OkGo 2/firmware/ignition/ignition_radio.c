@@ -11,9 +11,8 @@
 #include "ignition_radio.h"
 #include "rfm95w.h"
 #include "adc.h"
-
-const uint8_t key[] = {1, 2, 3, 4, 5}; /* TODO: temporary */
-uint8_t key_len = 5;
+#include "hmac.h"
+#include "key.h"
 
 /*********** Internal functions ******************/
 /* Convert raw ADC value to continuity ohms */
