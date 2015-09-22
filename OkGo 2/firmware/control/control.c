@@ -150,7 +150,6 @@ void control_display_update(control_state *state,
 
     /* Control battery voltage */
     lcd_cursor_pos(0, 0);
-    lcd_puts("CBAT:");
     lcd_putc('0' + control_batt_voltage / 1000);
     lcd_putc('.');
     lcd_putc('0' + (control_batt_voltage / 100) % 10);

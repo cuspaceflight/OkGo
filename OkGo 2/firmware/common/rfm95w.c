@@ -345,7 +345,12 @@ void rfm_setpower(uint8_t power)
 /* Retrieve RSSI/SNR of last packet received */
 uint8_t rfm_getrssi(void)
 {
-    return _rfm_readreg(RFM_RegPktRssiValue);
+    uint16_t rssi;
+    /* Scale 0-255 to 0-99% */
+    rssi = (uint16_t)_rfm_readreg(RFM_RegPktRssiValue) * 99 / 155;
+    if(rssi > 99)
+        rssi = 99;
+    return rssi;
     /* Alternatively RFM_RegPktSnrValue */
 }
 

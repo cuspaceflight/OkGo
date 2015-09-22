@@ -49,6 +49,7 @@ void control_radio_init(control_radio_state *radio_state)
     radio_state->rx_cont2 = 0;
     radio_state->rx_cont3 = 0;
     radio_state->rx_cont4 = 0;
+    radio_state->packet_rssi = 0;
 }
 
 /* Transmit a packet to ignition based on the contents of state */
