@@ -54,30 +54,37 @@ int main(void)
     gpio_set(LED_GREEN_PORT, LED_GREEN);
     gpio_clear(LED_YELLOW_PORT, LED_YELLOW);
 
+    rfm_receive_async(11);
+
     while(1)
     {
-        ignition_radio_receive_blocking(&radio_state);
-        if(radio_state.valid_rx)
+        if(rfm_packet_waiting())
         {
-            state.armed = radio_state.command & (1<<4);
-            if(state.armed)
+            ignition_radio_receive_async(&radio_state);
+            if(radio_state.valid_rx)
             {
-                state.fire_ch1 = radio_state.command & (1<<0);
-                state.fire_ch2 = radio_state.command & (1<<1);
-                state.fire_ch3 = radio_state.command & (1<<2);
-                state.fire_ch4 = radio_state.command & (1<<3);
+                state.armed = radio_state.command & (1<<4);
+                if(state.armed)
+                {
+                    state.fire_ch1 = radio_state.command & (1<<0);
+                    state.fire_ch2 = radio_state.command & (1<<1);
+                    state.fire_ch3 = radio_state.command & (1<<2);
+                    state.fire_ch4 = radio_state.command & (1<<3);
+                }
+                else
+                {
+                    state.fire_ch1 = false;
+                    state.fire_ch2 = false;
+                    state.fire_ch3 = false;
+                    state.fire_ch4 = false;
+                }
             }
-            else
-            {
-                state.fire_ch1 = false;
-                state.fire_ch2 = false;
-                state.fire_ch3 = false;
-                state.fire_ch4 = false;
-            }
+            delay_ms(10);
+            ignition_radio_transmit(&state, &radio_state);
+            rfm_receive_async(11);
+            gpio_toggle(LED_GREEN_PORT, LED_GREEN);
+            gpio_toggle(LED_YELLOW_PORT, LED_YELLOW);
         }
-
-        delay_ms(10);
-        ignition_radio_transmit(&state, &radio_state);
 
         if(state.armed)
         {
@@ -99,9 +106,6 @@ int main(void)
             gpio_clear(FIRE_CH3_PORT, FIRE_CH3);
             gpio_clear(FIRE_CH4_PORT, FIRE_CH4);
         }
-
-        gpio_toggle(LED_GREEN_PORT, LED_GREEN);
-        gpio_toggle(LED_YELLOW_PORT, LED_YELLOW);
     }
     
     return 0;

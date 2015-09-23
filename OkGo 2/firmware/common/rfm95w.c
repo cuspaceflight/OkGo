@@ -257,11 +257,7 @@ bool rfm_packet_waiting(void)
 
     RegIrqFlags = _rfm_readreg(RFM_RegIrqFlags);
     if(RegIrqFlags & RFM_RxDone)
-    {
-        /* Clear the interrupt */
-        _rfm_writereg(RFM_RegIrqFlags, RFM_RxDone);
         return true;
-    }
     else
         return false;
 }
