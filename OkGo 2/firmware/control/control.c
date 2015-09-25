@@ -19,6 +19,7 @@
 /* Configuration constants */
 const uint16_t SLOW_PACKET_DELAY = 1000; /* delay in ms */
 const uint16_t FAST_PACKET_DELAY = 200; /* delay in ms */
+const uint32_t PACKET_DROP_DELAY = 2000;
 const uint8_t RADIO_POWER_DBM = 10; /* Radio tx power in dBm */
 const uint8_t MAX_RESISTANCE = 50; /* Max R in ohms of device otherwise CERR */
 
@@ -171,7 +172,7 @@ void control_display_update(control_state *state,
 
     /* Ignition's row: */
     lcd_cursor_pos(1, 0);
-    if(radio_state->valid_rx)
+    if(!radio_state->lost_link)
     {
         /* Battery voltage */
         lcd_putc('0' + radio_state->rx_voltage / 100);
@@ -201,7 +202,7 @@ void control_display_update(control_state *state,
 
     /* Channel continuities */
     lcd_cursor_pos(2, 0);
-    if(radio_state->valid_rx)
+    if(!radio_state->lost_link)
     {
         control_display_ch_cont(radio_state->rx_cont1, state->ch1_status);
         control_display_ch_cont(radio_state->rx_cont2, state->ch2_status);
@@ -224,6 +225,7 @@ int main(void)
     control_state state;
     control_radio_state radio_state;
     uint32_t loop_timer;
+    uint32_t last_packet = 0;
 
     control_init(&state, &radio_state);
 
@@ -302,6 +304,13 @@ int main(void)
 
         /* Attempt receive (used in next cycle before delay) */
         control_radio_receive_async(&radio_state);
+
+        if(radio_state.valid_rx)
+            last_packet = get_millis();
+        if((get_millis() - last_packet) > PACKET_DROP_DELAY)
+            radio_state.lost_link = true;
+        else
+            radio_state.lost_link = false;
 
         gpio_toggle(LED_GREEN_PORT, LED_GREEN);
     }

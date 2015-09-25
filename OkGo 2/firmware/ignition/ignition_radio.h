@@ -9,6 +9,7 @@ typedef struct
 {
 	/* Received packet datastore */
 	bool valid_rx;
+    bool lost_link;
 	uint8_t packet_rssi; /* RSSI of the incoming packet */
 	uint8_t command;
 } ignition_radio_state;

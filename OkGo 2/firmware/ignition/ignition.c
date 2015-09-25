@@ -13,6 +13,7 @@
 #include "ignition_radio.h"
 
 const uint8_t RADIO_POWER_DBM = 10; /* Radio tx power in dBm */
+const uint32_t PACKET_DROP_DELAY = 5000; /* Drop delay in ms */
 
 /* Internal functions */
 void ignition_init(ignition_state *state, ignition_radio_state *radio_state);
@@ -48,6 +49,7 @@ int main(void)
 {
     ignition_state state;
     ignition_radio_state radio_state;
+    uint32_t last_packet = 0;
 
     ignition_init(&state, &radio_state);
     
@@ -63,6 +65,7 @@ int main(void)
             ignition_radio_receive_async(&radio_state);
             if(radio_state.valid_rx)
             {
+                last_packet = get_millis();
                 state.armed = radio_state.command & (1<<4);
                 if(state.armed)
                 {
@@ -86,7 +89,7 @@ int main(void)
             gpio_toggle(LED_YELLOW_PORT, LED_YELLOW);
         }
 
-        if(state.armed)
+        if(state.armed && !radio_state.lost_link)
         {
             gpio_set(LED_ARM_PORT, LED_ARM);
             gpio_clear(LED_DISARM_PORT, LED_DISARM);
@@ -106,7 +109,24 @@ int main(void)
             gpio_clear(FIRE_CH3_PORT, FIRE_CH3);
             gpio_clear(FIRE_CH4_PORT, FIRE_CH4);
         }
+
+        if((get_millis() - last_packet) > PACKET_DROP_DELAY)
+            radio_state.lost_link = true;
+        else
+            radio_state.lost_link = false;
+
+        if(radio_state.lost_link)
+        {
+            gpio_clear(LED_ARM_PORT, LED_ARM);
+            gpio_set(LED_DISARM_PORT, LED_DISARM);
+            gpio_clear(UPSTREAM_RELAY_PORT, UPSTREAM_RELAY);
+            gpio_clear(FIRE_CH1_PORT, FIRE_CH1);
+            gpio_clear(FIRE_CH2_PORT, FIRE_CH2);
+            gpio_clear(FIRE_CH3_PORT, FIRE_CH3);
+            gpio_clear(FIRE_CH4_PORT, FIRE_CH4);
+        }
     }
+
     
     return 0;
 }

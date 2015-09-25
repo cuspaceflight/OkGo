@@ -44,6 +44,7 @@ void control_radio_init(control_radio_state *radio_state)
 
     /* Setup state variables to sensible defaults */
 	radio_state->valid_rx = false;
+    radio_state->lost_link = true;
     radio_state->rx_rssi = 0;
     radio_state->rx_voltage = 0;
     radio_state->rx_status = 0;
@@ -110,6 +111,19 @@ void control_radio_parse_packet(control_radio_state *radio_state, uint8_t *buf,
         return;
     }
 
+    /* Check message HMAC signature.  Do this before unloading the rest of the
+     * buffer so that we can still display the old data after dumping an
+     * invalid packet */
+
+    hmac_md5_80(buf, 7, key, key_len, hmac);
+    if(memcmp(hmac, buf + 7, 10) == 0)
+        radio_state->valid_rx = true; /* Good HMAC */
+    else
+    {
+        radio_state->valid_rx = false; /* Invalid HMAC */
+        return;
+    }
+
     radio_state->rx_rssi = buf[0];
     radio_state->rx_voltage = buf[1];
     radio_state->rx_status = buf[2];
@@ -118,10 +132,4 @@ void control_radio_parse_packet(control_radio_state *radio_state, uint8_t *buf,
     radio_state->rx_cont3 = buf[5];
     radio_state->rx_cont4 = buf[6];
 
-    /* Check message HMAC signature */
-    hmac_md5_80(buf, 7, key, key_len, hmac);
-    if(memcmp(hmac, buf + 7, 10) == 0)
-        radio_state->valid_rx = true; /* Good HMAC */
-    else
-        radio_state->valid_rx = false; /* Invalid HMAC */
 }

@@ -10,7 +10,8 @@
 typedef struct
 {
 	/* Received packet datastore */
-	bool valid_rx;
+	bool valid_rx; /* Was the last packet receipt a valid one */
+    bool lost_link; /* Has it been a while since we've received anything */
 	uint8_t packet_rssi; /* RSSI *of* the incoming packet, filled by rx */
 	uint8_t rx_rssi; /* RSSI *in* the incoming packet */
 	uint8_t rx_voltage, rx_status;

@@ -43,6 +43,7 @@ void ignition_radio_init(ignition_radio_state *radio_state)
     rfm_initialise(SPI1, RFM_NSS_PORT, RFM_NSS);
 
 	radio_state->valid_rx = false;
+	radio_state->lost_link = true;
 }
 
 /* Convert raw ADC value to continuity ohms */
