@@ -37,7 +37,18 @@ void splash_normal(void)
 	lcd_cursor_pos(3, 0);
 	lcd_puts("Flight      ");
 	lcd_puts(FIRMWARE_VERSION);
-	delay_ms(3000);
+	delay_ms(2000);
+
+	lcd_cursor_pos(0, 0);
+	lcd_puts("Buzzer settings     ");
+	lcd_cursor_pos(1, 0);
+	lcd_puts("Hold on boot:       ");
+	lcd_cursor_pos(2, 0);
+	lcd_puts("CH1: off  CH2: low  ");
+	lcd_cursor_pos(3, 0);
+	lcd_puts("CH3: med  CH4: high ");
+	delay_ms(2000);
+
 }
 
 /* Display the WDT reset splash */

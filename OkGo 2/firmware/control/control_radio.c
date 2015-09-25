@@ -63,6 +63,7 @@ void control_radio_transmit(control_state *state, control_radio_state *radio_sta
 
     (void)radio_state; /* Might use this later for a tx ID */
 
+    command |= state->beep_volume << 5;
     command |= state->armed << 4;
     command |= (state->ch4_status == CH_STATUS_FIRE) << 3;
     command |= (state->ch3_status == CH_STATUS_FIRE) << 2;

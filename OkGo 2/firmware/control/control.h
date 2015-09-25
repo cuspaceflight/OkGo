@@ -14,6 +14,7 @@ typedef struct
 	bool armed;
 	uint32_t centre_frf;
 	uint8_t ch1_status, ch2_status, ch3_status, ch4_status;
+    uint8_t beep_volume;
 } control_state;
 
 #endif

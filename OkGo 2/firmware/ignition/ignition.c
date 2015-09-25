@@ -31,6 +31,7 @@ void ignition_init(ignition_state *state, ignition_radio_state *radio_state)
     state->fire_ch4 = false;
     state->centre_frf = FRF_915;
     state->beep_start = 0;
+    state->beep_volume = 2;
 
     /* Setup crystal oscillator and systick */
     rcc_clock_setup_in_hsi_out_48mhz();
@@ -76,7 +77,21 @@ void do_beep(ignition_state *state)
     {
         /* Start a new beep with the high cycle */
         state->beep_start = get_millis();
-        ignition_buzzer_set(94); /* low beep */
+        switch(state->beep_volume)
+        {
+            case 0:
+                ignition_buzzer_set(0); /* No beep */
+                break;
+            case 1:
+                ignition_buzzer_set(94); /* Low beep */
+                break;
+            case 3:
+                ignition_buzzer_set(255); /* Deafening beep */
+                break;
+            default:
+                ignition_buzzer_set(112); /* Medium beep */
+                break;
+        }
     }
     else if((get_millis() - state->beep_start) > beep_len)
         /* Do the low cycle of the beep */
@@ -105,6 +120,7 @@ int main(void)
             {
                 last_packet = get_millis();
                 state.armed = radio_state.command & (1<<4);
+                state.beep_volume = (radio_state.command >> 5) & 0x07;
                 if(state.armed)
                 {
                     state.fire_ch1 = radio_state.command & (1<<0);

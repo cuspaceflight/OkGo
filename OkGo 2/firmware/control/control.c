@@ -240,6 +240,17 @@ int main(void)
 
     splash();
 
+    /* Default: deafen */
+    state.beep_volume = 3;
+    if(!gpio_get_bool(SW_CH1_PORT, SW_CH1))
+        state.beep_volume = 0; /* off */
+    if(!gpio_get_bool(SW_CH2_PORT, SW_CH2))
+        state.beep_volume = 1; /* low */
+    if(!gpio_get_bool(SW_CH3_PORT, SW_CH3))
+        state.beep_volume = 2; /* med */
+    if(!gpio_get_bool(SW_CH4_PORT, SW_CH4))
+        state.beep_volume = 3; /* high */
+
     gpio_set(LED_GREEN_PORT, LED_GREEN);
     gpio_clear(LED_YELLOW_PORT, LED_YELLOW);
 
