@@ -29,7 +29,7 @@ void ignition_init(ignition_state *state, ignition_radio_state *radio_state)
     state->fire_ch2 = false;
     state->fire_ch3 = false;
     state->fire_ch4 = false;
-    state->centre_frf = FRF_868;
+    state->centre_frf = FRF_915;
     state->beep_start = 0;
 
     /* Setup crystal oscillator and systick */
