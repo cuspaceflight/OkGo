@@ -18,7 +18,7 @@
 
 /* Configuration constants */
 const uint16_t SLOW_PACKET_DELAY = 1000; /* delay in ms */
-const uint16_t FAST_PACKET_DELAY = 200; /* delay in ms */
+const uint16_t FAST_PACKET_DELAY = 250; /* delay in ms */
 const uint32_t PACKET_DROP_DELAY = 2000;
 const uint8_t RADIO_POWER_DBM = 10; /* Radio tx power in dBm */
 const uint8_t MAX_RESISTANCE = 50; /* Max R in ohms of device otherwise CERR */
