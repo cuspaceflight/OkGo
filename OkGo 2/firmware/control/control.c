@@ -249,7 +249,7 @@ int main(void)
         state.ch4_status = CH_STATUS_OK;
         
         /* Detect continuity errors */
-        if(radio_state.valid_rx)
+        if(!radio_state.lost_link)
         {
             if(radio_state.rx_cont1 > MAX_RESISTANCE)
                 state.ch1_status = CH_STATUS_CONT_ERR;
