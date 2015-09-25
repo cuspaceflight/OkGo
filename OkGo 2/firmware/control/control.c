@@ -29,7 +29,7 @@ const uint8_t MAX_RESISTANCE = 50; /* Max R in ohms of device otherwise CERR */
 void control_init(control_state *state, control_radio_state *radio_state);
 
 /* Convert a channel status enum into a string and print to LCD */
-void control_display_ch_status(uint8_t ch_status);
+void control_display_ch_status(uint8_t ch_status, bool remote_fire);
 
 /* Display a continuity resistance to the LCD */
 void control_display_ch_cont(uint8_t cont, uint8_t ch_status);
@@ -68,8 +68,15 @@ void control_init(control_state *state, control_radio_state *radio_state)
     lcd_init();
 }
 
-void control_display_ch_status(uint8_t ch_status)
+/* Display a continuity resistance to the LCD */
+void control_display_ch_status(uint8_t ch_status, bool remote_fire)
 {
+    if(remote_fire)
+    {
+        lcd_puts("FIRE ");
+        return;
+    }
+
     switch(ch_status)
     {
         case CH_STATUS_OK:
@@ -79,7 +86,8 @@ void control_display_ch_status(uint8_t ch_status)
             lcd_puts(" ERR ");
             break;
         case CH_STATUS_FIRE:
-            lcd_puts("FIRE ");
+            /* We are requesting fire but remote refuses/ignores */
+            lcd_puts(" NO  ");
             break;
         default:
             lcd_puts("     ");
@@ -214,10 +222,11 @@ void control_display_update(control_state *state,
 
     /* Control channel status */
     lcd_cursor_pos(3, 0);
-    control_display_ch_status(state->ch1_status);
-    control_display_ch_status(state->ch2_status);
-    control_display_ch_status(state->ch3_status);
-    control_display_ch_status(state->ch4_status);
+    control_display_ch_status(state->ch1_status, radio_state->rx_status&0x01);
+    control_display_ch_status(state->ch2_status, radio_state->rx_status&0x02);
+    control_display_ch_status(state->ch3_status, radio_state->rx_status&0x04);
+    control_display_ch_status(state->ch4_status, radio_state->rx_status&0x08);
+
 }
 
 int main(void)
