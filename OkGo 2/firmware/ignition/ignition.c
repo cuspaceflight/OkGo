@@ -18,6 +18,9 @@ const uint32_t PACKET_DROP_DELAY = 5000; /* Drop delay in ms */
 /* Internal functions */
 void ignition_init(ignition_state *state, ignition_radio_state *radio_state);
 
+/* Do beeping */
+void do_beep(ignition_state *state);
+
 void ignition_init(ignition_state *state, ignition_radio_state *radio_state)
 {
     /* Initialise local state variables */
@@ -27,6 +30,7 @@ void ignition_init(ignition_state *state, ignition_radio_state *radio_state)
     state->fire_ch3 = false;
     state->fire_ch4 = false;
     state->centre_frf = FRF_868;
+    state->beep_start = 0;
 
     /* Setup crystal oscillator and systick */
     rcc_clock_setup_in_hsi_out_48mhz();
@@ -43,6 +47,40 @@ void ignition_init(ignition_state *state, ignition_radio_state *radio_state)
     /* ADC Setup: Clock periph, run init. Pins done in ignition_pins */
     rcc_periph_clock_enable(RCC_ADC);
     adc_init();
+}
+
+/* Do beeping */
+void do_beep(ignition_state *state)
+{
+    uint32_t beep_period;
+    uint32_t beep_len;
+
+    if(state->fire_ch1 || state->fire_ch2 || state->fire_ch3 ||
+       state->fire_ch4)
+    {
+        beep_period = 200; /* fire beep period */
+        beep_len = 50; /* fire beep length */
+    }
+    else if(state->armed)
+    {
+        beep_period = 500; /* armed beep period */
+        beep_len = 250; /* armed beep length */
+    }
+    else
+    {
+        beep_period = 1000; /* disarmed beep period */
+        beep_len = 50; /* disarmed beep len */
+    }
+
+    if((get_millis() - state->beep_start) > beep_period)
+    {
+        /* Start a new beep with the high cycle */
+        state->beep_start = get_millis();
+        ignition_buzzer_set(94); /* low beep */
+    }
+    else if((get_millis() - state->beep_start) > beep_len)
+        /* Do the low cycle of the beep */
+        ignition_buzzer_set(0); /* off */
 }
 
 int main(void)
@@ -125,6 +163,8 @@ int main(void)
             gpio_clear(FIRE_CH3_PORT, FIRE_CH3);
             gpio_clear(FIRE_CH4_PORT, FIRE_CH4);
         }
+
+        do_beep(&state);
     }
 
     
