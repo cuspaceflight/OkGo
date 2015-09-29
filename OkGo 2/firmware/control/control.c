@@ -42,7 +42,7 @@ void control_init(control_state *state, control_radio_state *radio_state)
 {
     /* Initialise local state variables */
     state->armed = false;
-    state->centre_frf = FRF_915;
+    state->centre_frf = FRF_868;
     state->ch1_status = CH_STATUS_OK;
     state->ch2_status = CH_STATUS_OK;
     state->ch3_status = CH_STATUS_OK;
