@@ -14,5 +14,6 @@ flow of nitrous oxide to help start the motor.
 *OkGo 2* is a full redesign for the launch of *Martlet 2*.  Due to the
 increased safety radius (on the order of 500m) radio control is to be used.  It
 will have 4 general purpose (valve or e-match) channels with independent
-continuity checking and firing.
+continuity checking and firing, and separate firing boxes containing current
+limiting resistors.
 
