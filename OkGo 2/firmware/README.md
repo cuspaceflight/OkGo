@@ -18,8 +18,8 @@ LIKE** `arm-none-eabi-gcc: error: nano.specs: No such file or directory`
 
 ## Setting a key
 To authenticate both sides of the link, a symmetric pre-shared key is used.
-This is stored in `firmware/common/key.h`.  An example file is provided at
-`firmware/common/key_template.h`.  **The firmware will not build until a key
+This is stored in `common/key.h`.  An example file is provided at
+`common/key_template.h`.  **The firmware will not build until a key
 is set**.  To do this, copy `key_template.h` to `key.h`, change the key to
 something random, and uncomment the relevant lines.
 
