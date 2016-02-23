@@ -4,11 +4,15 @@ OkGo2 Firmware
 # Getting started
 ## Grab the toolchain:
 `sudo add-apt-repository ppa:terry.guo/gcc-arm-embedded`
+
 `sudo apt-get update`
+
 `sudo apt-get install gcc-arm-none-eabi`
 
 **IF YOU FORGET TO ADD THE TERRY.GUO REPO YOU WILL GET MYSTERIOUS BUILD ERRORS
-LIKE** `arm-none-eabi-gcc: error: nano.specs: No such file or directory`
+LIKE**
+
+`arm-none-eabi-gcc: error: nano.specs: No such file or directory`
 
 ## Build libopencm3
 * Run `git submodule update --init` to grab the libopencm3 repo
