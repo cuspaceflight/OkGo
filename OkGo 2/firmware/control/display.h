@@ -9,9 +9,6 @@
  * lcd_ commands concern basic LCD manipulation
  * display_ commands handle overall information display logic */
 
-/* Update the LCD based on state variables */
-void display_update(void);
-
 /* Initialise the LCD with appropriate initialisation */
 void lcd_init(void);
 
