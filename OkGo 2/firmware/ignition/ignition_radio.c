@@ -23,7 +23,7 @@ uint8_t adc_to_ohms(uint16_t raw);
  * Also initialise all the state variables to sensible defaults */
 void ignition_radio_init(ignition_radio_state *radio_state)
 {
-    /* Clock SPI1 peripheral and setup GPIOs appropriately: 
+    /* Clock SPI1 peripheral and setup GPIOs appropriately:
      * NSS, SCK, MOSI, RESET are outputs,
      * MISO is input.
      * SPI setup is done in rfm95w.c */
@@ -42,8 +42,8 @@ void ignition_radio_init(ignition_radio_state *radio_state)
     /* Run RFM95W initialization */
     rfm_initialise(SPI1, RFM_NSS_PORT, RFM_NSS);
 
-	radio_state->valid_rx = false;
-	radio_state->lost_link = true;
+    radio_state->valid_rx = false;
+    radio_state->lost_link = true;
 }
 
 /* Convert raw ADC value to continuity ohms */
@@ -51,7 +51,7 @@ uint8_t adc_to_ohms(uint16_t raw)
 {
     uint32_t millivolts;
     uint32_t ohms;
-    
+
     millivolts = adc_to_millivolts(raw);
     if(millivolts >= 3300)
         millivolts = 3299; /* Avoid negatives or div by zero */

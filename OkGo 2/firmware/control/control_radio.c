@@ -17,7 +17,7 @@
  * Also initialise all the state variables to sensible defaults */
 void control_radio_init(control_radio_state *radio_state)
 {
-    /* Clock SPI1 peripheral and setup GPIOs appropriately: 
+    /* Clock SPI1 peripheral and setup GPIOs appropriately:
      * NSS, SCK, MOSI, RESET are outputs,
      * MISO is input.
      * SPI setup is done in rfm95w.c */
@@ -43,12 +43,12 @@ void control_radio_init(control_radio_state *radio_state)
     rfm_initialise(SPI1, RFM_NSS_PORT, RFM_NSS);
 
     /* Setup state variables to sensible defaults */
-	radio_state->valid_rx = false;
+    radio_state->valid_rx = false;
     radio_state->lost_link = true;
     radio_state->rx_rssi = 0;
     radio_state->rx_voltage = 0;
     radio_state->rx_status = 0;
-	radio_state->rx_cont1 = 0;
+    radio_state->rx_cont1 = 0;
     radio_state->rx_cont2 = 0;
     radio_state->rx_cont3 = 0;
     radio_state->rx_cont4 = 0;

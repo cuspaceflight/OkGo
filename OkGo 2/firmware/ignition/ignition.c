@@ -44,7 +44,7 @@ void ignition_init(ignition_state *state, ignition_radio_state *radio_state)
     ignition_radio_init(radio_state);
     rfm_setfreq(state->centre_frf);
     rfm_setpower(RADIO_POWER_DBM);
-    
+
     /* ADC Setup: Clock periph, run init. Pins done in ignition_pins */
     rcc_periph_clock_enable(RCC_ADC);
     adc_init();
@@ -105,7 +105,7 @@ int main(void)
     uint32_t last_packet = 0;
 
     ignition_init(&state, &radio_state);
-    
+
     gpio_set(LED_GREEN_PORT, LED_GREEN);
     gpio_clear(LED_YELLOW_PORT, LED_YELLOW);
 
@@ -183,6 +183,6 @@ int main(void)
         do_beep(&state);
     }
 
-    
+
     return 0;
 }

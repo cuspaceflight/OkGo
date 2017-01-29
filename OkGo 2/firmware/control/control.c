@@ -103,7 +103,7 @@ void control_display_ch_cont(uint8_t cont, uint8_t ch_status)
         lcd_puts("     ");
         return;
     }
-        
+
     if(cont == 255)
     {
         /* 255 is a magic value meaning open */
@@ -197,7 +197,7 @@ void control_display_update(control_state *state,
                 lcd_puts("ARMED  ");
             else
                 lcd_puts("DISARM ");
-        
+
         /* Signal level */
         lcd_puts("SIG:");
         lcd_putc('0' + radio_state->rx_rssi / 10);
@@ -261,13 +261,13 @@ int main(void)
         state.armed = !gpio_get_bool(SW_KEY_PORT, SW_KEY);
         gpio_set_bool(LED_ARM_PORT, LED_ARM, state.armed);
         gpio_set_bool(LED_DISARM_PORT, LED_DISARM, !(state.armed));
- 
-        /* Start with channels okay and un-firing */       
+
+        /* Start with channels okay and un-firing */
         state.ch1_status = CH_STATUS_OK;
         state.ch2_status = CH_STATUS_OK;
         state.ch3_status = CH_STATUS_OK;
         state.ch4_status = CH_STATUS_OK;
-        
+
         /* Detect continuity errors */
         if(!radio_state.lost_link)
         {
@@ -334,6 +334,6 @@ int main(void)
 
         gpio_toggle(LED_GREEN_PORT, LED_GREEN);
     }
-    
+
     return 0;
 }

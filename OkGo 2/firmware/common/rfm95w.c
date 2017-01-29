@@ -57,8 +57,8 @@ void _rfm_setmode(uint8_t mode)
 /* Send and receive 8 bits, blocking until completion */
 uint8_t _rfm_spi_xfer8(uint8_t data)
 {
-	spi_send8(rfm_spi, data);
-	return spi_read8(rfm_spi);
+    spi_send8(rfm_spi, data);
+    return spi_read8(rfm_spi);
 }
 
 /* Write the byte of data to the address */
@@ -108,9 +108,9 @@ void _rfm_bulkread(uint8_t address, uint8_t *buffer, uint8_t len)
 /* Initialise the RFM95W.  Well, mainly the SPI peripheral. */
 void rfm_initialise(uint32_t spi_periph, uint32_t nss_port, uint32_t nss_pin)
 {
-	uint8_t RegOpMode, RegModemConfig1, RegModemConfig2;
+    uint8_t RegOpMode, RegModemConfig1, RegModemConfig2;
 
-	/* Store the boards specifics for later use */
+    /* Store the boards specifics for later use */
     rfm_spi = spi_periph;
     rfm_nss_port = nss_port;
     rfm_nss = nss_pin;
@@ -137,14 +137,14 @@ void rfm_initialise(uint32_t spi_periph, uint32_t nss_port, uint32_t nss_pin)
 
     spi_enable(rfm_spi);
 
-	/* Wait for chip to warm up */
+    /* Wait for chip to warm up */
     delay_ms(10);
 
     /* Check we're in sleep mode */
     _rfm_setmode(RFM_MODE_SLEEP);
     RegOpMode = _rfm_readreg(RFM_RegOpMode);
     /* Activate LoRa! */
-    RegOpMode |= RFM_LongRangeMode; 
+    RegOpMode |= RFM_LongRangeMode;
     _rfm_writereg(RFM_RegOpMode, RegOpMode);
 
     /* Set bandwidth to 125kHz -> 0111 */
@@ -169,7 +169,7 @@ void rfm_initialise(uint32_t spi_periph, uint32_t nss_port, uint32_t nss_pin)
 /* Set the RFM95W centre frequency using an FRF register value */
 void rfm_setfreq(uint32_t frf)
 {
-	/* Check the radio is sleeping to set the frequency */
+    /* Check the radio is sleeping to set the frequency */
     _rfm_setmode(RFM_MODE_SLEEP);
 
     /* Write 24 bits of frequency */
@@ -187,8 +187,8 @@ void rfm_transmit(uint8_t *buf, uint8_t len)
     /* Check we're in stand-by */
     _rfm_setmode(RFM_MODE_STANDBY);
 
-	/* Set packet length */
-	_rfm_writereg(RFM_RegPayloadLength, len);
+    /* Set packet length */
+    _rfm_writereg(RFM_RegPayloadLength, len);
 
     /* Move to the beginning of the TX FIFO */
     _rfm_writereg(RFM_RegFifoAddrPtr, _rfm_readreg(RFM_RegFifoTxBaseAddr));
@@ -215,37 +215,37 @@ void rfm_receive(uint8_t *buf, uint8_t len)
     /* Check we're in stand-by */
     _rfm_setmode(RFM_MODE_STANDBY);
 
-   	/* Set packet length */
-	_rfm_writereg(RFM_RegPayloadLength, len);
+       /* Set packet length */
+    _rfm_writereg(RFM_RegPayloadLength, len);
 
     do
     {
-	    /* Set Fifo to beginning of RX buffer */
-	    _rfm_writereg(RFM_RegFifoAddrPtr, _rfm_readreg(RFM_RegFifoRxBaseAddr));
+        /* Set Fifo to beginning of RX buffer */
+        _rfm_writereg(RFM_RegFifoAddrPtr, _rfm_readreg(RFM_RegFifoRxBaseAddr));
 
-	    /* Initiate receive using mode change */
-	    _rfm_setmode(RFM_MODE_RXSINGLE);
+        /* Initiate receive using mode change */
+        _rfm_setmode(RFM_MODE_RXSINGLE);
 
-	    /* Block until receipt or timeout */
-	    do
-			RegIrqFlags = _rfm_readreg(RFM_RegIrqFlags);
-		while(!(RegIrqFlags & (RFM_RxDone | RFM_RxTimeout)));
+        /* Block until receipt or timeout */
+        do
+            RegIrqFlags = _rfm_readreg(RFM_RegIrqFlags);
+        while(!(RegIrqFlags & (RFM_RxDone | RFM_RxTimeout)));
 
-		/* Received if not timeout and CRC done and length correct */
-		valid_received = (_rfm_readreg(RFM_RegRxNbBytes) == len) &&
+        /* Received if not timeout and CRC done and length correct */
+        valid_received = (_rfm_readreg(RFM_RegRxNbBytes) == len) &&
                          (RegIrqFlags & RFM_RxDone) &&
-					     !(RegIrqFlags & RFM_PayloadCrcError);
+                         !(RegIrqFlags & RFM_PayloadCrcError);
 
-	    /* Clear RxDone, RxTimeout, and CRC fail interrupts */
-	    _rfm_writereg(RFM_RegIrqFlags,
-	    			  RFM_RxDone | RFM_PayloadCrcError | RFM_RxTimeout);
-	}
-	while(!valid_received);
+        /* Clear RxDone, RxTimeout, and CRC fail interrupts */
+        _rfm_writereg(RFM_RegIrqFlags,
+                      RFM_RxDone | RFM_PayloadCrcError | RFM_RxTimeout);
+    }
+    while(!valid_received);
 
     /* Move FIFO pointer to beginning of last packet received */
     _rfm_writereg(RFM_RegFifoAddrPtr, _rfm_readreg(RFM_RegFifoRxCurrentAddr));
 
-	/* Read packet out of FIFO into our buffer */
+    /* Read packet out of FIFO into our buffer */
     _rfm_bulkread(RFM_RegFifo, buf, len);
 }
 
@@ -322,7 +322,7 @@ bool rfm_packet_retrieve(uint8_t *buf, uint8_t len)
 /* Set transmit power to a dBm value from 2 to +17dBm */
 void rfm_setpower(uint8_t power)
 {
-	uint8_t RegPaConfig = 0x00;
+    uint8_t RegPaConfig = 0x00;
 
     /* Force boost mode for the HopeRF module, restricts power range to
      * 2 - 17dBm (without using extra boost to 20dBm) */
@@ -334,7 +334,7 @@ void rfm_setpower(uint8_t power)
     /* Actual Power = OutputPower + 2dBm, so set OutputPower=power-2 */
     RegPaConfig |= (power - 2);
 
-	_rfm_writereg(RFM_RegPaConfig, RegPaConfig);
+    _rfm_writereg(RFM_RegPaConfig, RegPaConfig);
 }
 
 /* Retrieve RSSI/SNR of last packet received */

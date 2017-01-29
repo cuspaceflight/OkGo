@@ -9,13 +9,13 @@
 /* Control radio state structure */
 typedef struct
 {
-	/* Received packet datastore */
-	bool valid_rx; /* Was the last packet receipt a valid one */
+    /* Received packet datastore */
+    bool valid_rx; /* Was the last packet receipt a valid one */
     bool lost_link; /* Has it been a while since we've received anything */
-	uint8_t packet_rssi; /* RSSI *of* the incoming packet, filled by rx */
-	uint8_t rx_rssi; /* RSSI *in* the incoming packet */
-	uint8_t rx_voltage, rx_status;
-	uint8_t rx_cont1, rx_cont2, rx_cont3, rx_cont4;
+    uint8_t packet_rssi; /* RSSI *of* the incoming packet, filled by rx */
+    uint8_t rx_rssi; /* RSSI *in* the incoming packet */
+    uint8_t rx_voltage, rx_status;
+    uint8_t rx_cont1, rx_cont2, rx_cont3, rx_cont4;
 } control_radio_state;
 
 
@@ -25,7 +25,7 @@ void control_radio_init(control_radio_state *radio_state);
 
 /* Transmit a packet to ignition based on the contents of state */
 void control_radio_transmit(control_state *state,
-							control_radio_state *radio_state);
+                            control_radio_state *radio_state);
 
 /* Initiate packet reception and block until a packet is received */
 void control_radio_receive_blocking(control_radio_state *radio_state);
@@ -35,6 +35,6 @@ void control_radio_receive_async(control_radio_state *radio_state);
 
 /* Parse a received radio packet and fill in the received packet datastore */
 void control_radio_parse_packet(control_radio_state *radio_state, uint8_t *buf,
-								uint8_t len);
+                                uint8_t len);
 
 #endif

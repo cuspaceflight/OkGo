@@ -25,7 +25,7 @@ void sys_tick_handler(void)
  */
 void delay_ms(const uint32_t delay)
 {
-	uint32_t millis;
+    uint32_t millis;
 
     millis = get_millis();
     while((get_millis() - millis) < delay);
@@ -38,7 +38,7 @@ void delay_ms(const uint32_t delay)
  */
 void delay_us(const uint32_t delay)
 {
-	uint32_t i, j;
+    uint32_t i, j;
 
     for( i = 0; i < delay; i++ )
         for( j = 0; j < 9; j++)

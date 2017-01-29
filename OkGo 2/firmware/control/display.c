@@ -13,12 +13,6 @@ void _hd44780_write(uint8_t content, bool command);
 /* Write half a command or data byte */
 void _hd44780_write_nibble(uint8_t content, bool command);
 
-/* Update the LCD based on state variables */
-void display_update(void)
-{
-	// TODO
-}
-
 /* Initialise the LCD with appropriate initialisation */
 void lcd_init(void)
 {
@@ -35,34 +29,34 @@ void lcd_init(void)
     gpio_clear(LCD_E_PORT, LCD_E);
 
     /* Wait for things to warm up: LCD wants 40ms guaranteed from 5V startup */
-	delay_ms(60);
+    delay_ms(60);
 
-	/* Set 4-bit mode */
-	_hd44780_write_nibble(0x03, true);
-	delay_ms(6);
-	_hd44780_write_nibble(0x03, true);
-	delay_us(200);
-	_hd44780_write_nibble(0x03, true); /* yes, really. */
-	delay_us(50);
+    /* Set 4-bit mode */
+    _hd44780_write_nibble(0x03, true);
+    delay_ms(6);
+    _hd44780_write_nibble(0x03, true);
+    delay_us(200);
+    _hd44780_write_nibble(0x03, true); /* yes, really. */
+    delay_us(50);
     _hd44780_write_nibble(0x02, true);
 
-	/* Set small font (F=0), 2-line mode (N=1) */
-	_hd44780_write((1<<5) | (1<<3), true);
-	delay_us(50);
+    /* Set small font (F=0), 2-line mode (N=1) */
+    _hd44780_write((1<<5) | (1<<3), true);
+    delay_us(50);
 
-	/* Display on*/
-	_hd44780_write((1<<3), true);
-	delay_us(50);
+    /* Display on*/
+    _hd44780_write((1<<3), true);
+    delay_us(50);
 
-	lcd_clear();
+    lcd_clear();
 
-	/* Entry point: I/D=1 (left-to-right script), SH=0 (no scroll) */
-	_hd44780_write((1<<2) | (1<<1), true);
-	delay_us(50);
+    /* Entry point: I/D=1 (left-to-right script), SH=0 (no scroll) */
+    _hd44780_write((1<<2) | (1<<1), true);
+    delay_us(50);
 
     /* Display on, cursor off, cursor blink off */
-	lcd_config(true, false, false);
-	delay_us(50);
+    lcd_config(true, false, false);
+    delay_us(50);
     lcd_cursor_pos(0, 0);
     delay_us(50);
 }
@@ -70,21 +64,21 @@ void lcd_init(void)
 /* Clear the LCD */
 void lcd_clear(void)
 {
-	_hd44780_write(0x01, true);
-	delay_ms(2);
+    _hd44780_write(0x01, true);
+    delay_ms(2);
 }
 
 /* A variety of common runtime config options */
 void lcd_config(bool display_active, bool cursor_on, bool cursor_blink)
 {
-	uint8_t content = 0x08;
-	if(display_active)
-		content |= (1<<2);
-	if(cursor_on)
-		content |= (1<<1);
-	if(cursor_blink)
-		content |= 1;
-	_hd44780_write(content, true);
+    uint8_t content = 0x08;
+    if(display_active)
+        content |= (1<<2);
+    if(cursor_on)
+        content |= (1<<1);
+    if(cursor_blink)
+        content |= 1;
+    _hd44780_write(content, true);
 }
 
 /* Move the LCD cursor to specified row and col, counting from top left 0,0 */
@@ -92,7 +86,7 @@ void lcd_cursor_pos(uint8_t row, uint8_t col)
 {
     const uint8_t row_offsets[] = { 0x00, 0x40, 0x14, 0x54 };
     uint8_t address;
-    
+
     if(row > 3)
         row = 0;
     if(col > 39)
@@ -105,41 +99,41 @@ void lcd_cursor_pos(uint8_t row, uint8_t col)
 /* Write a single character to the LCD */
 void lcd_putc(char c)
 {
-	_hd44780_write((uint8_t)c, false);
-	delay_us(50);
+    _hd44780_write((uint8_t)c, false);
+    delay_us(50);
 }
 
 /* Write a null-terminated string to the LCD */
 void lcd_puts(char *s)
 {
-	char *pos = s;
-	while(*pos != 0)
-	{
-		_hd44780_write((uint8_t)*pos, false);
-		delay_us(50);
-		pos++;
-	}
+    char *pos = s;
+    while(*pos != 0)
+    {
+        _hd44780_write((uint8_t)*pos, false);
+        delay_us(50);
+        pos++;
+    }
 }
 
 /* Write a fixed-length string to the LCD */
 void lcd_putsn(char *s, uint8_t len)
 {
-	uint8_t i;
-	for(i=0; i<len; i++)
-	{
-		char c = *(s + i);
-		_hd44780_write((uint8_t)c, false);
-		delay_us(50);
-	}
+    uint8_t i;
+    for(i=0; i<len; i++)
+    {
+        char c = *(s + i);
+        _hd44780_write((uint8_t)c, false);
+        delay_us(50);
+    }
 }
 
 /* Write a command or data byte to the HD44780 */
 void _hd44780_write(uint8_t content, bool command)
 {
-	_hd44780_write_nibble((content>>4) & 0x0F, command);
-	delay_us(10);
-	_hd44780_write_nibble(content & 0x0F, command);
-	delay_us(10);
+    _hd44780_write_nibble((content>>4) & 0x0F, command);
+    delay_us(10);
+    _hd44780_write_nibble(content & 0x0F, command);
+    delay_us(10);
 }
 
 /* Write half of command or data byte to the HD44780 */

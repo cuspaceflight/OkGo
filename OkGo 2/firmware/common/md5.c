@@ -8,7 +8,7 @@
 #include <stdint.h>
 
 #include "md5.h"
- 
+
 /* Looks like a full 'thru' rotate without zeroing */
 #define LEFTROTATE(x, c) (((x) << (c)) | ((x) >> (32 - (c))))
 
@@ -17,17 +17,17 @@ const uint8_t BUFF_LEN = 128; /* 128 byte buffer */
 const uint8_t PADDED_MESSAGE_LEN = 120; /* 120 bytes of the buffer are
                                         * message -- the rest are message
                                         * length (8 bytes) */
- 
+
 /* Produces the MD5 digest of the message stored at *message (length
  * message_len) and places the result in the 16-byte buffer at *hash */
 void md5(const uint8_t *message, size_t message_len, uint8_t *hash)
-{ 
+{
     /* 32-bit word interface to the hash output buffer */
     uint32_t *hash32 = (uint32_t *)hash;
 
     /* Working buffer (padded message plus length) */
     uint8_t buff[BUFF_LEN];
- 
+
     /* Note: All variables are unsigned 32 bit and wrap modulo 2^32 when
      * calculating.  r specifies the per-round shift amounts */
     uint32_t r[] = {7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
@@ -53,43 +53,43 @@ void md5(const uint8_t *message, size_t message_len, uint8_t *hash)
         0x655b59c3, 0x8f0ccc92, 0xffeff47d, 0x85845dd1,
         0x6fa87e4f, 0xfe2ce6e0, 0xa3014314, 0x4e0811a1,
         0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391};
- 
+
     /* Starting value for hash */
     hash32[0] = 0x67452301;
     hash32[1] = 0xefcdab89;
     hash32[2] = 0x98badcfe;
     hash32[3] = 0x10325476;
- 
+
     /* Pad the message with zeros to the new buffer length */
     memset(buff, 0, BUFF_LEN);
     memcpy(buff, message, message_len);
 
     /* Append a 1-bit to the end of the message. Not sure why */
     buff[message_len] = 128; // write the "1" bit
- 
+
     /* Append the length (in bits) to the end of the message */
     uint32_t bits_len = 8*message_len;
     memcpy(buff + PADDED_MESSAGE_LEN, &bits_len, 4);
- 
+
     /* Process the message in successive 512-bit chunks */
     uint16_t offset;
     for(offset=0; offset < PADDED_MESSAGE_LEN; offset += (512/8))
     {
         /* break chunk into sixteen 32-bit words w[j], 0 ≤ j ≤ 15 */
         uint32_t *w = (uint32_t *) (buff + offset);
- 
+
         /* Initialize hash value for this chunk */
         uint32_t a = hash32[0];
         uint32_t b = hash32[1];
         uint32_t c = hash32[2];
         uint32_t d = hash32[3];
- 
+
         /* Main loop for the chunk */
         uint32_t i;
         for(i = 0; i<64; i++) {
- 
+
             uint32_t f, g;
- 
+
              if (i < 16) {
                 f = (b & c) | ((~b) & d);
                 g = i;
@@ -98,7 +98,7 @@ void md5(const uint8_t *message, size_t message_len, uint8_t *hash)
                 g = (5*i + 1) % 16;
             } else if (i < 48) {
                 f = b ^ c ^ d;
-                g = (3*i + 5) % 16;          
+                g = (3*i + 5) % 16;
             } else {
                 f = c ^ (b | (~d));
                 g = (7*i) % 16;
@@ -109,15 +109,14 @@ void md5(const uint8_t *message, size_t message_len, uint8_t *hash)
             c = b;
             b = b + LEFTROTATE((a + f + k[i] + w[g]), r[i]);
             a = temp;
- 
+
         }
- 
+
         /* Add this chunk to the hash-in-progress */
         hash32[0] += a;
         hash32[1] += b;
         hash32[2] += c;
         hash32[3] += d;
- 
+
     }
 }
- 

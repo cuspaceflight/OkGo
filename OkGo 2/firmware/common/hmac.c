@@ -8,9 +8,9 @@
  * key *key, length key_len, and store the result in the 16-byte buffer at
  * *hash */
 void hmac_md5(const uint8_t *message, uint8_t message_len, const uint8_t *key,
-			  uint8_t key_len, uint8_t *hash)
+              uint8_t key_len, uint8_t *hash)
 {
-	/*
+    /*
      * the HMAC_MD5 transform looks like:
      *
      * MD5(K XOR opad, MD5(K XOR ipad, text))
@@ -70,9 +70,9 @@ void hmac_md5(const uint8_t *message, uint8_t message_len, const uint8_t *key,
 void hmac_md5_80(const uint8_t *message, uint8_t message_len,
                  const uint8_t *key, uint8_t key_len, uint8_t *hash)
 {
-	uint8_t full_hash[16];
+    uint8_t full_hash[16];
 
-	hmac_md5(message, message_len, key, key_len, full_hash);
-	memcpy(hash, full_hash, 10);
+    hmac_md5(message, message_len, key, key_len, full_hash);
+    memcpy(hash, full_hash, 10);
 }
 
