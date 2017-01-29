@@ -31,11 +31,11 @@ void hmac_md5(const uint8_t *message, uint8_t message_len, const uint8_t *key,
     uint8_t cat_buffer[128];
 
     /* If key is longer than 64 bytes reform it to key=MD5(key) */
+    uint8_t shrunk_key[16];
     if (key_len > 64)
     {
-    	uint8_t temp_key[16];
-    	md5(key, key_len, temp_key);
-        key = temp_key;
+        md5(key, key_len, shrunk_key);
+        key = shrunk_key;
         key_len = 16;
     }
 
