@@ -17,7 +17,7 @@
   to be VPOL. And it's gross to put the BNC on the top.  Maybe same pivot
   swivel as on OkGo 2 Ignition?
 * USB-B for charging because it's easy to clean the gunk out of.
-* Ignition and control have touchscreens.
+* Ignition and control have touchscreen: ERC12864F7-4
 
 ## Thoughts
 * Make both PCBs the same? They share the radio, battery, charging,
