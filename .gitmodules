@@ -4,3 +4,6 @@
 [submodule "okgo3/board/agg-kicad"]
 	path = okgo3/board/agg-kicad
 	url = https://github.com/adamgreig/agg-kicad.git
+[submodule "okgo2mini/board/agg-kicad"]
+	path = okgo2mini/board/agg-kicad
+	url = https://github.com/adamgreig/agg-kicad
