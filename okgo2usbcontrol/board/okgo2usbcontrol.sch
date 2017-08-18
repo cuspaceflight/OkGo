@@ -152,7 +152,8 @@ P 2700 4050
 F 0 "SW?" H 2700 4305 50  0000 C CNN
 F 1 "FIRE" H 2700 4214 50  0000 C CNN
 F 2 "" H 2700 4050 50  0001 C CNN
-F 3 "" H 2700 4050 50  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/2074946.pdf" H 2700 4050 50  0001 C CNN
+F 4 "2610947" H 2700 4050 60  0001 C CNN "Farnell"
 	1    2700 4050
 	1    0    0    -1  
 $EndComp
@@ -163,7 +164,8 @@ P 5350 5500
 F 0 "SW?" H 5350 5755 50  0000 C CNN
 F 1 "ARM" H 5350 5664 50  0000 C CNN
 F 2 "" H 5350 5500 50  0001 C CNN
-F 3 "" H 5350 5500 50  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/1839855.pdf" H 5350 5500 50  0001 C CNN
+F 4 "2435152" H 5350 5500 60  0001 C CNN "Farnell"
 	1    5350 5500
 	1    0    0    -1  
 $EndComp
