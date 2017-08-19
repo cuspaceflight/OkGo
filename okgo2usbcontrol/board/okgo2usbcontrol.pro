@@ -1,4 +1,4 @@
-update=Fri 18 Aug 2017 16:01:24 BST
+update=Saturday, 19 August 2017 'pmt' 19:21:51
 version=1
 last_client=kicad
 [pcbnew]
@@ -66,5 +66,5 @@ LibName34=/home/dwt27/git/okgo/okgo2usbcontrol/board/parts/sma
 LibName35=/home/dwt27/git/okgo/okgo2mini/board/agg-kicad/lib/ic/power/adp3335
 LibName36=/home/dwt27/git/okgo/okgo2mini/board/agg-kicad/lib/passive/esd_diode
 LibName37=/home/dwt27/git/okgo/okgo2mini/board/agg-kicad/lib/connector/usb-a
-LibName38=/home/dwt27/git/okgo/okgo2mini/board/agg-kicad/lib/connector/usb-a-ss
-LibName39=/home/dwt27/git/okgo/okgo2mini/board/agg-kicad/lib/ui/switch
+LibName38=/home/dwt27/git/okgo/okgo2mini/board/agg-kicad/lib/ui/switch
+LibName39=/Users/dwt27/git/OkGo/okgo2mini/board/agg-kicad/lib/connector/coax
