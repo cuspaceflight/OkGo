@@ -1,4 +1,4 @@
-update=Saturday, 19 August 2017 'pmt' 18:38:33
+update=Sunday, 20 August 2017 'pmt' 16:06:43
 version=1
 last_client=kicad
 [pcbnew]
@@ -69,6 +69,7 @@ LibName37=/home/dwt27/git/okgo/okgo2mini/board/agg-kicad/lib/ic/power/tps62130
 LibName38=/home/dwt27/git/okgo/okgo2mini/board/agg-kicad/lib/ic/power/adp3335
 LibName39=/home/dwt27/git/okgo/okgo2mini/board/agg-kicad/lib/ic/power/bq24232ha
 LibName40=/home/dwt27/git/okgo/okgo2mini/board/agg-kicad/lib/connector/microusb
-LibName41=/home/dwt27/git/okgo/okgo2mini/board/agg-kicad/lib/ui/switch
-LibName42=agg-kicad/lib/connector/coax
-LibName43=agg-kicad/lib/connector/conn
+LibName41=agg-kicad/lib/connector/coax
+LibName42=agg-kicad/lib/connector/conn
+LibName43=agg-kicad/lib/passive/si5515cdc
+LibName44=agg-kicad/lib/ui/switch
