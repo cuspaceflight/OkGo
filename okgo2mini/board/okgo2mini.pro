@@ -1,4 +1,4 @@
-update=Sunday, 20 August 2017 'pmt' 16:06:43
+update=20-Aug-17 18:10:57
 version=1
 last_client=kicad
 [pcbnew]
@@ -73,3 +73,4 @@ LibName41=agg-kicad/lib/connector/coax
 LibName42=agg-kicad/lib/connector/conn
 LibName43=agg-kicad/lib/passive/si5515cdc
 LibName44=agg-kicad/lib/ui/switch
+LibName45=agg-kicad/lib/misc/part
